@@ -3,6 +3,9 @@ module Test{
     requires javafx.fxml;
     requires  javafx.graphics;
     requires java.sql;
+    requires jakarta.mail;
+    requires org.json;
+    requires spring.security.core;
     opens com.visita.controllers;
     opens com.visita.models;
     opens com.visita.services;

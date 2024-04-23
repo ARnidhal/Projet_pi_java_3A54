@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20" prefHeight="300.0" prefWidth="400.0"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.demo1.ResponseFormController"
+      style="-fx-background-color: #f0f0f0; -fx-padding: 20px;">
+
+    <Label text="Répondre à la Réclamation" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <TextArea fx:id="responseTextArea" prefHeight="150.0" prefWidth="300.0" promptText="Entrez votre réponse ici"
+              style="-fx-font-size: 14px;"/>
+
+    <Button text="Envoyer" onAction="#handleReply"
+            style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-border-radius: 5px; -fx-border-color: #388E3C; -fx-border-width: 1px; -fx-cursor: hand;"/>
+
+    <Button text="Annuler" onAction="#handleClose"
+            style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #EF5350; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-border-radius: 5px; -fx-border-color: #E53935; -fx-border-width: 1px; -fx-cursor: hand;"/>
+</VBox>

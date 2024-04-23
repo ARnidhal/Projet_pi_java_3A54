@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.demo1.UpdateResponseFormController"
+      prefWidth="400.0" prefHeight="300.0"
+      style="-fx-background-color: #f4f4f4; -fx-padding: 20; -fx-spacing: 10;">
+
+        <!-- Title Label -->
+        <Label text="Update Response" style="-fx-font-size: 18pt; -fx-font-weight: bold;"/>
+
+        <!-- Response Content Label -->
+        <Label text="Response Content:" style="-fx-font-size: 14pt;"/>
+
+        <!-- Response Content TextArea -->
+        <TextArea fx:id="responseContentTextArea" prefWidth="300.0" prefHeight="200.0" style="-fx-font-size: 14pt;"/>
+
+        <!-- Buttons -->
+        <VBox alignment="CENTER" spacing="10">
+                <Button text="Save" onAction="#handleSave" style="-fx-font-size: 14pt; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
+                <Button text="Cancel" onAction="#handleCancel" style="-fx-font-size: 14pt; -fx-background-color: #FF6347; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
+        </VBox>
+</VBox>

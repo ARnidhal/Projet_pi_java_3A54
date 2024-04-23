@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.demo1.ShowReclamationController" style="-fx-background-color: #f4f4f4;">
+    <!-- Table View -->
+    <TableView fx:id="reclamationTableView" VBox.vgrow="ALWAYS" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px;">
+        <columns>
+            <!-- ID Column -->
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50" style="-fx-alignment: CENTER;"/>
+            <!-- Name Column -->
+            <TableColumn fx:id="nomColumn" text="Nom" prefWidth="150"/>
+            <!-- Category Column -->
+            <TableColumn fx:id="categorieColumn" text="Catégorie" prefWidth="100"/>
+            <!-- Subject Column -->
+            <TableColumn fx:id="sujetColumn" text="Sujet" prefWidth="150"/>
+            <!-- Description Column -->
+            <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="300"/>
+            <!-- Submission Date Column -->
+            <TableColumn fx:id="subdateColumn" text="Date" prefWidth="100" style="-fx-alignment: CENTER;"/>
+        </columns>
+    </TableView>
+
+    <!-- Controls -->
+    <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10px;">
+        <!-- Back Button -->
+        <Button text="Back" onAction="#handleBack" style="-fx-font-size: 14px; -fx-background-color: #3f51b5; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
+
+        <!-- Refresh Button -->
+        <Button text="Refresh" onAction="#handleRefresh" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
+
+        <!-- Button to Guide Back to Main View -->
+        <Button text="Main View" onAction="#goToMainView" style="-fx-font-size: 14px; -fx-background-color: #FF5722; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20" prefHeight="600.0" prefWidth="800.0"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.demo1.AdminReclamationController">
+
+    <TableView fx:id="reclamationTableView" VBox.vgrow="ALWAYS" prefWidth="750">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn" prefWidth="50"/>
+            <TableColumn text="Nom" fx:id="nomColumn" prefWidth="150"/>
+            <TableColumn text="Catégorie" fx:id="categorieColumn" prefWidth="100"/>
+            <TableColumn text="Sujet" fx:id="sujetColumn" prefWidth="200"/>
+            <TableColumn text="Description" fx:id="descriptionColumn" prefWidth="300"/>
+            <TableColumn text="Date" fx:id="subdateColumn" prefWidth="150"/>
+            <TableColumn text="Actions" fx:id="responseColumn" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <Button text="Répondre" onAction="#respondToReclamation" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-pref-width: 120px; -fx-pref-height: 40px; -fx-border-radius: 20px;"/>
+</VBox>

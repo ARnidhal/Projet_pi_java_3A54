@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,7 +14,6 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,7 +22,6 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 public class Signup {
 
@@ -53,13 +51,11 @@ public class Signup {
 
     @FXML
     private Label confirmPasswordLabel;
-    private PasswordEncoder passwordEncoder;
+
 
     private PatientService patientService = new PatientService();
 
-    public Signup(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+
 
     @FXML
     void handleSignupButtonClick(ActionEvent event) {
@@ -87,7 +83,7 @@ public class Signup {
                     if (Patient.isValidPhoneNumber(enteredPhone)) {
                         if (Patient.isValidPassword(enteredPassword)) {
                             if (Patient.isValidFullname(enteredFullname)) {
-                                String encryptedPassword = passwordEncoder.encode(enteredPassword);
+                                String encryptedPassword = encryptPassword(enteredPassword);
 
                                 // Try to encode the password, and handle exceptions
                                 if (encryptedPassword != null && !encryptedPassword.isEmpty()) {

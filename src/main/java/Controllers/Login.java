@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import models.Admin;
 import models.Doctor;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import services.PatientService;
 import javafx.scene.Scene;

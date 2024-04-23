@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,13 +13,11 @@ import models.Doctor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import models.Patient;
 import services.DoctorService;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

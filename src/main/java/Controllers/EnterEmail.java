@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.User;
-import Controllers.EmailSender;
 import services.UserService;
 
 import java.util.Properties;

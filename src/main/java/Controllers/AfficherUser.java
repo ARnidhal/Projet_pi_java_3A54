@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.stage.Window;
-import models.Admin;
 import models.Patient;
 import models.User;
 import services.PatientService;
@@ -272,6 +271,32 @@ public class AfficherUser implements Initializable {
         }
     }
 
+    @FXML
+    private void redirectToChatBot(ActionEvent event) {
+        redirectToChatVSTController(event, loggedInPatient);
+    }
 
+
+    private void redirectToChatVSTController(ActionEvent event, User user) {
+        try {
+            Window window = ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/chatbot.fxml"));
+            Parent root = loader.load();
+
+            // Pass the authenticated user to the controller
+            Chatbot chatbotController = loader.getController();
+
+            // Set the loggedInPatient in the UpdateUser controller
+            chatbotController.setLoggedInPatient((Patient) user);
+
+            // Show the UpdateUser view
+            Stage stage = (Stage) window;
+
+            // Set the new scene
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

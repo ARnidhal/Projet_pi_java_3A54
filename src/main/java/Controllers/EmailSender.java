@@ -1,12 +1,9 @@
-package Controllers;
+package controllers;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import models.User;
-
-import java.util.Properties;
-import java.util.Random;
 
 public class EmailSender {
     // Email configuration

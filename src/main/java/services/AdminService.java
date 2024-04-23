@@ -2,7 +2,6 @@ package services;
 
 
 import models.Admin;
-import models.Patient;
 import org.json.JSONArray;
 import utils.DataSource;
 
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AdminService implements IService<Admin> {
+public class AdminService implements UseService<Admin> {
 
     private  Connection connection = DataSource.getInstance().getConnection();
 

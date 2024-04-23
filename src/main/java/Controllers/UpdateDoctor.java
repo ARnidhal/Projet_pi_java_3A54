@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Doctor;
-import models.Patient;
 import models.User;
 import services.DoctorService;
 

@@ -1,7 +1,6 @@
 package services;
 
 
-import models.Doctor;
 import models.Patient;
 import org.json.JSONArray;
 import utils.DataSource;
@@ -9,13 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class PatientService implements IService<Patient> {
+public class PatientService implements UseService<Patient> {
 
     private  Connection connection = DataSource.getInstance().getConnection();
 

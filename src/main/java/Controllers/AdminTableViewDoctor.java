@@ -1,13 +1,6 @@
-package Controllers;
+package controllers;
 
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,17 +21,13 @@ import javafx.stage.Window;
 import javafx.util.Callback;
 import models.Admin;
 import models.Doctor;
-import models.Patient;
 import models.User;
 import services.AdminService;
 import services.DoctorService;
-import services.PatientService;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public class AdminTableViewDoctor implements Initializable {

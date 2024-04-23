@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.Admin;
 
-import models.Patient;
 import models.User;
 import services.AdminService;
 

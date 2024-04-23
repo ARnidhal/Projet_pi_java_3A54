@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -24,12 +24,9 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import models.Admin;
-import models.Patient;
 import models.User;
 import services.AdminService;
-import services.PatientService;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;

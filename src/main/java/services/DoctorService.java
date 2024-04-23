@@ -1,21 +1,18 @@
 package services;
 
-import models.Admin;
 import models.Doctor;
-import models.Patient;
 import org.json.JSONArray;
 import utils.DataSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.sql.PreparedStatement;
 
-public class DoctorService implements IService<Doctor> {
+public class DoctorService implements UseService<Doctor> {
 
     private Connection connection = DataSource.getInstance().getConnection();
 

@@ -7,8 +7,11 @@ module Test{
     requires jakarta.mail;
     requires org.json;
     requires spring.security.core;
-    opens Controllers;
+
+
+    requires java.net.http;
+    opens controllers;
     opens models;
     opens services;
-    opens tests;
+    opens test;
         }

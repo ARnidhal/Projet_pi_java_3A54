@@ -1,5 +1,5 @@
 package com.visita.Controllers;
-
+import com.visita.Controllers.Chartreservation;
 import com.visita.models.ReservationService;
 import com.visita.models.Service;
 import com.visita.services.Categoryservice;
@@ -7,22 +7,33 @@ import com.visita.services.ReservationSrvService;
 import com.visita.models.Category;
 import com.visita.services.ServiceService;
 import jakarta.mail.MessagingException;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import java.util.*;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 public class Backresevservice {
 
     @FXML
@@ -65,7 +76,8 @@ public class Backresevservice {
     private AnchorPane main_form;
     @FXML
     private Label verf;
-
+    @FXML
+    private Button charts;
     @FXML
     public  void close(){
         System.exit(0);
@@ -78,6 +90,8 @@ public class Backresevservice {
         stage.setIconified(true);
     }
 
+    @FXML
+    private BarChart<String, Number> chartreservationservice;
 
 
     @FXML
@@ -132,7 +146,8 @@ public class Backresevservice {
         affresv_col_NAME.setCellValueFactory(new PropertyValueFactory<ReservationService, String>("nom"));
         affresv_col_EMAIL.setCellValueFactory(new PropertyValueFactory<ReservationService, String>("email"));
         affresv_col_servname.setCellValueFactory(new PropertyValueFactory<ReservationService, String>("service_nom"));
-
+        // Afficher les statistiques de réservation
+        //handleShowStatisticsButtonClick();
         // Chargez les services lorsque le contrôleur est initialisé
         refreshTableView();
     }
@@ -323,6 +338,36 @@ public class Backresevservice {
             verf.setText("Failed to send notification email. Please contact customer support for assistance.");
         }
     }
+
+
+    @FXML
+    private void handleShowChartButtonClick(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de l'interface Chartreservation
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/chartreservation.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer le contrôleur Chartreservation
+            Chartreservation chartController = loader.getController();
+
+            // Appeler la méthode showReservationStatistics pour mettre à jour le bar chart
+            chartController.showReservationStatistics();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Créer une nouvelle fenêtre pour afficher l'interface Chartreservation
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
 
 }

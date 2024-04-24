@@ -105,6 +105,7 @@ public class AffichageService implements Initializable {
             }
         });
 
+
         nextPageButton.setOnAction(event -> {
             int maxPage = (int) Math.ceil((double) serviceCardList.size() / cardsPerPage) - 1;
             if (currentPage < maxPage) {

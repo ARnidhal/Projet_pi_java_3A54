@@ -23,11 +23,33 @@
                      <children>
                         <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="318.0">
                            <children>
-                              <Label prefHeight="55.0" prefWidth="250.0" text="- VISITA-" textFill="#dfba26">
-                                 <font>
-                                    <Font name="Book Antiqua Bold" size="53.0" />
-                                 </font>
-                              </Label>
+                              <HBox alignment="CENTER" prefHeight="105.0" prefWidth="318.0" stylesheets="@style.css">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
+                                       <children>
+                                          <Label prefHeight="15.0" prefWidth="190.0" text="RESERVATION online" textFill="#6e4f4f">
+                                             <font>
+                                                <Font name="Cambria Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="20.0" prefWidth="207.0" text="get your RESERVATION" textFill="#4e3838">
+                                             <font>
+                                                <Font name="Cambria" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@values/icons8-rank-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="free-delivery-card" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
@@ -58,6 +80,7 @@
                            <styleClass>
                               <String fx:value="transparent" />
                               <String fx:value="add-btn" />
+                              <String fx:value="shadow" />
                            </styleClass>
                         </TextField>
                      </children>
@@ -73,6 +96,7 @@
                                  <styleClass>
                                     <String fx:value="add-btn" />
                                     <String fx:value="button" />
+                                    <String fx:value="shadow" />
                                  </styleClass>
                               </TextField>
                            </children>
@@ -90,6 +114,7 @@
                                  <styleClass>
                                     <String fx:value="chosen-fruit-card" />
                                     <String fx:value="cursor_hand" />
+                                    <String fx:value="shadow" />
                                  </styleClass>
                               </Button>
                            </children>
@@ -105,7 +130,7 @@
             </VBox>
          </right>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox_background_center" stylesheets="@../../../../../Desktop/userrrrrvisita/src/main/resources/style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox_background_center" stylesheets="@style.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -114,32 +139,11 @@
                               <Insets top="10.0" />
                            </HBox.margin>
                            <children>
-                              <HBox alignment="CENTER" prefHeight="135.0" prefWidth="391.0" styleClass="free-delivery-card" stylesheets="@style.css">
-                                 <children>
-                                    <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
-                                       <children>
-                                          <Label prefHeight="15.0" prefWidth="190.0" text="RESERVATION online" textFill="#6e4f4f">
-                                             <font>
-                                                <Font name="Cambria Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="20.0" prefWidth="207.0" text="get your RESERVATION" textFill="#4e3838">
-                                             <font>
-                                                <Font name="Cambria" size="15.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                    <ImageView fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@values/icons8-rank-50.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" />
-                                 </HBox.margin>
-                              </HBox>
+                              <ImageView fitHeight="210.0" fitWidth="364.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@values/default_image12.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                      </children>
@@ -164,6 +168,7 @@
                                  <styleClass>
                                     <String fx:value="transparent" />
                                     <String fx:value="add-btn" />
+                                    <String fx:value="shadow" />
                                  </styleClass>
                               </TextField>
                            </children>

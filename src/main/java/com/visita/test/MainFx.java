@@ -12,8 +12,13 @@ import javafx.scene.image.Image;
 public class MainFx  extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+//AddCategory
+//AddService
+//AfficherService
+// backresevservice
 
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/backresevservice" +
+
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/AfficherService" +
                 ".fxml"));
         Parent root=loader.load();
         Scene scene=new Scene(root);

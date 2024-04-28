@@ -1,4 +1,25 @@
 package com.visita.Controllers;
+import com.itextpdf.text.*;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfPCell;
+import javafx.stage.FileChooser;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.collections.ObservableList;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import java.io.File;
+import javafx.stage.FileChooser;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import com.visita.Controllers.Chartreservation;
 import com.visita.models.ReservationService;
 import com.visita.models.Service;
@@ -19,26 +40,39 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.Date;
 import java.util.*;
+import java.util.List;
+
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class Backresevservice {
 
     @FXML
     private TableView<ReservationService> TableView;
-
+    @FXML
+    private ListView<String> list_service;
     @FXML
     private TextField afficherreserv_search;
 
@@ -78,6 +112,11 @@ public class Backresevservice {
     private Label verf;
     @FXML
     private Button charts;
+    @FXML
+    private Button export_EXL;
+    @FXML
+    private Button pdf_btn;
+    private boolean isTableViewVisible = true;
     @FXML
     public  void close(){
         System.exit(0);
@@ -365,9 +404,154 @@ public class Backresevservice {
         }
     }
 
+    @FXML
+    private void handlePdfButtonAction(ActionEvent event) {
+        Document document = new Document(PageSize.A4);
+
+        try {
+            // Specify the output path of the PDF file
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialFileName("reservations.pdf");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF files", "*.pdf"));
+            File selectedFile = fileChooser.showSaveDialog(((Node) event.getSource()).getScene().getWindow());
+
+            if (selectedFile != null) {
+                PdfWriter.getInstance(document, new FileOutputStream(selectedFile));
+                document.open();
+
+                // Add a customized title
+                Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+                Paragraph title = new Paragraph("Rapport de Réservations de Services", titleFont);
+                title.setAlignment(Element.ALIGN_CENTER);
+                title.setSpacingAfter(20); // Add spacing after the title
+                document.add(title);
+
+                // Add a logo
+                Image logo = Image.getInstance("C:\\Users\\user\\IdeaProjects\\visita\\src\\main\\resources\\values\\default_image12.png");
+                logo.setAlignment(Element.ALIGN_CENTER);
+                logo.scaleToFit(200, 200);
+                document.add(logo);
+
+                // Create a table PDF with 3 columns for reservation data
+                PdfPTable pdfTable = new PdfPTable(3);
+                pdfTable.setWidthPercentage(100); // Set table width to 100% of page width
+
+                // Add table headers with styling
+                Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
+                PdfPCell cell1 = new PdfPCell(new Phrase("Nom", headerFont));
+                PdfPCell cell2 = new PdfPCell(new Phrase("Email", headerFont));
+                PdfPCell cell3 = new PdfPCell(new Phrase("Service", headerFont));
+
+                // Set background color for header cells
+                cell1.setBackgroundColor(BaseColor.GRAY);
+                cell2.setBackgroundColor(BaseColor.GRAY);
+                cell3.setBackgroundColor(BaseColor.GRAY);
+
+                pdfTable.addCell(cell1);
+                pdfTable.addCell(cell2);
+                pdfTable.addCell(cell3);
+
+                // Get data from the TableView
+                ObservableList             <ReservationService> reservationServices = TableView.getItems();
+
+                // Add data from the TableView to the PDF table
+                for (ReservationService reservationService : reservationServices) {
+                    pdfTable.addCell(new Phrase(reservationService.getNom()));
+                    pdfTable.addCell(new Phrase(reservationService.getEmail()));
+                    pdfTable.addCell(new Phrase(reservationService.getService_nom()));
+                }
+
+                // Add the PDF table to the document
+                document.add(pdfTable);
+
+                // Close the document
+                document.close();
+
+                // Show a success message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("PDF Généré");
+                alert.setHeaderText(null);
+                alert.setContentText("Le fichier PDF a été généré avec succès !");
+                alert.showAndWait();
+            }
+        } catch (DocumentException | IOException e) {
+            // Handle exceptions
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Une erreur est survenue lors de la génération du PDF !");
+            alert.showAndWait();
+        }
+    }
+
+
+    @FXML
+    void exportToExcel() {
+        // Utilisez FileChooser pour permettre à l'utilisateur de choisir l'emplacement du fichier Excel
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Export to Excel");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        // Si un fichier est sélectionné
+        if (file != null) {
+            try (Workbook workbook = new XSSFWorkbook()) {
+                // Créez une feuille de calcul dans le classeur
+                Sheet sheet = workbook.createSheet("Reservation Services");
+
+                // Créez une ligne d'en-tête dans la feuille
+                Row headerRow = sheet.createRow(0);
+                headerRow.createCell(0).setCellValue("Nom");
+                headerRow.createCell(1).setCellValue("EMAIL");
+                headerRow.createCell(2).setCellValue("SERVICE");
+
+
+                // Récupérez les services de votre TableView
+                List<ReservationService> servicesList = new ArrayList<>(TableView.getItems());
+
+                // Remplissez la feuille de calcul avec les données des services
+                for (int i = 0; i < servicesList.size(); i++) {
+                    Row row = sheet.createRow(i + 1);
+                    ReservationService service = servicesList.get(i);
+
+                    // Remplissez les cellules avec les données du service
+                    row.createCell(0).setCellValue(service.getNom());
+                    row.createCell(1).setCellValue(service.getEmail());
+                    row.createCell(2).setCellValue(service.getService_nom());
+                }
+
+                // Écrire le classeur dans le fichier
+                try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+                    workbook.write(fileOutputStream);
+                }
+
+                // Afficher un message de succès
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Exportation réussie");
+                successAlert.setHeaderText("Exportation Excel");
+                successAlert.setContentText("Les données ont été exportées avec succès !");
+                successAlert.showAndWait();
+            } catch (IOException e) {
+                // Gérer les exceptions d'E/S
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur d'exportation");
+                alert.setHeaderText(null);
+                alert.setContentText("Une erreur s'est produite lors de l'exportation des données.");
+                alert.showAndWait();
+            }
+        }
+    }
 
 
 
 
 
 }
+
+
+
+
+
+

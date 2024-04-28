@@ -15,16 +15,17 @@ public class MainFx  extends Application {
 //AddCategory
 //AddService
 //AfficherService
-// backresevservice
+//backresevservice
 
 
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/AfficherService" +
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/backresevservice" +
                 ".fxml"));
         Parent root=loader.load();
         Scene scene=new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Ajouter Service");
         primaryStage.show();
+        //primaryStage.setMaximized(true);
     }
 
 

@@ -26,21 +26,6 @@
                         <AnchorPane prefHeight="46.0" prefWidth="1099.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="61.0" layoutY="6.0" text="VISITA DASHBOARD" />
-                              <Button layoutX="1039.0" layoutY="9.0" mnemonicParsing="false" onAction="#close" prefHeight="14.0" prefWidth="50.0" stylesheets="@dashboardDesign.css" text="X">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <styleClass>
-                                    <String fx:value="close" />
-                                    <String fx:value="exit" />
-                                 </styleClass>
-                              </Button>
-                              <Button layoutX="977.0" layoutY="9.0" mnemonicParsing="false" onAction="#minimize" prefHeight="14.0" prefWidth="50.0" stylesheets="@dashboardDesign.css" text="-">
-                                 <styleClass>
-                                    <String fx:value="minimize" />
-                                    <String fx:value="minimize" />
-                                 </styleClass>
-                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
@@ -68,16 +53,16 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="afficherserv_form" layoutX="6.0" layoutY="7.0" prefHeight="539.0" prefWidth="902.0">
+                        <AnchorPane fx:id="afficherserv_form" layoutX="-1.0" layoutY="1.0" prefHeight="574.0" prefWidth="911.0">
                            <styleClass>
                               <String fx:value="secondary-color" />
                               <String fx:value="shadow" />
                               <String fx:value="secondary-color" />
                            </styleClass>
                            <children>
-                              <AnchorPane layoutX="1.0" layoutY="2.0" prefHeight="302.0" prefWidth="884.0">
+                              <AnchorPane layoutX="10.0" layoutY="8.0" prefHeight="302.0" prefWidth="884.0">
                                  <styleClass>
-                                    <String fx:value="vbox_background_center" />
+                                    <String fx:value="secondary-color" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
@@ -99,53 +84,145 @@
                                           <Image url="@values/output-onlinegiftools(9).gif" />
                                        </image>
                                     </ImageView>
+                                    <Button fx:id="pdf_btn" layoutX="817.0" layoutY="9.0" mnemonicParsing="false" onAction="#handlePdfButtonAction" prefHeight="35.0" prefWidth="38.0" stylesheets="@style.css">
+                                       <graphic>
+                                          <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@values/4726010.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="transparent" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="charts" layoutX="780.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleShowChartButtonClick" prefHeight="28.0" prefWidth="30.0">
+                                       <stylesheets>
+                                          <URL value="@style.css" />
+                                          <URL value="@dashboardDesign.css" />
+                                       </stylesheets>
+                                       <styleClass>
+                                          <String fx:value="transparent" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@values/stat.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                                  <stylesheets>
                                     <URL value="@dashboardDesign.css" />
                                     <URL value="@style.css" />
                                  </stylesheets>
                               </AnchorPane>
-                              <Label layoutX="351.0" layoutY="367.0" text="EMAIL :">
+                              <Label layoutX="312.0" layoutY="405.0" prefHeight="38.0" prefWidth="73.0" styleClass="doctor-card" stylesheets="@style.css" text="EMAIL :">
                                  <font>
                                     <Font name="Candara Light" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="affsrv_Email" editable="false" layoutX="409.0" layoutY="363.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                              <Label layoutX="345.0" layoutY="403.0" text="SERVICE :">
-                                 <font>
-                                    <Font name="Candara Light" size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="affsrv_Service" editable="false" layoutX="408.0" layoutY="396.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                              <Button fx:id="afficherresv_confBtn" layoutX="554.0" layoutY="481.0" mnemonicParsing="false" onAction="#ConfirmerReservserv" prefHeight="34.0" prefWidth="77.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="VALIDE" />
-                              <Button fx:id="afficherresv_rejectBtn" layoutX="333.0" layoutY="482.0" mnemonicParsing="false" onAction="#supprimerReservserv" prefHeight="32.0" prefWidth="74.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="DELETE" />
-                              <Button fx:id="afficherresv_clearBtn" layoutX="250.0" layoutY="481.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="34.0" prefWidth="70.0" stylesheets="@dashboardDesign.css" text="CLEAR">
+                              <TextField fx:id="affsrv_Email" editable="false" layoutX="405.0" layoutY="405.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
-                                    <String fx:value="delete-btn" />
-                                    <String fx:value="clear-btn" />
-                                 </styleClass>
-                              </Button>
-                              <Label layoutX="351.0" layoutY="333.0" text="NAME :">
-                                 <font>
-                                    <Font name="Candara Light" size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="affsrv_NAME" editable="false" layoutX="409.0" layoutY="329.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                              <Label fx:id="verf" layoutX="15.0" layoutY="316.0" prefHeight="25.0" prefWidth="501.0" textFill="#0c760f" />
-                              <Button fx:id="charts" layoutX="638.0" layoutY="480.0" mnemonicParsing="false" onAction="#handleShowChartButtonClick" prefHeight="34.0" prefWidth="77.0" text="STAT">
-                                 <stylesheets>
-                                    <URL value="@style.css" />
-                                    <URL value="@dashboardDesign.css" />
-                                 </stylesheets>
-                                 <styleClass>
-                                    <String fx:value="add-btn" />
+                                    <String fx:value="doctor-card" />
                                     <String fx:value="shadow" />
-                                 </styleClass></Button>
-                              <ImageView fitHeight="150.0" fitWidth="238.0" layoutX="382.0" layoutY="-48.0" pickOnBounds="true" preserveRatio="true">
+                                 </styleClass></TextField>
+                              <Label layoutX="310.0" layoutY="455.0" styleClass="doctor-card" stylesheets="@style.css" text="SERVICE :">
+                                 <font>
+                                    <Font name="Candara Light" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="affsrv_Service" editable="false" layoutX="405.0" layoutY="456.0" stylesheets="@dashboardDesign.css">
+                                 <styleClass>
+                                    <String fx:value="doctor-card" />
+                                    <String fx:value="shadow" />
+                                 </styleClass></TextField>
+                              <Label layoutX="313.0" layoutY="355.0" prefHeight="38.0" prefWidth="73.0" styleClass="doctor-card" stylesheets="@style.css" text="NAME :">
+                                 <font>
+                                    <Font name="Candara Light" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="affsrv_NAME" editable="false" layoutX="405.0" layoutY="354.0" stylesheets="@dashboardDesign.css">
+                                 <styleClass>
+                                    <String fx:value="doctor-card" />
+                                    <String fx:value="shadow" />
+                                 </styleClass></TextField>
+                              <Label fx:id="verf" layoutX="10.0" layoutY="310.0" prefHeight="25.0" prefWidth="501.0" textFill="#0c760f" />
+                              <ImageView fitHeight="150.0" fitWidth="238.0" layoutX="382.0" layoutY="-48.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                                  <image>
                                     <Image url="@values/default_image12.png" />
                                  </image>
                               </ImageView>
+                              <AnchorPane layoutX="325.0" layoutY="510.0" prefHeight="47.0" prefWidth="223.0">
+                                 <stylesheets>
+                                    <URL value="@dashboardDesign.css" />
+                                    <URL value="@style.css" />
+                                 </stylesheets>
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="transparent" />
+                                    <String fx:value="secondary-color" />
+                                 </styleClass>
+                                 <children>
+                                    <Button fx:id="afficherresv_clearBtn" layoutX="11.0" layoutY="5.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="42.0" prefWidth="54.0" stylesheets="@dashboardDesign.css">
+                                       <graphic>
+                                          <ImageView fitHeight="35.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@values/cln-rem.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="transparent" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="afficherresv_rejectBtn" layoutX="87.0" layoutY="3.0" mnemonicParsing="false" onAction="#supprimerReservserv" prefHeight="36.0" prefWidth="39.0" stylesheets="@dashboardDesign.css">
+                                       <graphic>
+                                          <ImageView fitHeight="33.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@values/rejc.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="transparent" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </Button>
+                                    <Button fx:id="afficherresv_confBtn" layoutX="154.0" layoutY="5.0" mnemonicParsing="false" onAction="#ConfirmerReservserv" prefHeight="40.0" prefWidth="56.0" stylesheets="@dashboardDesign.css">
+                                       <graphic>
+                                          <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@values/valid.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="transparent" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <Line endX="1.599822998046875" endY="150.00003051757812" layoutX="393.0" layoutY="336.0" startX="1.599884033203125" startY="20.399993896484375" />
+                              <Button fx:id="export_EXL" layoutX="746.0" layoutY="18.0" mnemonicParsing="false" onAction="#exportToExcel" prefHeight="33.0" prefWidth="44.0" stylesheets="@dashboardDesign.css" textFill="#38d10d">
+                                 <styleClass>
+                                    <String fx:value="transparent" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@values/exbgrm.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                            <stylesheets>
                               <URL value="@dashboardDesign.css" />

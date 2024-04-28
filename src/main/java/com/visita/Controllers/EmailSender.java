@@ -33,7 +33,6 @@ public class EmailSender {
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
         message.setSubject(subject);
         message.setText(body);
-
         // Send message
         Transport.send(message);
     }

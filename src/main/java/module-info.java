@@ -3,6 +3,7 @@ module Test{
     requires javafx.fxml;
     requires  javafx.graphics;
     requires java.sql;
+    requires itextpdf;
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
     requires jakarta.mail;

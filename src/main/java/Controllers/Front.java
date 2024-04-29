@@ -5,14 +5,14 @@ import com.esprit.java.models.Rapport;
 import com.esprit.java.models.Rendezvous;
 import com.esprit.java.services.RapportService;
 import com.esprit.java.services.RendezvousService;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -46,9 +47,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /////////////////////////////////////////pdf
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -450,7 +448,7 @@ private Text rapportT;
 
     //---------------------------pdf---------------------
 
-
+/*
     @FXML
     void generatePDF(ActionEvent event) {
         String content = rapportT.getText(); // Récupère le contenu du TextArea
@@ -481,4 +479,93 @@ private Text rapportT;
         /////////////////////smssss
 
     }
+
+ */
+
+    @FXML
+    void generatePDF(ActionEvent event) {
+
+        String content = rapportT.getText(); // Récupère le contenu du TextArea
+
+        // Récupérer le contenu du TextArea
+        String content1 = rapportT.getText();
+        // Générer un PDF avec le contenu du TextArea
+        pdf(content1);
+    }
+    private void pdf(String content) {
+        Document document = new Document();
+        try {
+            
+
+            PdfWriter.getInstance(document, new FileOutputStream("Rapport.pdf"));
+
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Rapport.pdf"));
+            writer.setPageEvent(new Background());
+            document.open();
+            // Titre
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24, BaseColor.BLACK);
+            Paragraph title = new Paragraph("Rapport PDF", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
+            // Espacement
+           document.add(new Paragraph("\n")); // Ajoute un paragraphe vide pour créer de l'espace
+
+
+
+            // Contenu du rapport
+            Font contentFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+            Paragraph contentParagraph = new Paragraph(content, contentFont);
+            contentParagraph.setIndentationLeft(40);
+            document.add(contentParagraph);
+
+            // Espacement
+            document.add(new Paragraph("\n")); // Ajoute un paragraphe vide pour créer de l'espace
+
+            // Espacement avant le contenu
+            Paragraph spacer = new Paragraph();
+            spacer.setSpacingBefore(100); // Ajustez la valeur selon vos besoins pour déplacer le contenu vers le haut de la page
+            document.add(spacer);
+            // Date de génération
+            Font dateFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.GRAY);
+            Paragraph dateTime = new Paragraph("Date de génération : " + getCurrentDateTime(), dateFont);
+            dateTime.setAlignment(Element.ALIGN_RIGHT);
+            dateTime.setIndentationRight(20);
+            document.add(dateTime);
+
+            document.close();
+            System.out.println("PDF file generated successfully.");
+            showAlert(Alert.AlertType.CONFIRMATION, "SUCCES", "PDF Generé", "Check your files ");
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        /////////////////////smssss
+
+    }
+
+    private String getCurrentDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return formatter.format(now);
+    }
+
+    // Classe pour définir un fond sur chaque page
+    class Background extends PdfPageEventHelper {
+        @Override
+        public void onEndPage(PdfWriter writer, Document document) {
+            try {
+                PdfContentByte canvas = writer.getDirectContentUnder();
+                Image image = Image.getInstance("src/main/resources/images/test.jpg"); // Remplacez "background.jpg" par le chemin de votre image de fond
+                image.scaleAbsolute(document.getPageSize());
+                image.setAbsolutePosition(0, 0);
+                canvas.addImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }

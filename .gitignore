@@ -4,9 +4,9 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-src/main/java/Controllers/TwilioSMS.java
 .idea/modules.xml
 .idea/jarRepositories.xml
+src/main/java/Controllers/TwilioSMS.java 
 .idea/compiler.xml
 .idea/libraries/
 *.iws

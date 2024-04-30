@@ -225,7 +225,7 @@ public class Chatbot implements Initializable {
 
 
 
-    private String getChatbotResponse(String question) {
+   /* private String getChatbotResponse(String question) {
         String apiKey = ""; // Replace with your OpenAI API key
         String apiUrl = "https://api.openai.com/v1/completions";
         try {
@@ -274,7 +274,7 @@ public class Chatbot implements Initializable {
             e.printStackTrace();
             return "Error: Failed to communicate with the chatbot API";
         }
-    }
+    }*/
 
 
     private String extractResponse(String responseBody) {

@@ -9,6 +9,8 @@ import models.Patient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import services.PatientService;
 import javafx.stage.FileChooser;
 import java.io.File;
@@ -52,7 +54,7 @@ public class Signup {
     @FXML
     private Label confirmPasswordLabel;
 
-
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private PatientService patientService = new PatientService();
 
 
@@ -83,11 +85,11 @@ public class Signup {
                     if (Patient.isValidPhoneNumber(enteredPhone)) {
                         if (Patient.isValidPassword(enteredPassword)) {
                             if (Patient.isValidFullname(enteredFullname)) {
-                                String encryptedPassword = encryptPassword(enteredPassword);
+                                String encodedPassword = passwordEncoder.encode(enteredPassword);
 
                                 // Try to encode the password, and handle exceptions
-                                if (encryptedPassword != null && !encryptedPassword.isEmpty()) {
-                                    patientService.ajouter(new Patient(enteredUsername, enteredEmail, enteredPhone, encryptedPassword, "1", imagePath, new String[]{"user"}, enteredFullname));
+                                if (encodedPassword != null && !encodedPassword.isEmpty()) {
+                                    patientService.ajouter(new Patient(enteredUsername, enteredEmail, enteredPhone, encodedPassword, "1", imagePath, new String[]{"user"}, enteredFullname));
                                     SignupMessageLabel.setText("User has been added successfully!");
 
                                     // Clear the text fields

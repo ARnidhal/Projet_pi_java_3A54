@@ -13,6 +13,8 @@ import models.Doctor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import services.DoctorService;
 import javafx.stage.FileChooser;
 import java.io.File;
@@ -56,7 +58,7 @@ public class SignupDoc {
 
     @FXML
     private Label confirmPasswordLabel;
-
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private DoctorService doctorService = new DoctorService();
 
     @FXML
@@ -84,9 +86,9 @@ public class SignupDoc {
                     if (Doctor.isValidPhoneNumber(enteredPhone)) {
                         if (Doctor.isValidPassword(enteredPassword)) {
                             if (Doctor.isValidFullname(enteredFullname)) {
-                                String encryptedPassword = encryptPassword(enteredPassword);
+                                String encodedPassword = passwordEncoder.encode(enteredPassword);
             // Call the add function in the service class
-                doctorService.ajouter(new Doctor(enteredUsername, enteredEmail, enteredPhone, encryptedPassword, "1",imagePath,  new String[]{"doctor"},enteredspecialite,eneterdadress, enteredFullname));
+                doctorService.ajouter(new Doctor(enteredUsername, enteredEmail, enteredPhone, encodedPassword, "1",imagePath,  new String[]{"doctor"},enteredspecialite,eneterdadress, enteredFullname));
 
 
 

@@ -1,8 +1,8 @@
 package controllers;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,7 +128,25 @@ public class EnterEmail {
             message.setFrom(new InternetAddress(EmailSender.EMAIL_USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
             message.setSubject("Verification Code");
-            message.setText("Your verification code is: " + verificationCode);
+
+
+            String htmlContent = "<div style=\\\"max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;\\\">"; // Set background color to a light gray and use Arial font
+            htmlContent += "<div style=\\\"background-color:#ffd000; color: #fff; padding: 15px; text-align: center; border-radius: 10px 10px 0 0;\\\">"; // Centered headline with blue background and white text
+            htmlContent += "<h1 style=\\\"margin: 0;\\\"> Verification Code </h1>";
+            htmlContent += "</div>";
+            htmlContent += "<div style='margin-top: 20px; padding: 20px;'>";
+            htmlContent += "<p style='font-size: 18px;  color: #333;'><strong>Hello" + user.getEmail()  + "</strong></p>"; // Replace "User" with the user's name if available
+// Add a paragraph with the verification code
+            htmlContent += "<p style='margin: 10px 0; font-size: 16px; color: #555; line-height: 1.5;'>Your verification code is a unique combination of numbers that serves as a security measure to verify your identity. It helps ensure that only authorized users can access the system or perform certain actions. Please use the verification code provided below to complete the verification process: <span style='background-color: #FF5722; color: #ffffff; padding: 5px; border-radius: 3px; font-family: monospace;'>" + verificationCode + "</span></p>";
+
+            htmlContent += "</div>";
+            htmlContent += "</body></html>";
+
+
+
+
+            // Set the HTML content of the message
+            message.setContent(htmlContent, "text/html");
 
             // Send the message
             Transport.send(message);

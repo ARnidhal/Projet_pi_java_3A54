@@ -120,3 +120,7 @@
     -fx-background-radius: 50; /* Set the background radius */
     -fx-padding: 10px; /* Add padding for spacing */
 }
+.scroll-pane_chat {
+    -fx-background-color: #174d17;
+    -fx-background-radius: 10;
+}

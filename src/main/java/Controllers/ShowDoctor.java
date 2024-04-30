@@ -1,10 +1,15 @@
 package controllers;
 
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,12 +17,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import models.Doctor;
 import models.Patient;
 import models.User;
 import services.DoctorService;
 import services.PatientService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -223,7 +231,33 @@ loadDoctors();
     }
 
 
+    @FXML
+    private void redirectToChatBot(ActionEvent event) {
+        redirectToChatVSTController(event, loggedInPatient);
+    }
 
+
+    private void redirectToChatVSTController(ActionEvent event, User user) {
+        try {
+            Window window = ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/chatbot.fxml"));
+            Parent root = loader.load();
+
+            // Pass the authenticated user to the controller
+            Chatbot chatbotController = loader.getController();
+
+            // Set the loggedInPatient in the UpdateUser controller
+            chatbotController.setLoggedInPatient((Patient) user);
+
+            // Show the UpdateUser view
+            Stage stage = (Stage) window;
+
+            // Set the new scene
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

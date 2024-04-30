@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import models.Admin;
 import models.Doctor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import services.PatientService;
 import javafx.scene.Scene;
@@ -50,26 +51,23 @@ public class Login implements Initializable {
 
     }
 
-    private PasswordEncoder passwordEncoder;
 
-    public Login() {
-        // Default constructor
-    }
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @FXML
     void loginButtonOnAction(ActionEvent event) {
         String email = loginemail.getText();
         String password = loginpassword.getText();
 
-        // Retrieve the hashed password from the database using the user's email
+        // Retrieve the user from the database using the email
         User authenticatedUser = userService.login(email);
 
         if (authenticatedUser != null) {
+            // Verify the entered password against the stored hashed password
 
+            if (passwordEncoder.matches(password, authenticatedUser.getPassword())) {
+                // Passwords match, user is authenticated
                 if (authenticatedUser.isBlocked()) {
                     LoginMessageLabel.setText("Your account has been blocked. Please contact support.");
                 } else {
@@ -103,9 +101,15 @@ public class Login implements Initializable {
                     }
                 }
             } else {
+                // Passwords don't match
                 LoginMessageLabel.setText("Invalid email or password");
             }
+        } else {
+            // User not found in the database
+            LoginMessageLabel.setText("Invalid email or password");
         }
+    }
+
 
 
 

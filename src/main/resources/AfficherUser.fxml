@@ -69,7 +69,7 @@
                   </Button>
                   <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#redirectToChatBot" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
                      <graphic>
-                        <ImageView fitHeight="43.0" fitWidth="45.0"  pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@values/icons8-bookmark.gif" />
                            </image>
@@ -267,7 +267,7 @@
                                                 <Image url="@values/delete_image-removebg-preview.png" />
                                              </image>
                                           </ImageView>
-                                          <Button fx:id="deleteButton1" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="30.0" prefWidth="128.0" stylesheets="@style.css" text="Delete Account" textFill="#fffefe">
+                                          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="30.0" prefWidth="128.0" stylesheets="@style.css" text="Delete Account" textFill="#fffefe">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

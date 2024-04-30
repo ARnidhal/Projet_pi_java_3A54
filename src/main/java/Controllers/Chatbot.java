@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Chatbot implements Initializable {
-   /* @FXML
+    @FXML
     private TextField questionField;
     @FXML
     private ScrollPane responseScrollPane;
@@ -225,9 +225,9 @@ public class Chatbot implements Initializable {
 
 
 
-   /* private String getChatbotResponse(String question) {
-        // Replace with your OpenAI API key
-        String apiUrl = "https://api.openai.com/v1/completions";
+    private String getChatbotResponse(String question) {
+
+        String apiUrl = "";
         try {
             // Prepare the request body
             String requestBody = "{\"prompt\": \"" + question + "\", \"max_tokens\": 250, \"model\": \"gpt-3.5-turbo-instruct\"}";
@@ -237,7 +237,7 @@ public class Chatbot implements Initializable {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Authorization", "Bearer " + apiKey);
+            conn.setRequestProperty("Authorization", "Bearer " );
             conn.setDoOutput(true);
 
             // Write request body

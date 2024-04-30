@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Chatbot implements Initializable {
-    @FXML
+   /* @FXML
     private TextField questionField;
     @FXML
     private ScrollPane responseScrollPane;
@@ -274,7 +274,7 @@ public class Chatbot implements Initializable {
             e.printStackTrace();
             return "Error: Failed to communicate with the chatbot API";
         }
-    }*/
+    }
 
 
     private String extractResponse(String responseBody) {

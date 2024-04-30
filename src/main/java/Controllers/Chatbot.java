@@ -226,7 +226,7 @@ public class Chatbot implements Initializable {
 
 
    /* private String getChatbotResponse(String question) {
-        String apiKey = ""; // Replace with your OpenAI API key
+        // Replace with your OpenAI API key
         String apiUrl = "https://api.openai.com/v1/completions";
         try {
             // Prepare the request body

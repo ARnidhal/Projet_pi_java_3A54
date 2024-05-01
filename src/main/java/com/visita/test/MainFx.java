@@ -10,12 +10,12 @@ public class MainFx  extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/afficherpost.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/backpost.fxml"));
         Parent root=loader.load();
         Scene scene=new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
-        primaryStage.setTitle("Ajouter Personne");
+        //primaryStage.setMaximized(true);
+        //primaryStage.setTitle("Ajouter Personne");
         primaryStage.show();
     }
 

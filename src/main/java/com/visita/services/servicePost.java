@@ -26,12 +26,15 @@ public class servicePost {
 private     Connection cnx = DataSource.getInstance().getConnection();
 
     public boolean ajouter(post t) {
-        boolean a = false;
+        boolean success = false;
         try {
             // Get the current country
             String country = getCurrentCountry();
 
-            String req = "INSERT INTO post (id_post,Id_creator, title_post, type_post, contenu_post, Image_post, makedate_post, Country, likes_post,phonenumber,validation_post) VALUES (1,?, ?, ?, ?, ?, CURDATE(), ?, 0,?,0)";
+            // Log the input values for debugging
+            System.out.println("Inserting post: " + t.getTitle_post() + ", " + t.getType_post() + ", " + t.getContenu_post() + ", " + t.getImage_post() + ", " + country + ", " + t.getPhonenumber());
+
+            String req = "INSERT INTO post (id_post, Id_creator, title_post, type_post, contenu_post, Image_post, makedate_post, Country, likes_post, phonenumber, validation_post) VALUES (1, ?, ?, ?, ?, ?, CURDATE(), ?, 0, ?, 0)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, t.getId_creator());
             ps.setString(2, t.getTitle_post());
@@ -43,15 +46,15 @@ private     Connection cnx = DataSource.getInstance().getConnection();
 
             int rowsInserted = ps.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Post ajoutée");
-                a = true;
+                System.out.println("Post added successfully.");
+                success = true;
             }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("SQL error: " + ex.getMessage());
         } catch (IOException ex) {
             System.out.println("Error fetching current country: " + ex.getMessage());
         }
-        return a;
+        return success;
     }
 
     public List<post> getPostsByUser(int userId) {

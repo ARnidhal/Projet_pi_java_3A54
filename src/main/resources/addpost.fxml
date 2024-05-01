@@ -171,7 +171,7 @@
                                     <children>
                                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                           <image>
-                                             <Image url="@../../../../../../IdeaProjects/startfromthebottom/secondtryjavapidev/src/main/resources/values/update_icon-removebg-preview.png" />
+                                             <Image url="@../../../../../../pi3/TEAM_XL_javaPI/Projet_pi_java_3A54/src/main/resources/values/update_icon-removebg-preview.png" />
                                           </image>
                                        </ImageView>
                                        <Button fx:id="modifyButton1" mnemonicParsing="false" onAction="#handleShowPostButtonClick" prefHeight="31.0" prefWidth="130.0" text="Show Posts" textFill="#fffdfd">

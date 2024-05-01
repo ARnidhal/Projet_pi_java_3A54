@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AfficherUser">
+<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.controllers.AfficherUser">
     <children>
       <BorderPane prefHeight="698.0" prefWidth="1035.0">
          <left>
@@ -40,7 +40,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#RedirectToAfficherPost" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -67,7 +67,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#redirectToChatBot" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>

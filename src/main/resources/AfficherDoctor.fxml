@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AfficherDoctor">
+<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.controllers.AfficherDoctor">
     <children>
         <BorderPane prefHeight="698.0" prefWidth="990.0">
             <left>

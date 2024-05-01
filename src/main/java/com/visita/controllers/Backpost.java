@@ -1,7 +1,9 @@
 package com.visita.controllers;
 
+import com.visita.models.User;
 import com.visita.models.comment;
 import com.visita.models.post;
+import com.visita.services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -224,22 +226,44 @@ public class Backpost {
 
 
 
+    private UserService userService; // Instance of UserService
+
+
 
 
 
 
     // Load initial posts data (you can replace this with real data fetching logic)
     private void loadPosts() {
+        // Create an instance of UserService
+        UserService userService = new UserService();
 
-
+        // Retrieve the list of posts
         List<post> posts = sp.afficher();
 
+        // Clear the existing postList if needed
+        postList.clear();
 
-        for (post p : posts){
-        postList.add(new post(p.getId(), p.getLikes_post(), p.getId_creator(), p.getTitle_post(), p.getContenu_post(), p.getType_post(), p.getImage_post(), p.getMakedate_post(),p.getCountry()));
-        // Add more posts as needed
+        // Iterate over the list of posts
+        for (post p : posts) {
+            // Retrieve the creator's ID from the post
+            int creatorId = p.getCreator();
 
-            }
+            // Use UserService to retrieve the User object by creator ID
+            //User creator = userService.getPatientById(creatorId);
+
+            // Check if the User object is not null
+            //if (creator != null) {
+                // Create a new post object using the constructor that accepts a User object
+                post newPost = new post(p.getId(), p.getLikes_post(), creatorId, p.getTitle_post(), p.getContenu_post(), p.getType_post(), p.getImage_post(), p.getMakedate_post(), p.getCountry());
+
+                // Add the new post object to the postList
+                postList.add(newPost);
+            //} else {
+                // Handle the case where the User object is not found (e.g., log an error message)
+                //System.out.println("User with ID " + creatorId + " not found.");
+            //}
+        }
     }
 
     private void loadComments() {

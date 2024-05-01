@@ -1,11 +1,14 @@
 package com.visita.controllers;
 
+import com.visita.models.Patient;
 import com.visita.models.post;
 import com.visita.models.comment;
+import com.visita.services.PatientService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,6 +21,7 @@ import com.visita.services.servicePost;
 import com.visita.services.serviceComment;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,7 +31,7 @@ import java.util.Locale;
 
 public class afficherpost {
 
-    private int loggedInUserId = 777;
+
 
     private int currentPage = 1; // Initialize current page to 1
     private int pageSize = 10; // Set page size to 10 posts per page
@@ -87,13 +91,23 @@ public class afficherpost {
     private ImageView img_mode;
     @FXML
     private TextArea commentInput;
+    private Patient loggedInPatient;
 
+    private PatientService patientService = new PatientService();
     @FXML
     private Label commentErrorLabel;
 
 
+    public afficherpost() {
+        // Create PatientService with DataSource instance
+        this.patientService = new PatientService();
+    }
 
+    public void setLoggedInPatient(Patient patient) {
+        this.loggedInPatient = patient;
+        // After setting the patient, initialize the labels
 
+    }
     private boolean isLightMode = true;
 
     public void changemode(ActionEvent event){
@@ -148,9 +162,6 @@ public class afficherpost {
 
 
 
-
-
-
         if (test==0) {
             // Initialize sorting options
             sortOptions.getItems().addAll();
@@ -190,6 +201,7 @@ public class afficherpost {
     private void searchPosts() {
         // Get the search keyword
         String keyword = searchBar.getText() != null ? searchBar.getText().toLowerCase() : "";
+        System.out.println(loggedInPatient.getId());
 
         // Get the start date and end date
         LocalDate startDate = startDatePicker.getValue();
@@ -343,7 +355,7 @@ public class afficherpost {
     // Inside afficherpost controller
 
     private void updateLikeButtonState(Button likeButton, int postId) {
-        if (sp.hasLikedPost(postId, loggedInUserId)) {
+        if (sp.hasLikedPost(postId, loggedInPatient.getId())) {
             //likeButton.setText("Unlike");
             Image image = new Image("file:/C:/Users/rayen/IdeaProjects/startfromthebottom/secondtryjavapidev/src/main/resources/values/icons8-love-96.png");
 
@@ -432,7 +444,7 @@ public class afficherpost {
                 // Filter the new comment
                 newCommentText = CommentFilter.filterComment(newCommentText);
                 // Add new comment logic here
-                sc.ajouter(new comment(loggedInUserId, p.getId(), "user_name", newCommentText));
+                sc.ajouter(new comment(loggedInPatient.getId(), p.getId(), "user_name", newCommentText));
                 showPostDetails(p);
             } else {
                 // Comment length is invalid
@@ -452,9 +464,9 @@ public class afficherpost {
         updateLikeButtonState(likeButton, p.getId());
 
         likeButton.setOnAction(event -> {
-            if (!sp.hasLikedPost(p.getId(), loggedInUserId)) {
+            if (!sp.hasLikedPost(p.getId(), loggedInPatient.getId())) {
                 // If the user hasn't liked the post yet, add a like
-                boolean success = sp.addLike(p.getId(), loggedInUserId);
+                boolean success = sp.addLike(p.getId(), loggedInPatient.getId());
                 if (success) {
                     // Update the likes count and label
                     p.setLikes_post(p.getLikes_post() + 1);
@@ -476,7 +488,7 @@ public class afficherpost {
                 }
             } else {
                 // If the user has already liked the post, remove the like
-                boolean success = sp.removeLike(p.getId(), loggedInUserId);
+                boolean success = sp.removeLike(p.getId(), loggedInPatient.getId());
                 if (success) {
                     // Update the likes count and label
                     p.setLikes_post(p.getLikes_post() - 1);
@@ -556,7 +568,7 @@ public class afficherpost {
         addCommentButton.setOnAction(event -> {
             String newCommentText = commentInput.getText();
             // Add new comment logic here
-            sc.ajouter(new comment(1, p.getId(), "aaa",newCommentText));
+            sc.ajouter(new comment(loggedInPatient.getId(), p.getId(), "aaa",newCommentText));
             showPostDetails(p);
 
         });
@@ -626,9 +638,9 @@ public class afficherpost {
         updateLikeButtonState(likeButton, p.getId());
 
         likeButton.setOnAction(event -> {
-            if (!sp.hasLikedPost(p.getId(), loggedInUserId)) {
+            if (!sp.hasLikedPost(p.getId(), loggedInPatient.getId())) {
                 // If the user hasn't liked the post yet, add a like
-                boolean success = sp.addLike(p.getId(), loggedInUserId);
+                boolean success = sp.addLike(p.getId(), loggedInPatient.getId());
                 if (success) {
 
 
@@ -644,7 +656,7 @@ public class afficherpost {
                 }
             } else {
                 // If the user has already liked the post, remove the like
-                boolean success = sp.removeLike(p.getId(), loggedInUserId);
+                boolean success = sp.removeLike(p.getId(), loggedInPatient.getId());
                 if (success) {
 
 
@@ -673,7 +685,7 @@ public class afficherpost {
     @FXML
     private void showUserPosts() {
         // Example: Load posts by the logged-in user from a database or other source
-        List<post> userPosts = sp.getValidatedUserPosts(loggedInUserId); // Replace getPostsByUser with your actual method
+        List<post> userPosts = sp.getValidatedUserPosts(loggedInPatient.getId()); // Replace getPostsByUser with your actual method
 
 
         // Clear postContainer to remove previous post details
@@ -769,13 +781,34 @@ public class afficherpost {
 
     }
     @FXML
-    private void showaddpost() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/addpost.fxml"));
-        Parent root = loader.load();
-        postContainer.getScene().setRoot(root);
+    private void showaddpost(ActionEvent event) {
+        // Call the method to display the user's posts
+        showaddPosts(event, loggedInPatient);
 
     }
 
+    public void showaddPosts(ActionEvent event, Patient loggedInPatient) {
+        try {
+            // Get the source window
+            Window window = ((Node) event.getSource()).getScene().getWindow();
 
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addpost.fxml"));
+            Parent root = loader.load();
+
+            // Get the addpost controller
+            addpost addPostController = loader.getController();
+
+            // Pass the loggedInPatient to the initData method
+            addPostController.initData(loggedInPatient);
+
+            // Set the scene and show the window
+            Stage stage = (Stage) window;
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            // Handle any exceptions (e.g., file not found)
+            e.printStackTrace();
+        }
+    }
 
 }

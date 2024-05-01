@@ -5,6 +5,7 @@ module Test{
     requires java.sql;
     requires jakarta.mail;
     requires org.json;
+    requires itextpdf;
     requires spring.security.core;
     opens com.visita.controllers;
     opens com.visita.models;

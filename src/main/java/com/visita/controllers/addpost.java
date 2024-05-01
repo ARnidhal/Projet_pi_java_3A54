@@ -1,5 +1,7 @@
 package com.visita.controllers;
 
+import com.visita.models.Patient;
+import com.visita.models.User;
 import com.visita.models.post;
 import com.visita.services.servicePost;
 import javafx.beans.Observable;
@@ -37,16 +39,31 @@ public class addpost {
 
     @FXML
     private Label errorLabel;
+    private Patient loggedInPatient;
 
 
     private String imagePath;
+
+    private int userid;
     private String typepost;
 
     private final servicePost ps = new servicePost();
 
 
+
+    public void initData(Patient loggedInPatient) {
+        // Initialize the controller with the provided loggedInPatient
+        // For example, you could set labels or other UI components with patient data
+        this.loggedInPatient = loggedInPatient;
+        // Add any additional initialization logic here
+    }
+
+
     @FXML
     public void initialize() {
+
+        //this.loggedInPatient = patient;
+        //userid = loggedInPatient.getId();
         // Initialize the choice box and other components
         ObservableList<String> items = FXCollections.observableArrayList("Medicine", "Heart", "Free counselling", "Lab test", "Equipments");
         Typepostchoice.setItems(items);
@@ -59,6 +76,8 @@ public class addpost {
 
         // Initialize the error label
         errorLabel.setText("");  // Clear any previous error message
+
+
     }
 
     private void validatePhoneNumber(String newValue) {
@@ -156,11 +175,24 @@ public class addpost {
     void ajouterPost(ActionEvent event) {
         try {
             if (validateInput()) {
-                // Convert the phone number and proceed with adding the post
-                int phoneNumber = Integer.parseInt(Phone_Number.getText());
-                ps.ajouter(new post(Post_Title.getText(), typepost, Post_Description.getText(), imagePath, phoneNumber, 0));
+                // Check and convert the phone number
+                String phoneNumberText = Phone_Number.getText();
+                int phoneNumber;
 
-                // Show a success alert
+                // Validate and parse the phone number
+                if (phoneNumberText.matches("\\d{8,10}")) {
+                    phoneNumber = Integer.parseInt(phoneNumberText);
+                } else {
+                    // Handle invalid phone number input
+                    showAlert("Error", "Invalid Phone Number", "The phone number must be between 8 and 10 digits.");
+                    return;
+                }
+
+                // Create a new post and add it
+                post newPost = new post(loggedInPatient.getId(), Post_Title.getText(), typepost, Post_Description.getText(), imagePath,"aaa", phoneNumber);
+                ps.ajouter(newPost);
+
+                // Show success alert
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setContentText("Post added successfully");
@@ -176,6 +208,7 @@ public class addpost {
             throw new RuntimeException(e);
         }
     }
+
 
     private boolean validateInput() {
         return !Post_Title.getText().isEmpty()  && !Post_Description.getText().isEmpty() && imagePath != null && typepost != null;

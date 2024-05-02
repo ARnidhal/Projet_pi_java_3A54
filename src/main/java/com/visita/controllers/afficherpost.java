@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import com.visita.services.servicePost;
@@ -419,12 +420,81 @@ public class afficherpost {
         List<comment> comments = sc.affichersingle(p.getId());
 
         // Display comments
-        VBox commentsContainer = new VBox();
-        for (comment c : comments) {
-            Label commentLabel = new Label("Comment: " + c.getContenu_comment());
-            commentsContainer.getChildren().add(commentLabel);
-        }
 
+        VBox commentsContainer = new VBox();
+
+        for (comment c : comments) {
+            // Create a label for the comment
+            Label commentLabel = new Label("Comment: " + c.getContenu_comment());
+
+            commentLabel.setStyle("-fx-text-fill: #2c3e50; /* Dark gray color */\n" +
+                    "    \n" +
+                    "    /* Set the font size and style */\n" +
+                    "    -fx-font-size: 12px;\n" +
+                    "    -fx-font-weight: normal;\n" +
+                    "    \n" +
+                    "    /* Add some padding around the label */\n" +
+                    "    -fx-padding: 4px 8px;-fx-text-fill: #ffffff;\n" +
+                    "    \n" +
+                    "    /* Set the font family (choose a suitable font) */\n" +
+                    "    -fx-font-family: 'Helvetica'; /* Change 'Helvetica' to any other preferred font */\n" +
+                    "    \n" +
+                    "    /* Set the font size */\n" +
+                    "    -fx-font-size: 14px;");
+
+            // Check if the comment was made by the logged-in user
+            if (c.getId_creatorcom() == loggedInPatient.getId()) {
+                // Create a "Delete Comment" button
+                Button deleteCommentButton = new Button("Delete Comment");
+                deleteCommentButton.setStyle("-fx-background-color: #e74c3c; /* Red color */\n" +
+                        "    \n" +
+                        "    /* Set the text color */\n" +
+                        "    -fx-text-fill: white;\n" +
+                        "    \n" +
+                        "    /* Add some padding */\n" +
+                        "    -fx-padding: 8px 16px;\n" +
+                        "    \n" +
+                        "    /* Add rounded corners */\n" +
+                        "    -fx-background-radius: 5;\n" +
+                        "    -fx-border-radius: 5;\n" +
+                        "    \n" +
+                        "    /* Add a hover effect */\n" +
+                        "    -fx-background-insets: 0;\n" +
+                        "    -fx-background-color: #e74c3c, #c0392b;\n" +
+                        "    -fx-background-radius: 5;\n" +
+                        "    -fx-border-color: transparent;\n" +
+                        "    -fx-border-width: 0;\n" +
+                        "    -fx-background-image: none;\n" +
+                        "    \n" +
+                        "    /* Set a different background color on hover */\n" +
+                        "    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);\n" +
+                        "    \n" +
+                        "    /* Set the font style */\n" +
+                        "    -fx-font-size: 12px;\n" +
+                        "    -fx-font-weight: bold;\n" +
+                        "    \n" +
+                        "    /* Add some spacing */\n" +
+                        "    -fx-margin: 4px;");
+
+                // Set the action for the button
+                deleteCommentButton.setOnAction(event -> {
+                    // Delete the comment
+                    sc.Supprimer(c.getId());
+
+                    // Refresh the post details to reflect the deleted comment
+                    showPostDetails(p);
+                });
+
+                // Create a container for the comment and the delete button
+                HBox commentBox = new HBox(commentLabel, deleteCommentButton);
+
+                // Add the comment box to the comments container
+                commentsContainer.getChildren().add(commentBox);
+            } else {
+                // Add the comment label directly to the comments container
+                commentsContainer.getChildren().add(commentLabel);
+            }
+        }
 
 
         // Input area for adding new comments
@@ -472,7 +542,7 @@ public class afficherpost {
                     p.setLikes_post(p.getLikes_post() + 1);
                     likesLabel.setText("Likes: " + sp.countLikesForPost(p.getId()));
                     // Update UI or provide feedback to the user
-                   // likeButton.setText("Unlike");
+                    // likeButton.setText("Unlike");
                     Image image = new Image("file:/C:/Users/rayen/IdeaProjects/startfromthebottom/secondtryjavapidev/src/main/resources/values/icons8-love-96.png");
 
                     // Create an ImageView from the image

@@ -66,7 +66,9 @@ public class CommentFilter {
             "turd",
             "twat",
             "wanker",
-            "poop"
+            "poop",
+            "popo",
+            "pipi"
     );
 
     // Define the replacement character for bad words

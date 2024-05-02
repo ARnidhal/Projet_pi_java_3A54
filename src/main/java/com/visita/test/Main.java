@@ -33,7 +33,7 @@ public class Main {
         System.out.println(cs.afficherall());
         //comment newComment = new comment(1,77,"azea","nicce post");
         //cs.ajouter(newComment);
-        //cs.Supprimer(134);
+        //cs.Supprimer(59);
 
 
     }

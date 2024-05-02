@@ -84,6 +84,7 @@ public class serviceComment {
 
                 p.setContenu_comment(rs.getString("comment"));
                 p.setDatecreation_comment(rs.getString("datecreation_comment"));
+                p.setId_creatorcom(rs.getInt("Id_creatorcom"));
                 p.setId_post_id(idp);
                 comments.add(p);
             }
@@ -125,9 +126,10 @@ public class serviceComment {
             while (rs.next()) {
                 comment p = new comment();
                 //p.setid(rs.getInt(1));
-
+                p.setId(rs.getInt("id"));
                 p.setContenu_comment(rs.getString("contenu_comment"));
                 p.setDatecreation_comment(rs.getString("datecreation_comment"));
+                p.setId_creatorcom(rs.getInt("Id_creatorcom"));
                 p.setId_post_id(idp);
                 comments.add(p);
             }

@@ -350,6 +350,7 @@ public class AffichageService implements Initializable {
 
     @FXML
     private void handleRefreshButton(ActionEvent event) {
+
         refreshDisplay();
     }
 

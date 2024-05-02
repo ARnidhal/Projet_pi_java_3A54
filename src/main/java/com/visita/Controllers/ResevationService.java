@@ -1,7 +1,9 @@
 package com.visita.Controllers;
 import com.visita.models.ReservationService;
 import com.visita.services.ReservationSrvService;
-import jakarta.mail.MessagingException;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +19,7 @@ import com.visita.services.Categoryservice;
 import com.visita.services.ServiceService;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-
+import java.util.Properties;
 import java.io.IOException;
 import java.util.List;
 
@@ -144,30 +146,60 @@ public class ResevationService {
     }
 
 
-    private void sendReservationNotification(String serviceName, String userEmail) {
-        // Composing the subject line for the email
-        String subject = "New Reservation: " + serviceName;
 
-        // Constructing the body of the email
-        String body = "Dear Valued Customer,\n\nWe extend our sincerest gratitude for choosing our services. It is with great pleasure that we inform you of a recent reservation made for the service: "
-                + serviceName + ".\n\nRest assured, your reservation \n \n\n***** is currently being diligently processed by our team ******** \n\n\n. We endeavor to provide you with a seamless experience and will notify you promptly once your reservation has been confirmed.\n\n"
-                + "Should you require any assistance or have any inquiries regarding your reservation, please do not hesitate to reach out to us. Your satisfaction is our utmost priority.\n\n"
-                + "Thank you for entrusting us with your reservation. We appreciate your patience and understanding.\n\nWarm Regards,\n[Your Company Name]";
+    private boolean sendReservationNotification(String serviceName, String userEmail) {
+        // SMTP server properties
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", EmailSender.SMTP_HOST);
+        props.put("mail.smtp.port", EmailSender.SMTP_PORT);
+
+        // Create a session with authentication
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EmailSender.EMAIL_USERNAME, EmailSender.EMAIL_PASSWORD);
+            }
+        });
 
         try {
-            // Sending the email
-            EmailSender.sendEmail(userEmail, subject, body);
+            // Create a message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(EmailSender.EMAIL_USERNAME));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+            message.setSubject("RESERVATION A TRAITER");
 
-            // Notifying the user and providing feedback
-            System.out.println("Email sent successfully!");
-            messageLabel.setText("Your reservation is currently being processed. An email notification has been sent to " + userEmail + ".");
+
+            String htmlContent = "<div style=\"max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;\">\n" +
+                    "    <div style=\"background-color:#ffd000; color: #fff; padding: 15px; text-align: center; border-radius: 10px 10px 0 0;\">\n" +
+                    "        <h1 style=\"margin: 0;\"> Réservation à traiter </h1>\n" +
+                    "    </div>\n" +
+                    "    <div style=\"padding: 20px;\">\n" +
+                    "        <p style=\"font-size: 18px; color: #333;\">Cher(e) <strong>" + serviceName + "</strong>,</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">Nous sommes heureux de vous informer que votre réservation pour le service <strong>" + serviceName + "</strong> est en cours.</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">N'hésitez pas à nous contacter si vous avez des questions ou besoin d'assistance supplémentaire.</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">Cordialement,</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">L'équipe Visita</p>\n" +
+                    "    </div>\n" +
+                    "</div>";
+
+
+
+            // Set the HTML content of the message
+            message.setContent(htmlContent, "text/html");
+
+            // Send the message
+            Transport.send(message);
+
+            System.out.println("Verification code sent successfully to " + userEmail);
+            return true; // Email sent successfully
         } catch (MessagingException e) {
-            // Handling the case where email sending fails
-            System.err.println("Failed to send email: " + e.getMessage());
-            messageLabel.setText("Failed to send notification email. Please contact customer support for assistance.");
+            System.out.println("Failed to send verification code to " +userEmail);
+            e.printStackTrace();
+            return false; // Email sending failed
         }
     }
-
 
 }
 

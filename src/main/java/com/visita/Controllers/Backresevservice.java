@@ -9,7 +9,9 @@ import javafx.stage.FileChooser;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.collections.ObservableList;
-
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,7 +29,7 @@ import com.visita.services.Categoryservice;
 import com.visita.services.ReservationSrvService;
 import com.visita.models.Category;
 import com.visita.services.ServiceService;
-import jakarta.mail.MessagingException;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,6 +64,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Window;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -116,6 +119,13 @@ public class Backresevservice {
     private Button export_EXL;
     @FXML
     private Button pdf_btn;
+    @FXML
+    private Button category_btn_nv;
+    @FXML
+    private Button service_btn_nv;
+
+    @FXML
+    private Button serviceresv_btn_nv;
     private boolean isTableViewVisible = true;
     @FXML
     public  void close(){
@@ -230,7 +240,7 @@ public class Backresevservice {
         // Effacer les champs de texte après la modification
         clearFields();
         // Send email notification
-        sendReservationNotificationrej(selectedReservation.getNom(), selectedReservation.getEmail(),false);
+        sendReservationNotificationrej(selectedReservation.getNom(), selectedReservation.getEmail());
     }
 
 
@@ -274,7 +284,7 @@ public class Backresevservice {
         clearFields();
 
         // Send email notification
-        sendReservationNotificationconf(selectedReservation.getNom(), selectedReservation.getEmail(),true);
+        sendReservationNotificationconf(selectedReservation.getNom(), selectedReservation.getEmail());
 
     }
 
@@ -310,9 +320,63 @@ public class Backresevservice {
         ObservableList<ReservationService> observableList = FXCollections.observableList(filteredreservationServices);
         TableView.setItems(observableList);
     }
+    private boolean sendReservationNotificationconf(String serviceName, String userEmail) {
+        // SMTP server properties
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", EmailSender.SMTP_HOST);
+        props.put("mail.smtp.port", EmailSender.SMTP_PORT);
+
+        // Create a session with authentication
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EmailSender.EMAIL_USERNAME, EmailSender.EMAIL_PASSWORD);
+            }
+        });
+
+        try {
+            // Create a message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(EmailSender.EMAIL_USERNAME));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+            message.setSubject("RESERVATION ACCEPTER");
 
 
-    private void sendReservationNotificationconf(String serviceName, String userEmail, boolean isSuccessful) {
+            String htmlContent = "<div style=\"max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;\">\n" +
+                    "    <div style=\"background-color:#3cba9f; color: #fff; padding: 15px; text-align: center; border-radius: 10px 10px 0 0;\">\n" +
+                    "        <h1 style=\"margin: 0;\"> Réservation acceptée </h1>\n" +
+                    "    </div>\n" +
+                    "    <div style=\"padding: 20px;\">\n" +
+                    "        <p style=\"font-size: 18px; color: #333;\">Cher(e) <strong>" + serviceName + "</strong>,</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">Nous sommes heureux de vous informer que votre réservation pour le service <strong>" + serviceName + "</strong> a été acceptée.</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">N'hésitez pas à nous contacter si vous avez des questions ou besoin d'assistance supplémentaire.</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">Cordialement,</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">L'équipe Visita</p>\n" +
+                    "    </div>\n" +
+                    "</div>";
+
+
+
+
+            // Set the HTML content of the message
+            message.setContent(htmlContent, "text/html");
+
+            // Send the message
+            Transport.send(message);
+
+            System.out.println("Verification code sent successfully to " + userEmail);
+            return true; // Email sent successfully
+        } catch (MessagingException e) {
+            System.out.println("Failed to send verification code to " +userEmail);
+            e.printStackTrace();
+            return false; // Email sending failed
+        }
+    }
+
+
+   /* private void sendReservationNotificationconf(String serviceName, String userEmail, boolean isSuccessful) {
         // Composing the subject line for the email
         String subject = isSuccessful ? "New Reservation: " + serviceName : "Reservation Rejection: " + serviceName;
 
@@ -376,9 +440,63 @@ public class Backresevservice {
             System.err.println("Failed to send email: " + e.getMessage());
             verf.setText("Failed to send notification email. Please contact customer support for assistance.");
         }
+    }*/
+
+    private boolean sendReservationNotificationrej(String serviceName, String userEmail) {
+        // SMTP server properties
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", EmailSender.SMTP_HOST);
+        props.put("mail.smtp.port", EmailSender.SMTP_PORT);
+
+        // Create a session with authentication
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EmailSender.EMAIL_USERNAME, EmailSender.EMAIL_PASSWORD);
+            }
+        });
+
+        try {
+            // Create a message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(EmailSender.EMAIL_USERNAME));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+            message.setSubject(" RESERVATION REJETEE ");
+
+
+            String htmlContent = "<div style=\"max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px; font-family: Arial, sans-serif;\">\n" +
+                    "    <div style=\"background-color:#db4437; color: #fff; padding: 15px; text-align: center; border-radius: 10px 10px 0 0;\">\n" +
+                    "        <h1 style=\"margin: 0;\"> Réservation rejetée </h1>\n" +
+                    "    </div>\n" +
+                    "    <div style=\"padding: 20px;\">\n" +
+                    "        <p style=\"font-size: 18px; color: #333;\">Cher(e) <strong>" + serviceName + "</strong>,</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">Nous sommes désolés de vous informer que votre réservation pour le service <strong>" + serviceName + "</strong> a été rejetée.</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">N'hésitez pas à nous contacter si vous avez des questions ou besoin d'assistance supplémentaire.</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">Cordialement,</p>\n" +
+                    "        <p style=\"font-size: 16px; color: #555;\">L'équipe Visita</p>\n" +
+                    "    </div>\n" +
+                    "</div>";
+
+
+
+
+
+            // Set the HTML content of the message
+            message.setContent(htmlContent, "text/html");
+
+            // Send the message
+            Transport.send(message);
+
+            System.out.println("Verification code sent successfully to " + userEmail);
+            return true; // Email sent successfully
+        } catch (MessagingException e) {
+            System.out.println("Failed to send verification code to " +userEmail);
+            e.printStackTrace();
+            return false; // Email sending failed
+        }
     }
-
-
     @FXML
     private void handleShowChartButtonClick(ActionEvent event) {
         try {
@@ -544,8 +662,109 @@ public class Backresevservice {
         }
     }
 
+    /* @FXML
+      private void handleNewServiceButtonAction(ActionEvent event) {
+          try {
+              // Charger le fichier FXML de la page AddService
+              FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddService.fxml"));
+              Parent root = loader.load();
 
+              // Créer une nouvelle scène
+              Scene scene = new Scene(root);
 
+              // Créer une nouvelle fenêtre pour afficher la scène
+              Stage stage = new Stage();
+              stage.setScene(scene);
+              stage.show();
+          } catch (IOException e) {
+              // Gérer les exceptions liées au chargement du fichier FXML
+              e.printStackTrace();
+          }
+      }*/
+    @FXML
+    private void handleNewServiceButtonAction(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de la page AddService
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddService.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir une référence à la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Obtenir une référence à la fenêtre actuelle
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Fermer la fenêtre actuelle
+            currentStage.close();
+
+            // Créer une nouvelle fenêtre pour afficher la scène
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement du fichier FXML
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void  handleServiceresvButtonAction(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de la page AddService
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/backresevservice.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir une référence à la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Obtenir une référence à la fenêtre actuelle
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Fermer la fenêtre actuelle
+            currentStage.close();
+
+            // Créer une nouvelle fenêtre pour afficher la scène
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement du fichier FXML
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleAddCategoryButtonAction(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de la page AddService
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddCategory.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir une référence à la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Obtenir une référence à la fenêtre actuelle
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Fermer la fenêtre actuelle
+            currentStage.close();
+
+            // Créer une nouvelle fenêtre pour afficher la scène
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement du fichier FXML
+            e.printStackTrace();
+        }
+    }
 
 
 }

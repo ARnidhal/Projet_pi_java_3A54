@@ -27,21 +27,6 @@
                         <AnchorPane prefHeight="46.0" prefWidth="1099.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="61.0" layoutY="6.0" text="VISITA DASHBOARD" />
-                              <Button layoutX="1039.0" layoutY="9.0" mnemonicParsing="false" onAction="#close" prefHeight="14.0" prefWidth="50.0" stylesheets="@dashboardDesign.css" text="X">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <styleClass>
-                                    <String fx:value="close" />
-                                    <String fx:value="exit" />
-                                 </styleClass>
-                              </Button>
-                              <Button layoutX="977.0" layoutY="9.0" mnemonicParsing="false" onAction="#minimize" prefHeight="14.0" prefWidth="50.0" stylesheets="@dashboardDesign.css" text="-">
-                                 <styleClass>
-                                    <String fx:value="minimize" />
-                                    <String fx:value="minimize" />
-                                 </styleClass>
-                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
@@ -52,13 +37,19 @@
                      <children>
                         <Label layoutX="70.0" layoutY="109.0" text="WELCOME" textFill="WHITE" />
                         <Line endX="88.0" layoutX="100.0" layoutY="146.0" startX="-89.5999984741211" stroke="WHITE" />
-                        <Button layoutX="10.0" layoutY="173.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="                 HOME" />
-                        <Button layoutX="9.0" layoutY="218.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="       ADD CATEGORY" />
+                        <Button layoutX="-1.0" layoutY="175.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="                 HOME" />
+                        <Button fx:id="category_btn_nv" layoutX="-1.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleAddCategoryButtonAction" prefHeight="35.0" prefWidth="185.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="             CATEGORY" />
                         <ImageView fx:id="userImageView" fitHeight="100" fitWidth="100" layoutX="52.0">
                            <image>
                               <Image url="@values/default.png" />
                            </image>
                         </ImageView>
+                        <Button fx:id="service_btn_nv" layoutX="5.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewServiceButtonAction" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="             SERVICE" />
+                        <Button fx:id="serviceresv_btn_nv" layoutX="9.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleServiceresvButtonAction" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="      SERVICES RSER">
+                           <font>
+                              <Font size="6.0" />
+                           </font>
+                        </Button>
                      </children>
                      <styleClass>
                         <String fx:value="nav-form" />
@@ -131,13 +122,13 @@
                                  </font>
                               </Label>
                               <TextField fx:id="addCategory_ICON" layoutX="279.0" layoutY="464.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                              <Button fx:id="addCategory_addBtn" layoutX="721.0" layoutY="458.0" mnemonicParsing="false" onAction="#AjouterC" prefHeight="34.0" prefWidth="66.0" text="ADD" textFill="#fcf7f7">
+                              <Button fx:id="addCategory_addBtn" layoutX="721.0" layoutY="459.0" mnemonicParsing="false" onAction="#AjouterC" prefHeight="34.0" prefWidth="66.0" text="ADD" textFill="#fcf7f7">
                                  <stylesheets>
                                     <URL value="@dashboardDesign.css" />
                                     <URL value="@style.css" />
                                  </stylesheets>
                                  <styleClass>
-                                    <String fx:value="login_button" />
+                                    <String fx:value="update-btn" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <font>
@@ -151,7 +142,7 @@
                               <Button fx:id="addCategory_clearBtn" layoutX="509.0" layoutY="459.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="34.0" prefWidth="70.0" stylesheets="@dashboardDesign.css" text="CLEAR">
                                  <styleClass>
                                     <String fx:value="delete-btn" />
-                                    <String fx:value="clear-btn" />
+                                    <String fx:value="shadow" />
                                  </styleClass></Button>
                            </children>
                            <stylesheets>

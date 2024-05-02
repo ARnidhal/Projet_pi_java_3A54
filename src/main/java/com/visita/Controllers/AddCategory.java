@@ -6,12 +6,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import javafx.scene.Node;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +71,13 @@ public class AddCategory  {
 
     @FXML
     private Button addCategory_updateBtn;
+    @FXML
+    private Button category_btn_nv;
+    @FXML
+    private Button service_btn_nv;
 
-
+    @FXML
+    private Button serviceresv_btn_nv;
     public  void close(){
         System.exit(0);
     }
@@ -330,6 +339,113 @@ public class AddCategory  {
         ObservableList<Category> observableList = FXCollections.observableList(filteredCategories);
         TableView.setItems(observableList);
     }
+
+    /* @FXML
+      private void handleNewServiceButtonAction(ActionEvent event) {
+          try {
+              // Charger le fichier FXML de la page AddService
+              FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddService.fxml"));
+              Parent root = loader.load();
+
+              // Créer une nouvelle scène
+              Scene scene = new Scene(root);
+
+              // Créer une nouvelle fenêtre pour afficher la scène
+              Stage stage = new Stage();
+              stage.setScene(scene);
+              stage.show();
+          } catch (IOException e) {
+              // Gérer les exceptions liées au chargement du fichier FXML
+              e.printStackTrace();
+          }
+      }*/
+    @FXML
+    private void handleNewServiceButtonAction(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de la page AddService
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddService.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir une référence à la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Obtenir une référence à la fenêtre actuelle
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Fermer la fenêtre actuelle
+            currentStage.close();
+
+            // Créer une nouvelle fenêtre pour afficher la scène
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement du fichier FXML
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void  handleServiceresvButtonAction(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de la page AddService
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/backresevservice.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir une référence à la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Obtenir une référence à la fenêtre actuelle
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Fermer la fenêtre actuelle
+            currentStage.close();
+
+            // Créer une nouvelle fenêtre pour afficher la scène
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement du fichier FXML
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleAddCategoryButtonAction(ActionEvent event) {
+        try {
+            // Charger le fichier FXML de la page AddService
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddCategory.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir une référence à la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Obtenir une référence à la fenêtre actuelle
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Fermer la fenêtre actuelle
+            currentStage.close();
+
+            // Créer une nouvelle fenêtre pour afficher la scène
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            // Gérer les exceptions liées au chargement du fichier FXML
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 
 }

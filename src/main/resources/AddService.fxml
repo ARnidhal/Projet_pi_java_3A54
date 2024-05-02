@@ -44,14 +44,19 @@
                             <children>
                                 <Label layoutX="70.0" layoutY="109.0" text="WELCOME" textFill="WHITE" />
                                 <Line endX="88.0" layoutX="100.0" layoutY="146.0" startX="-89.5999984741211" stroke="WHITE" />
-                                <Button layoutX="10.0" layoutY="173.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="                HOME" />
-                                <Button layoutX="9.0" layoutY="218.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="       ADD CATEGORY" />
-                                <Button layoutX="8.0" layoutY="266.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="         ADD SERVICE" />
+                                <Button layoutX="10.0" layoutY="173.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="               HOME" />
+                                <Button fx:id="category_btn_nv" layoutX="2.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleAddCategoryButtonAction" prefHeight="35.0" prefWidth="187.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="             CATEGORY" />
                         <ImageView fx:id="userImageView" fitHeight="100" fitWidth="100" layoutX="50.0" layoutY="9.0">
                            <image>
                               <Image url="@values/default.png" />
                            </image>
                         </ImageView>
+                        <Button fx:id="service_btn_nv" layoutX="9.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleNewServiceButtonAction" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="             SERVICE" />
+                        <Button fx:id="serviceresv_btn_nv" layoutX="5.0" layoutY="333.0" mnemonicParsing="false" onAction="#handleServiceresvButtonAction" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="        SERVICES RSER">
+                           <font>
+                              <Font size="6.0" />
+                           </font>
+                        </Button>
                             </children>
                             <styleClass>
                                 <String fx:value="nav-form" />
@@ -83,7 +88,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <graphic>
-                                          <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                                              <image>
                                                 <Image url="@values/exbgrm.png" />
                                              </image>
@@ -95,7 +100,7 @@
                                           <Image url="@values/output-onlinegiftools(9).gif" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="396.0" layoutY="-52.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="396.0" layoutY="-52.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                                        <image>
                                           <Image url="@values/default_image12.png" />
                                        </image>

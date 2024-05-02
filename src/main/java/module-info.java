@@ -6,7 +6,8 @@ module Test{
     requires itextpdf;
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
-    requires jakarta.mail;
+    requires java.mail;
+    requires com.google.api.client;
     opens com.visita.Controllers;
     opens com.visita.models;
     opens com.visita.services;

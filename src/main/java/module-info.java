@@ -5,6 +5,7 @@ module Test{
     requires java.sql;
     requires itextpdf;
     requires twilio;
+    requires stripe.java;
     //requires kernel;
     //requires layout;
     //requires twilio;

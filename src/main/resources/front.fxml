@@ -199,6 +199,7 @@
                            </padding>
                         </Button>
                         <Button fx:id="btnclear" mnemonicParsing="false" onAction="#clearrv" prefHeight="34.0" text="Clear" />
+                        <Button fx:id="btnupdate1" mnemonicParsing="false" onAction="#updaterv" prefHeight="35.0" prefWidth="139.0" text="Update" />
                      </buttons>
                      <VBox.margin>
                         <Insets left="10.0" right="20.0" top="20.0" />
@@ -313,7 +314,7 @@
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID_Rendezvous">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rendezvous">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -330,7 +331,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnupdate" mnemonicParsing="false" onAction="#updaterv" prefHeight="26.0" prefWidth="102.0" text="Update">
+                  <Button fx:id="btnpayer" mnemonicParsing="false" onAction="#payer" prefHeight="26.0" prefWidth="102.0" text="Payer">
                      <HBox.margin>
                         <Insets left="80.0" />
                      </HBox.margin>

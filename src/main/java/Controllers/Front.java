@@ -10,7 +10,8 @@ import com.itextpdf.text.pdf.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.fxml.*;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -81,6 +82,8 @@ public class Front {
 
     @FXML
     private VBox chosenFruitCard;
+    @FXML
+    private Button btnpayer;
 
     @FXML
     private DatePicker dateid;
@@ -495,7 +498,7 @@ private Text rapportT;
     private void pdf(String content) {
         Document document = new Document();
         try {
-            
+
 
             PdfWriter.getInstance(document, new FileOutputStream("Rapport.pdf"));
 
@@ -568,4 +571,18 @@ private Text rapportT;
     }
 
 
+    /////////////////////////payer///////////
+    @FXML
+    void payer(ActionEvent event)throws IOException
+    {
+
+        payer1();
+    }
+
+    void payer1() throws IOException {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/Payment.fxml"));
+        Parent root=loader.load();
+
+        idrendezvous1.getScene().setRoot(root);
+    }
 }

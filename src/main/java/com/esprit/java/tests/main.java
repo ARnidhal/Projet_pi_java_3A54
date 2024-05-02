@@ -5,6 +5,7 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import Controllers.processPayment;
 import com.esprit.java.models.Rapport;
 import com.esprit.java.models.Rendezvous;
 import com.esprit.java.services.RapportService;
@@ -76,7 +77,7 @@ public class main
         ////////////////////////////////////////////////////////Rapport//////////////////////////////
 
         RapportService r=new RapportService();
-        r.ajouter(new Rapport(37,"lkdk","ldmlkd"));
+       // r.ajouter(new Rapport(37,"lkdk","ldmlkd"));
         //r.supprimer(new Rapport(57,87,"ddfd","jdkd"));
        /* List<Rapport> rapports = r.afficher();
         for (Rapport rapport : rapports) {
@@ -86,7 +87,9 @@ public class main
             System.out.println("Note : " + rapport.getNote());
             System.out.println("-------------");
         }*/
-        r.modifier((new Rapport(59,37,"lkdk","edited") ));
+        //r.modifier((new Rapport(59,37,"lkdk","edited") ));
+       // processPayment.main(args);
+
 
     }
 }

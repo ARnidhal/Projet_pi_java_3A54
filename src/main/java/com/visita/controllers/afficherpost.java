@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import com.visita.services.servicePost;
 import com.visita.services.serviceComment;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -427,56 +428,23 @@ public class afficherpost {
             // Create a label for the comment
             Label commentLabel = new Label("Comment: " + c.getContenu_comment());
 
-            commentLabel.setStyle("-fx-text-fill: #2c3e50; /* Dark gray color */\n" +
-                    "    \n" +
-                    "    /* Set the font size and style */\n" +
-                    "    -fx-font-size: 12px;\n" +
-                    "    -fx-font-weight: normal;\n" +
-                    "    \n" +
-                    "    /* Add some padding around the label */\n" +
-                    "    -fx-padding: 4px 8px;-fx-text-fill: #ffffff;\n" +
-                    "    \n" +
-                    "    /* Set the font family (choose a suitable font) */\n" +
-                    "    -fx-font-family: 'Helvetica'; /* Change 'Helvetica' to any other preferred font */\n" +
-                    "    \n" +
-                    "    /* Set the font size */\n" +
-                    "    -fx-font-size: 14px;");
+            // Apply CSS styling to the comment label
+            commentLabel.setStyle("-fx-text-fill: #ffffff; /* White color */"
+                    + " -fx-font-family: 'Helvetica';"
+                    + " -fx-font-size: 14px;");
 
             // Check if the comment was made by the logged-in user
             if (c.getId_creatorcom() == loggedInPatient.getId()) {
                 // Create a "Delete Comment" button
                 Button deleteCommentButton = new Button("Delete Comment");
-                deleteCommentButton.setStyle("-fx-background-color: #e74c3c; /* Red color */\n" +
-                        "    \n" +
-                        "    /* Set the text color */\n" +
-                        "    -fx-text-fill: white;\n" +
-                        "    \n" +
-                        "    /* Add some padding */\n" +
-                        "    -fx-padding: 8px 16px;\n" +
-                        "    \n" +
-                        "    /* Add rounded corners */\n" +
-                        "    -fx-background-radius: 5;\n" +
-                        "    -fx-border-radius: 5;\n" +
-                        "    \n" +
-                        "    /* Add a hover effect */\n" +
-                        "    -fx-background-insets: 0;\n" +
-                        "    -fx-background-color: #e74c3c, #c0392b;\n" +
-                        "    -fx-background-radius: 5;\n" +
-                        "    -fx-border-color: transparent;\n" +
-                        "    -fx-border-width: 0;\n" +
-                        "    -fx-background-image: none;\n" +
-                        "    \n" +
-                        "    /* Set a different background color on hover */\n" +
-                        "    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);\n" +
-                        "    \n" +
-                        "    /* Set the font style */\n" +
-                        "    -fx-font-size: 12px;\n" +
-                        "    -fx-font-weight: bold;\n" +
-                        "    \n" +
-                        "    /* Add some spacing */\n" +
-                        "    -fx-margin: 4px;");
+                deleteCommentButton.setStyle("-fx-background-color: #e74c3c; /* Red color */"
+                        + " -fx-text-fill: white;"
+                        + " -fx-padding: 8px 16px;"
+                        + " -fx-background-radius: 5;"
+                        + " -fx-font-size: 12px;"
+                        + " -fx-font-weight: bold;");
 
-                // Set the action for the button
+                // Set the action for the delete button
                 deleteCommentButton.setOnAction(event -> {
                     // Delete the comment
                     sc.Supprimer(c.getId());
@@ -485,8 +453,24 @@ public class afficherpost {
                     showPostDetails(p);
                 });
 
-                // Create a container for the comment and the delete button
-                HBox commentBox = new HBox(commentLabel, deleteCommentButton);
+                // Create a "Modify Comment" button
+                Button modifyCommentButton = new Button("Modify Comment");
+                modifyCommentButton.setStyle("-fx-background-color: #3498db; /* Blue color */"
+                        + " -fx-text-fill: white;"
+                        + " -fx-padding: 8px 16px;"
+                        + " -fx-background-radius: 5;"
+                        + " -fx-font-size: 12px;"
+                        + " -fx-font-weight: bold;");
+
+                // Set the action for the modify button
+                modifyCommentButton.setOnAction(event -> {
+                    // Open a new window or dialog to modify the comment
+                    openModifyCommentWindow(c,p);
+                });
+
+                // Create a container for the comment label and buttons
+                HBox commentBox = new HBox(commentLabel, deleteCommentButton, modifyCommentButton);
+                commentBox.setSpacing(10); // Add spacing between the components
 
                 // Add the comment box to the comments container
                 commentsContainer.getChildren().add(commentBox);
@@ -585,6 +569,56 @@ public class afficherpost {
 
         // Add the VBox containing post details and comments to the postContainer
         postContainer.getChildren().add(postWithComments);
+    }
+
+    public void openModifyCommentWindow(comment c, post p) {
+        // Create a new stage for the modification window
+        Stage modifyStage = new Stage();
+        modifyStage.initModality(Modality.APPLICATION_MODAL);
+        modifyStage.setTitle("Modify Comment");
+
+        // Create a text area for editing the comment
+        TextArea commentTextArea = new TextArea(c.getContenu_comment());
+        commentTextArea.setStyle("-fx-padding: 10px;\n" +
+                "    -fx-font-size: 14px;\n" +
+                "    -fx-font-family: 'Helvetica';");
+        commentTextArea.setWrapText(true);
+        commentTextArea.setPrefHeight(100);
+
+        // Create a save button to save the changes
+        Button saveButton = new Button("Save");
+        saveButton.setStyle("-fx-background-color: #3498db;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-padding: 8px 16px;\n" +
+                "    -fx-background-radius: 5;\n" +
+                "    -fx-font-size: 14px;\n" +
+                "    -fx-font-weight: bold;");
+        saveButton.setOnAction(event -> {
+            // Get the new comment text
+            String newCommentText = commentTextArea.getText();
+            newCommentText = CommentFilter.filterComment(newCommentText);
+
+            // Update the comment in the database
+            c.setContenu_comment(newCommentText);
+            sc.modifier(c); // Implement this method in your service class
+
+            // Close the modify window
+            modifyStage.close();
+
+            // Refresh the post details to reflect the modified comment
+            showPostDetails(p);
+        });
+
+        // Create a layout for the modification window
+        VBox modifyLayout = new VBox(commentTextArea, saveButton);
+        modifyLayout.setSpacing(10); // Add spacing between the text area and save button
+        modifyLayout.setStyle("-fx-spacing: 15px;\n" +
+                "    -fx-padding: 20px;");
+
+        // Set the scene and show the modification window
+        Scene scene = new Scene(modifyLayout);
+        modifyStage.setScene(scene);
+        modifyStage.show();
     }
 
 
@@ -856,6 +890,8 @@ public class afficherpost {
         showaddPosts(event, loggedInPatient);
 
     }
+
+
 
     public void showaddPosts(ActionEvent event, Patient loggedInPatient) {
         try {

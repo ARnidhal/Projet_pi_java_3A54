@@ -33,7 +33,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
-
+import java.time.LocalDate;
 
 
 
@@ -413,6 +413,12 @@ private Text rapportT;
 
 // Définir la valeur dans le champ de texte
             timeid.setText(timeAsString);
+
+
+
+
+
+
             // Convertir l'entier en chaîne de caractères
             String telAsString = String.valueOf(rendezvous.getTel());
 
@@ -421,6 +427,19 @@ private Text rapportT;
             // Définir le rv sélectionnée
             Doctor selectedM = findById(rendezvous.getMedecin_id());
             medecinid.setValue(selectedM);
+
+            // Récupérer la date du service sélectionné depuis la base de données (java.util.Date)
+            java.util.Date dateFromDB = rendezvous.getDate();
+
+// Convertir java.util.Date en java.sql.Date
+            java.sql.Date sqlDate = new java.sql.Date(dateFromDB.getTime());
+
+// Convertir java.sql.Date en LocalDate
+            LocalDate localDate = sqlDate.toLocalDate();
+
+// Définir la date dans le DatePicker
+            dateid.setValue(localDate);
+
 
 
         } else {

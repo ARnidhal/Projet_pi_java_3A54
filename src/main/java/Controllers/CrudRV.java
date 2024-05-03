@@ -30,7 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.Optional;
-
+//import java.sql.Date;
 
 
 ////////////////////sms
@@ -167,6 +167,18 @@ public class CrudRV {
                 // Définir le rv sélectionnée
                 Doctor selectedM = findrvByName(newSelection.getMedecin_nom());
                 medecinid.setValue(selectedM);
+
+                // Récupérer la date du service sélectionné depuis la base de données (java.util.Date)
+                java.util.Date dateFromDB = selectedRendezvous.getDate();
+
+// Convertir java.util.Date en java.sql.Date
+                java.sql.Date sqlDate = new java.sql.Date(dateFromDB.getTime());
+
+// Convertir java.sql.Date en LocalDate
+                LocalDate localDate = sqlDate.toLocalDate();
+
+// Définir la date dans le DatePicker
+                dateid.setValue(localDate);
 
             } else {
                 // Réinitialiser les champs texte si aucune ligne n'est sélectionnée

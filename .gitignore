@@ -11,8 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
-src/main/java/Controllers/TwilioSMS.java 
 
+src/main/java/Controllers/TwilioSMS.java 
 ### Eclipse ###
 .apt_generated
 .classpath

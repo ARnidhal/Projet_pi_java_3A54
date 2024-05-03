@@ -22,8 +22,13 @@ public class processPayment
     private Button btnclose;
     @FXML
     private Button btnpayer;
+
+
+
+
     @FXML
     private TextField bankid;
+
 
 
 
@@ -54,9 +59,9 @@ public class processPayment
 
         // Vérifier si les champs securityid et idcard sont valides
         String securityId = securityid.getText();
-        String idCard = idcard.getText();
+        String bI = bankid.getText();
 
-        if (!isValidSecurityId(securityId) || !isValidIdCard(idCard)) {
+        if (!isValidSecurityId(securityId) || !isValidIdCard(bI)) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Informations de carte invalides", "Veuillez vérifier les informations de votre carte.");
             return;
         }
@@ -113,9 +118,9 @@ public class processPayment
         return securityId.matches("\\d{4}");
     }
 
-    private boolean isValidIdCard(String idCard) {
+    private boolean isValidIdCard(String bankid) {
         // Vérifier si le champ idcard contient exactement 8 chiffres
-        return idCard.matches("\\d{8}");
+        return bankid.matches("\\d{8}");
     }
 }
 

@@ -8,6 +8,8 @@ module Test{
     requires itextpdf;
     requires twilio;
     requires spring.security.core;
+    requires cmu.us.kal;
+    requires freetts;
     opens com.visita.controllers;
     opens com.visita.models;
     opens com.visita.services;

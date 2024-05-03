@@ -1,5 +1,6 @@
 package com.visita.controllers;
 
+import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
 import com.twilio.rest.api.v2010.account.Message;
@@ -29,6 +30,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -50,6 +53,8 @@ public class afficherpost {
 
     @FXML
     private VBox postContainer; // Container for displaying posts
+
+    private boolean isSpeaking= false;
 
     @FXML
     private ChoiceBox<String> choiceres;
@@ -91,6 +96,8 @@ public class afficherpost {
 
     private final servicePost sp = new servicePost();
     private final serviceComment sc = new serviceComment();
+
+    private Thread textToSpeechThread;
 
 
     private int test=0;
@@ -164,6 +171,29 @@ public class afficherpost {
 
 
 
+
+    private void readAloud(String text) {
+        // Load the Kevin voice directory
+        KevinVoiceDirectory kevinVoiceDirectory = new KevinVoiceDirectory();
+
+        // Get the Kevin voice from the directory
+        Voice kevinVoice = kevinVoiceDirectory.getVoices()[0]; // Assuming "kevin" is the first voice
+
+        // Allocate the voice resources
+        kevinVoice.allocate();
+
+        // Start the text-to-speech process in a background thread
+        textToSpeechThread = new Thread(() -> {
+            // Speak the text
+            kevinVoice.speak(text);
+
+            // Deallocate the voice resources
+            kevinVoice.deallocate();
+        });
+
+        // Start the background thread
+        textToSpeechThread.start();
+    }
 
 
 
@@ -455,6 +485,14 @@ public class afficherpost {
 
 
 
+    private void stopTextToSpeech() {
+        // Check if the background thread is running
+        if (textToSpeechThread != null && textToSpeechThread.isAlive()) {
+            // Interrupt the background thread to stop the text-to-speech process
+            textToSpeechThread.interrupt();
+        }
+    }
+
 
 
     private void showPostDetails(post p) {
@@ -549,6 +587,34 @@ public class afficherpost {
 
         VBox commentsContainer = new VBox();
 
+
+
+
+        Button readbutton = new Button("read");
+        readbutton.setOnAction(event -> {
+            isSpeaking = !isSpeaking;
+
+            // Get the text from the response field
+
+            String response = typeLabel.getText()+ titleLabel.getText() + descriptionLabel.getText();
+
+            // Check if there's text to read aloud
+            if (!response.isEmpty()) {
+                if (isSpeaking) {
+                    // If speech is currently active and no thread is running, start reading aloud
+                    if (textToSpeechThread == null || !textToSpeechThread.isAlive()) {
+                        readAloud(response);
+                    }
+                } else {
+                    // If speech is not active, stop the text-to-speech process
+                    stopTextToSpeech();
+                }
+            }
+                }
+
+        );
+
+        postDetails.getChildren().add(readbutton);
 
 
 

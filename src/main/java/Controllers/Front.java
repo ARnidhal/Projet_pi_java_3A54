@@ -1,6 +1,7 @@
 package Controllers;
 
 import com.esprit.java.models.Medecin;
+import com.esprit.java.models.Doctor;
 import com.esprit.java.models.Rapport;
 import com.esprit.java.models.Rendezvous;
 import com.esprit.java.services.RapportService;
@@ -104,7 +105,7 @@ public class Front {
     private Button logoutButton;
 
     @FXML
-    private ChoiceBox<Medecin> medecinid;
+    private ChoiceBox<Doctor> medecinid;
 
 
     @FXML
@@ -154,7 +155,7 @@ private Text rapportT;
 
 
             // Obtenir l'ID de la catégorie sélectionnée
-            Medecin selectedM = medecinid.getValue();
+            Doctor selectedM = medecinid.getValue();
             int MEDECINID = selectedM != null ? selectedM.getId() : -1; // -1 si la catégorie n'est pas sélectionnée
 
             // Ajout du rendez-vous en utilisant la méthode ajouter de votre service
@@ -278,7 +279,7 @@ private Text rapportT;
             Time parsedTime = Time.valueOf(timeid.getText());
 
             // Création d'un objet Rendezvous avec les données mises à jour
-            Medecin selectedM = medecinid.getValue();
+            Doctor selectedM = medecinid.getValue();
             int MID = selectedM != null ? selectedM.getId() : -1;
 
             Rendezvous rendezvous = new Rendezvous(Integer.parseInt(idrendezvous1.getText()),
@@ -321,23 +322,23 @@ private Text rapportT;
 
     private void loadrv() {
         // Récupérer la liste des catégories depuis le service
-        List<Medecin> medecins = RendezvousService.getAllMedecin();
+        List<Doctor> medecins = RendezvousService.getAllMedecin();
 
         // Convertir la liste en ObservableList
-        ObservableList<Medecin> observableCategories = FXCollections.observableArrayList(medecins);
+        ObservableList<Doctor> observableCategories = FXCollections.observableArrayList(medecins);
 
         // Assigner la liste observable au ChoiceBox
         medecinid.setItems(observableCategories);
 
         // Définir un convertisseur de chaîne pour afficher les noms de catégorie
-        medecinid.setConverter(new StringConverter<Medecin>() {
+        medecinid.setConverter(new StringConverter<Doctor>() {
             @Override
-            public String toString(Medecin medecin) {
+            public String toString(Doctor medecin) {
                 return medecin == null ? "" : medecin.getFullname();
             }
 
             @Override
-            public Medecin fromString(String string) {
+            public Doctor fromString(String string) {
                 // Si vous souhaitez permettre à l'utilisateur d'ajouter de nouvelles catégories en saisissant du texte,
                 // vous pouvez ajouter une logique ici pour créer une nouvelle catégorie à partir de la chaîne de texte.
                 // Sinon, vous pouvez simplement retourner null ici.
@@ -351,20 +352,20 @@ private Text rapportT;
         medecinid.getItems().clear();
 
         // Récupérer les dernières données de la base de données
-        List<Medecin> latestM = RendezvousService.getAllMedecin();
+        List<Doctor> latestM = RendezvousService.getAllMedecin();
 
         // Ajouter les dernières données au ChoiceBox
         medecinid.getItems().addAll(latestM);
 
         // Définir un convertisseur de chaîne pour afficher les noms de rendez-vous
-        medecinid.setConverter(new StringConverter<Medecin>() {
+        medecinid.setConverter(new StringConverter<Doctor>() {
             @Override
-            public String toString(Medecin medecin) {
+            public String toString(Doctor medecin) {
                 return medecin == null ? "" : medecin.getFullname();
             }
 
             @Override
-            public Medecin fromString(String string) {
+            public Doctor fromString(String string) {
                 // Si nécessaire, implémentez la logique pour convertir une chaîne en objet Rendezvous
                 return null;
             }
@@ -372,17 +373,17 @@ private Text rapportT;
     }
 
 
-    private Medecin findrvByName(String rvName) {
+    private Doctor findrvByName(String rvName) {
         if (rvName == null || rvName.isEmpty()) {
             // Gérer le cas où rvName est null ou vide
             return null;
         }
 
         // Obtenir la liste des médecins disponibles
-        ObservableList<Medecin> rvs = medecinid.getItems();
+        ObservableList<Doctor> rvs = medecinid.getItems();
 
         // Parcourir les médecins et trouver celui dont le nom correspond au nom fourni
-        for (Medecin m : rvs) {
+        for (Doctor m : rvs) {
             if (m.getFullname().equalsIgnoreCase(rvName)) {
                 return m;
             }
@@ -418,7 +419,7 @@ private Text rapportT;
 // Définir la valeur dans le champ de texte
             telid.setText(telAsString);
             // Définir le rv sélectionnée
-            Medecin selectedM = findById(rendezvous.getMedecin_id());
+            Doctor selectedM = findById(rendezvous.getMedecin_id());
             medecinid.setValue(selectedM);
 
 
@@ -430,13 +431,13 @@ private Text rapportT;
     }
 
 
-    public Medecin findById(int id) {
+    public Doctor findById(int id) {
         // Accédez à votre source de données (par exemple, la base de données) pour rechercher le médecin par son ID
         // Assurez-vous de gérer les exceptions appropriées (par exemple, SQLException en cas d'accès à une base de données)
         try {
             // Votre logique pour rechercher le médecin par son ID et le retourner s'il est trouvé
             // Par exemple, si vous avez une liste de médecins, vous pouvez itérer sur la liste pour trouver le médecin avec l'ID correspondant
-            for (Medecin medecin : rendezvousService.getAllMedecin()) {
+            for (Doctor medecin : rendezvousService.getAllMedecin()) {
                 if (medecin.getId() == id) {
                     return medecin;
                 }

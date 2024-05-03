@@ -1,5 +1,6 @@
 package com.esprit.java.services;
 
+import com.esprit.java.models.Doctor;
 import com.esprit.java.models.Medecin;
 import com.esprit.java.models.Rendezvous;
 import com.esprit.java.utils.DataSource;
@@ -152,8 +153,8 @@ public class RendezvousService implements IRendezvous <Rendezvous>
         return rendezvousList;
     }
 
-    public static List<Medecin> getAllMedecin() {
-        List<Medecin> medecins = new ArrayList<>();
+    public static List<Doctor> getAllMedecin() {
+        List<Doctor> medecins = new ArrayList<>();
         String req = "SELECT * FROM medecin;";
 
         try {
@@ -166,17 +167,19 @@ public class RendezvousService implements IRendezvous <Rendezvous>
                 String fullname = rs.getString("fullname");
                 String username = rs.getString("username");
                 String email = rs.getString("email");
-                int phone = rs.getInt("phone");
+                String phone = rs.getString("phone");
                 String password = rs.getString("password");
-                boolean token = rs.getBoolean("token");
+                String token = rs.getString("token");
                 String photo = rs.getString("photo");
                 int code = rs.getInt("code");
-                String role = rs.getString("role");
+
+               // String  role = rs.getString("role");
+                String[] role = rs.getString("role").split(",");
                 String specialite = rs.getString("specialite");
                 String address = rs.getString("address");
 
 // Créer un objet Medecin à partir des résultats
-                Medecin medecin = new Medecin(id, fullname, username, email, phone, password, token, photo, code, role, specialite, address);
+                Doctor medecin = new Doctor(id,  username, email, phone, password, token, photo, code,role,fullname,specialite,address);
 
                 // Ajouter la catégorie à la liste
                 medecins.add(medecin);

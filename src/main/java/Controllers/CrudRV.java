@@ -1,6 +1,8 @@
 package Controllers;
 
 import com.esprit.java.models.Medecin;
+import com.esprit.java.models.Doctor;
+
 import com.esprit.java.models.Rapport;
 import com.esprit.java.models.Rendezvous;
 import com.esprit.java.services.RendezvousService;
@@ -46,7 +48,7 @@ public class CrudRV {
     @FXML
     private Button btnreport;
     @FXML
-    private ChoiceBox<Medecin> medecinid;
+    private ChoiceBox<Doctor> medecinid;
 
     @FXML
     private TextField telid;
@@ -54,7 +56,7 @@ public class CrudRV {
     private TextField addRV_search;
 
     @FXML
-    private ChoiceBox<Medecin> addService_Rv;
+    private ChoiceBox<Doctor> addService_Rv;
 
     @FXML
     private TextField idrendezvous;
@@ -163,7 +165,7 @@ public class CrudRV {
                     //searchrv();
                 //});
                 // Définir le rv sélectionnée
-                Medecin selectedM = findrvByName(newSelection.getMedecin_nom());
+                Doctor selectedM = findrvByName(newSelection.getMedecin_nom());
                 medecinid.setValue(selectedM);
 
             } else {
@@ -219,7 +221,7 @@ public class CrudRV {
 
 
             // Obtenir l'ID de la catégorie sélectionnée
-            Medecin selectedM = medecinid.getValue();
+            Doctor selectedM = medecinid.getValue();
             int MEDECINID = selectedM != null ? selectedM.getId() : -1; // -1 si la catégorie n'est pas sélectionnée
 
             // Ajout du rendez-vous en utilisant la méthode ajouter de votre service
@@ -321,7 +323,7 @@ public class CrudRV {
             Time parsedTime = Time.valueOf(timeid.getText());
 
             // Création d'un objet Rendezvous avec les données mises à jour
-            Medecin selectedM = medecinid.getValue();
+            Doctor selectedM = medecinid.getValue();
             int MID = selectedM != null ? selectedM.getId() : -1;
 
             Rendezvous rendezvous = new Rendezvous(Integer.parseInt(idrendezvous.getText()),
@@ -372,23 +374,23 @@ public class CrudRV {
 
     private void loadRV() {
         // Récupérer la liste des médecins depuis le service
-        List<Medecin> medecins = RendezvousService.getAllMedecin();
+        List<Doctor> medecins = RendezvousService.getAllMedecin();
 
         // Convertir la liste en ObservableList
-        ObservableList<Medecin> observableMedecins = FXCollections.observableArrayList(medecins);
+        ObservableList<Doctor> observableMedecins = FXCollections.observableArrayList(medecins);
 
         // Assigner la liste observable au ChoiceBox
         addService_Rv.setItems(observableMedecins);
 
         // Définir un convertisseur de chaîne pour afficher les noms des médecins
-        addService_Rv.setConverter(new StringConverter<Medecin>() {
+        addService_Rv.setConverter(new StringConverter<Doctor>() {
             @Override
-            public String toString(Medecin medecin) {
+            public String toString(Doctor medecin) {
                 return medecin == null ? "" : medecin.getFullname();
             }
 
             @Override
-            public Medecin fromString(String string) {
+            public Doctor fromString(String string) {
                 // Si vous souhaitez permettre à l'utilisateur d'ajouter de nouveaux médecins en saisissant du texte,
                 // vous pouvez ajouter une logique ici pour créer un nouveau médecin à partir de la chaîne de texte.
                 // Sinon, vous pouvez simplement retourner null ici.
@@ -399,7 +401,7 @@ public class CrudRV {
 
     private int getSelectedMedecinId() {
         // Récupérer l'objet Medecin sélectionné dans le ChoiceBox
-        Medecin selectedMedecin = addService_Rv.getValue();
+        Doctor selectedMedecin = addService_Rv.getValue();
 
         // Vérifier si un médecin est sélectionné
         if (selectedMedecin != null) {
@@ -477,23 +479,23 @@ public class CrudRV {
 
     private void loadrv() {
         // Récupérer la liste des catégories depuis le service
-        List<Medecin> medecins = RendezvousService.getAllMedecin();
+        List<Doctor> medecins = RendezvousService.getAllMedecin();
 
         // Convertir la liste en ObservableList
-        ObservableList<Medecin> observableCategories = FXCollections.observableArrayList(medecins);
+        ObservableList<Doctor> observableCategories = FXCollections.observableArrayList(medecins);
 
         // Assigner la liste observable au ChoiceBox
         medecinid.setItems(observableCategories);
 
         // Définir un convertisseur de chaîne pour afficher les noms de catégorie
-        medecinid.setConverter(new StringConverter<Medecin>() {
+        medecinid.setConverter(new StringConverter<Doctor>() {
             @Override
-            public String toString(Medecin medecin) {
+            public String toString(Doctor medecin) {
                 return medecin == null ? "" : medecin.getFullname();
             }
 
             @Override
-            public Medecin fromString(String string) {
+            public Doctor fromString(String string) {
                 // Si vous souhaitez permettre à l'utilisateur d'ajouter de nouvelles catégories en saisissant du texte,
                 // vous pouvez ajouter une logique ici pour créer une nouvelle catégorie à partir de la chaîne de texte.
                 // Sinon, vous pouvez simplement retourner null ici.
@@ -512,12 +514,12 @@ public class CrudRV {
         alert.showAndWait();
     }
 
-    private Medecin findrvByName(String rvName) {
+    private Doctor findrvByName(String rvName) {
         // Obtenir la liste des catégories disponibles
-        ObservableList<Medecin> rvs = medecinid.getItems();
+        ObservableList<Doctor> rvs = medecinid.getItems();
 
         // Parcourir les catégories et trouver celle dont le nom correspond au nom fourni
-        for (Medecin rv : rvs) {
+        for (Doctor rv : rvs) {
             if (rv.getFullname().equals(rvName)) {
                 return rv;
             }

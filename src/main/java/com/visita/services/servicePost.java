@@ -705,6 +705,8 @@ private     Connection cnx = DataSource.getInstance().getConnection();
         if (reportCount >= REPORT_THRESHOLD) {
             if (entityType.equals("post")) {
                 deletePost(entityId);
+
+
             }
             // Add similar handling for other entity types if needed
         }
@@ -747,6 +749,9 @@ private     Connection cnx = DataSource.getInstance().getConnection();
             ps.executeUpdate();
             System.out.println("Post deleted successfully.");
             deleteReportsForEntity(postId, "post");  // Also delete reports associated with this post
+
+
+
         } catch (SQLException ex) {
             System.out.println("Error deleting post: " + ex.getMessage());
         }
@@ -783,6 +788,33 @@ private     Connection cnx = DataSource.getInstance().getConnection();
         }
         return reported;
     }
+
+
+    public String getCreatorPhoneNumber(int postId) {
+        String creatorPhoneNumber = null;
+        // Define the SQL query to retrieve the creator's phone number for the specified post ID
+        String query = "SELECT phonenumber FROM post WHERE id = ?";
+
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            // Set the post ID as a parameter in the query
+            ps.setInt(1, postId);
+
+            // Execute the query and process the result set
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Retrieve the creator's phone number from the result set
+                    creatorPhoneNumber = rs.getString("phonenumber");
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error retrieving creator's phone number: " + ex.getMessage());
+            // Handle the exception as needed (e.g., log it)
+        }
+
+        // Return the creator's phone number (or null if not found)
+        return creatorPhoneNumber;
+    }
+
 
 
 

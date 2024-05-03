@@ -6,6 +6,7 @@ module Test{
     requires jakarta.mail;
     requires org.json;
     requires itextpdf;
+    requires twilio;
     requires spring.security.core;
     opens com.visita.controllers;
     opens com.visita.models;

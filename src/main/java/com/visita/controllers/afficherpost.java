@@ -1,5 +1,9 @@
 package com.visita.controllers;
 
+import com.twilio.Twilio;
+import com.twilio.exception.ApiException;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import com.visita.models.Patient;
 import com.visita.models.post;
 import com.visita.models.comment;
@@ -102,6 +106,10 @@ public class afficherpost {
     private PatientService patientService = new PatientService();
     @FXML
     private Label commentErrorLabel;
+
+    private static final String ACCOUNT_SID = "AC99d1ef0629c601c75a25f4392a94f86e";
+    private static final String AUTH_TOKEN = "3f10f31a4d8287bd4738d95410669731";
+    private static final String TWILIO_PHONE_NUMBER = "+14582904104";
 
 
     public afficherpost() {
@@ -401,19 +409,23 @@ public class afficherpost {
             if (isPost) {
                 sp.incrementReportCount(entityId);
                 reportCount = sp.getReportCount(entityId);
-            }  else {
+            } else {
                 throw new IllegalArgumentException("Invalid entity type: " + entityType);
             }
 
             // Check if the report count has reached the threshold
             if (reportCount >= 5) {
-                // Delete the post or comment if it reaches the report threshold
+                // If the reported entity is a post
                 if (isPost) {
                     sp.Supprimer(entityId);
+                    // Retrieve the creator's phone number from the post
+
                 } else {
+                    // Delete the comment if it reaches the report threshold
                     sc.Supprimer(entityId);
                 }
-                // Optionally, refresh the UI to reflect the deleted post or comment
+
+                // Refresh the UI to reflect the deleted post or comment
                 backToAllPosts();
             }
         } catch (Exception e) {
@@ -483,15 +495,45 @@ public class afficherpost {
         if (hasReported) {
             reportButton.setVisible(false);
         } else {
+
             // Otherwise, set an action for the report button
             reportButton.setOnAction(event -> {
                 handleReport(p.getId(), "post");
+
                 // Try to add a report
                 boolean success = sp.addReport(p.getId(), loggedInPatient.getId());
                 if (success) {
                     // Hide the button after the report is successful
                     reportButton.setVisible(false);
                     System.out.println("Report submitted successfully.");
+                    System.out.println(sp.getReportCount(p.getId()));
+                    System.out.println("+216" + sp.getCreatorPhoneNumber(p.getId()));
+                    if(sp.getReportCount(p.getId())>=4){
+                        String creatorPhoneNumber = "+216" + sp.getCreatorPhoneNumber(p.getId());
+
+                        // Delete the post if it reaches the report threshold
+
+                        try {
+
+                            String messageContent = "Your post is close be being deleted due to reaching the report threshold.try to modify it accordingly to fit our users terms of service. ";
+                            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                            Message message = Message.creator(
+                                            new PhoneNumber(creatorPhoneNumber),
+                                            new PhoneNumber(TWILIO_PHONE_NUMBER),
+                                            messageContent)
+                                    .create();
+
+                            System.out.println("SMS sent successfully!");
+                        } catch (ApiException e) {
+                            System.out.println("Failed to send SMS: " + e.getMessage());
+                        }
+
+                        // Send an SMS notification to the creator's phone number
+                        //SmsService smsService = new SmsService();
+
+                        System.out.println(creatorPhoneNumber);
+                        //smsService.sendSms(creatorPhoneNumber, messageContent);
+                    }
                 } else {
                     System.out.println("Failed to submit report.");
                 }

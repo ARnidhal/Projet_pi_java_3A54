@@ -1,32 +1,40 @@
 package com.visita.models;
 
 public class comment {
+    private int id;
+    private int id_creatorcom;
+    private int id_post_id;
+    private String datecreation_comment;
+    private String contenu_comment;
 
-    private int id ,id_creatorcom,id_post_id;
-    private String datecreation_comment , contenu_comment;
-
+    // New field to track report count
+    private int reportCount;
 
     public comment() {
+        this.reportCount = 0;  // Initialize report count to 0
     }
 
-    public comment(int id, int id_creatorcom, int id_post_id, String datecreation_comment, String contenu_comment) {
+    public comment(int id, int id_creatorcom, int id_post_id, String datecreation_comment, String contenu_comment, int reportCount) {
         this.id = id;
         this.id_creatorcom = id_creatorcom;
         this.id_post_id = id_post_id;
         this.datecreation_comment = datecreation_comment;
         this.contenu_comment = contenu_comment;
+        this.reportCount = reportCount;  // Initialize report count
+
     }
 
-    public comment(int id_creatorcom, int id_post_id, String datecreation_comment, String contenu_comment) {
+    public comment(int id_creatorcom, int id_post_id, String datecreation_comment, String contenu_comment, int reportCount) {
         this.id_creatorcom = id_creatorcom;
         this.id_post_id = id_post_id;
         this.datecreation_comment = datecreation_comment;
         this.contenu_comment = contenu_comment;
+        this.reportCount = reportCount;  // Initialize report count
     }
-
 
     public comment(String contenu_comment) {
         this.contenu_comment = contenu_comment;
+        this.reportCount = 0;  // Initialize report count to 0
     }
 
     public int getId() {
@@ -69,6 +77,14 @@ public class comment {
         this.contenu_comment = contenu_comment;
     }
 
+    public int getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(int reportCount) {
+        this.reportCount = reportCount;
+    }
+
     @Override
     public String toString() {
         return "comment{" +
@@ -77,6 +93,7 @@ public class comment {
                 ", id_post_id=" + id_post_id +
                 ", datecreation_comment='" + datecreation_comment + '\'' +
                 ", contenu_comment='" + contenu_comment + '\'' +
+                ", reportCount=" + reportCount + // Include reportCount in toString
                 '}';
     }
 }

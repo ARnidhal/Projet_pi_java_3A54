@@ -18,6 +18,9 @@ import java.sql.Connection;
 public class serviceComment {
 
 
+    private static final int REPORT_THRESHOLD = 5; // Define the report threshold
+
+
     private Connection cnx = DataSource.getInstance().getConnection();
 
     public boolean ajouter(comment t) {
@@ -139,6 +142,9 @@ public class serviceComment {
         }
         return comments;
     }
+
+
+
 
 
 }

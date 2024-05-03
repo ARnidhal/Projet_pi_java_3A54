@@ -1,6 +1,7 @@
 package com.visita.services;
 
 import com.visita.models.post;
+import com.visita.models.Report;
 import com.visita.models.LikesPost;
 import com.visita.utils.DataSource;
 
@@ -22,6 +23,8 @@ import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class servicePost {
+
+    private static final int REPORT_THRESHOLD = 5;
 
 private     Connection cnx = DataSource.getInstance().getConnection();
 
@@ -657,6 +660,131 @@ private     Connection cnx = DataSource.getInstance().getConnection();
             System.out.println("Error validating post: " + ex.getMessage());
         }
     }
+
+    public boolean addReport(int postId, int reporterId) {
+        boolean success = false;
+        String query = "INSERT INTO reports (entity_id, entity_type, reporter_id) VALUES (?, ?, ?)";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, postId);
+            ps.setString(2, "post");  // Indicates the type of entity being reported
+            ps.setInt(3, reporterId);
+            int rowsInserted = ps.executeUpdate();
+            if (rowsInserted > 0) {
+                success = true;
+                System.out.println("Report added successfully.");
+                handleReports(postId, "post");  // Check if action is needed based on the number of reports
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error adding report: " + ex.getMessage());
+        }
+        return success;
+    }
+
+    // Checks if a specific entity (e.g., post) has reached the report threshold and takes action accordingly
+
+
+    // Counts the number of reports for a specific entity
+    private int countReportsForEntity(int entityId, String entityType) {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM reports WHERE entity_id = ? AND entity_type = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, entityId);
+            ps.setString(2, entityType);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error counting reports: " + ex.getMessage());
+        }
+        return count;
+    }
+
+    public void handleReports(int entityId, String entityType) {
+        int reportCount = countReportsForEntity(entityId, entityType);
+        if (reportCount >= REPORT_THRESHOLD) {
+            if (entityType.equals("post")) {
+                deletePost(entityId);
+            }
+            // Add similar handling for other entity types if needed
+        }
+    }
+
+    public int getReportCount(int postId) {
+        int reportCount = 0;
+        String query = "SELECT COUNT(*) FROM reports WHERE entity_id = ? AND entity_type = 'post'";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, postId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                reportCount = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error getting report count for post ID " + postId + ": " + ex.getMessage());
+        }
+        return reportCount;
+    }
+
+
+
+    public void incrementReportCount(int postId) {
+        String query = "UPDATE post SET report_count = report_count + 1 WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, postId);
+            ps.executeUpdate();
+            System.out.println("Report count incremented for post ID: " + postId);
+        } catch (SQLException ex) {
+            System.out.println("Error incrementing report count: " + ex.getMessage());
+        }
+    }
+
+
+    // Deletes a specific post
+    private void deletePost(int postId) {
+        String query = "DELETE FROM post WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, postId);
+            ps.executeUpdate();
+            System.out.println("Post deleted successfully.");
+            deleteReportsForEntity(postId, "post");  // Also delete reports associated with this post
+        } catch (SQLException ex) {
+            System.out.println("Error deleting post: " + ex.getMessage());
+        }
+    }
+
+    // Deletes reports associated with a specific entity (e.g., a post)
+    private void deleteReportsForEntity(int entityId, String entityType) {
+        String query = "DELETE FROM reports WHERE entity_id = ? AND entity_type = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, entityId);
+            ps.setString(2, entityType);
+            ps.executeUpdate();
+            System.out.println("Reports for the entity deleted successfully.");
+        } catch (SQLException ex) {
+            System.out.println("Error deleting reports: " + ex.getMessage());
+        }
+    }
+
+
+
+    public boolean hasReportedPost(int postId, int reporterId) {
+        boolean reported = false;
+        String query = "SELECT COUNT(*) FROM reports WHERE entity_id = ? AND entity_type = 'post' AND reporter_id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, postId);
+            ps.setInt(2, reporterId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    reported = rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error checking if user has reported post: " + ex.getMessage());
+        }
+        return reported;
+    }
+
+
 
 
 

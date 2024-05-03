@@ -22,8 +22,15 @@ public class post {
     private String makedate_post , country;
 
 
+
+    private int reportCount;
+
+
     public post() {
+        this.reportCount = 0;
     }
+
+
 
     public post(int id_creator, String title_post, String type_post, String contenu_post, String image_post, String country, int phonenumber) {
         this.id_creator = id_creator;
@@ -35,6 +42,7 @@ public class post {
         this.phonenumber = phonenumber;
         this.likes_post = 0;  // Default to 0
         this.validation_post = 0;  // Default to 0
+        this.reportCount = 0;
     }
 
     public post(int id_post, int likes_post, int creator, String title_post, String contenu_post , String type_post, String image_post, String makedate_post, String country) {
@@ -224,23 +232,31 @@ public class post {
         this.country = country;
     }
 
+    public int getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(int reportCount) {
+        this.reportCount = reportCount;
+    }
 
     @Override
     public String toString() {
-        return "post{" +"id= " + id +
+        return "post{" +
+                "id= " + id +
                 ", id_post=" + id_post +
                 ", likes_post=" + likes_post +
                 ", id_creator=" + id_creator +
                 ", title_post='" + title_post + '\'' +
-                ", contenu_post ='" + contenu_post  + '\'' +
+                ", contenu_post='" + contenu_post + '\'' +
                 ", type_post='" + type_post + '\'' +
                 ", Image_post='" + Image_post + '\'' +
                 ", makedate_post='" + makedate_post + '\'' +
                 ", country='" + country + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
+                ", reportCount=" + reportCount + // Include reportCount in toString
                 '}';
     }
-
 
 
 

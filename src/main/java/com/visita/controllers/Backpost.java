@@ -274,7 +274,7 @@ public class Backpost {
         System.out.println("\n" + sc.afficherall());
 
         for (comment c : comments){
-            commetList.add(new comment(c.getId(),c.getId_creatorcom(), c.getId_post_id(),c.getDatecreation_comment(),c.getContenu_comment()));
+            commetList.add(new comment(c.getId(),c.getId_creatorcom(), c.getId_post_id(),c.getDatecreation_comment(),c.getContenu_comment(),c.getReportCount()));
 
             // Add more posts as needed
 

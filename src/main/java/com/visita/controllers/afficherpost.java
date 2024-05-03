@@ -3,6 +3,7 @@ package com.visita.controllers;
 import com.visita.models.Patient;
 import com.visita.models.post;
 import com.visita.models.comment;
+import com.visita.models.Report;
 import com.visita.services.PatientService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,9 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -388,12 +392,63 @@ public class afficherpost {
     }
 
 
+    private void handleReport(int entityId, String entityType) {
+        try {
+            int reportCount;
+            boolean isPost = entityType.equals("post");
+
+            // Increment the report_count in the database
+            if (isPost) {
+                sp.incrementReportCount(entityId);
+                reportCount = sp.getReportCount(entityId);
+            }  else {
+                throw new IllegalArgumentException("Invalid entity type: " + entityType);
+            }
+
+            // Check if the report count has reached the threshold
+            if (reportCount >= 5) {
+                // Delete the post or comment if it reaches the report threshold
+                if (isPost) {
+                    sp.Supprimer(entityId);
+                } else {
+                    sc.Supprimer(entityId);
+                }
+                // Optionally, refresh the UI to reflect the deleted post or comment
+                backToAllPosts();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle any exceptions (e.g., SQL errors) here
+        }
+    }
+
+    private void handleReportAction(int postId, int reporterId, Button reportButton) {
+        // Check if the user has already reported the post
+        if (sp.hasReportedPost(postId, reporterId)) {
+            System.out.println("User has already reported this post.");
+            return;
+        }
+
+        // Add the report
+        boolean success = sp.addReport(postId, reporterId);
+        if (success) {
+            // Hide or disable the report button
+            reportButton.setVisible(false); // or use reportButton.setDisable(true);
+            System.out.println("Post reported successfully. Report button disabled.");
+        } else {
+            System.out.println("Failed to report the post.");
+        }
+    }
+
+
+
+
+
+
     private void showPostDetails(post p) {
 
-        commentInput.setVisible(true);
-        // Clear postContainer to remove previous post details
-        System.out.println(p.getId());
         postContainer.getChildren().clear();
+        commentInput.setVisible(true);
 
         // Create labels for title, type, and description
         Label titleLabel = new Label("Title: " + p.getTitle_post());
@@ -409,20 +464,52 @@ public class afficherpost {
 
         // Create an ImageView for displaying the image
         ImageView imageView = new ImageView(new Image(p.getImage_post()));
-        imageView.setFitWidth(200); // Set width to 200 (adjust as needed)
-        imageView.setFitHeight(200); // Set height to 200 (adjust as needed)
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
 
         // Add all components to a VBox to display them vertically
         VBox postDetails = new VBox(titleLabel, typeLabel, descriptionLabel, imageView, likesLabel);
         postDetails.setAlignment(Pos.CENTER);
-        postDetails.setSpacing(10); // Add spacing between components
+        postDetails.setSpacing(10);
 
+        // Create a Button to report the post
+        Button reportButton = new Button("Report");
+        reportButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+
+        // Check if the user has already reported the post
+        boolean hasReported = sp.hasReportedPost(p.getId(), loggedInPatient.getId());
+
+        // If the user has reported the post, hide the button
+        if (hasReported) {
+            reportButton.setVisible(false);
+        } else {
+            // Otherwise, set an action for the report button
+            reportButton.setOnAction(event -> {
+                handleReport(p.getId(), "post");
+                // Try to add a report
+                boolean success = sp.addReport(p.getId(), loggedInPatient.getId());
+                if (success) {
+                    // Hide the button after the report is successful
+                    reportButton.setVisible(false);
+                    System.out.println("Report submitted successfully.");
+                } else {
+                    System.out.println("Failed to submit report.");
+                }
+            });
+        }
+
+        postDetails.getChildren().add(reportButton);
+        postContainer.getChildren().add(postDetails);
         // Fetch comments for the selected post
         List<comment> comments = sc.affichersingle(p.getId());
 
         // Display comments
 
         VBox commentsContainer = new VBox();
+
+
+
+
 
         for (comment c : comments) {
             // Create a label for the comment
@@ -498,7 +585,7 @@ public class afficherpost {
                 // Filter the new comment
                 newCommentText = CommentFilter.filterComment(newCommentText);
                 // Add new comment logic here
-                sc.ajouter(new comment(loggedInPatient.getId(), p.getId(), "user_name", newCommentText));
+                sc.ajouter(new comment(loggedInPatient.getId(), p.getId(), "user_name", newCommentText,0));
                 showPostDetails(p);
             } else {
                 // Comment length is invalid
@@ -623,6 +710,8 @@ public class afficherpost {
 
 
     private void showPostDetailsuser(post p) {
+
+
         // Clear postContainer to remove previous post details
 
         System.out.println("\n" +p.getId());
@@ -672,7 +761,7 @@ public class afficherpost {
         addCommentButton.setOnAction(event -> {
             String newCommentText = commentInput.getText();
             // Add new comment logic here
-            sc.ajouter(new comment(loggedInPatient.getId(), p.getId(), "aaa",newCommentText));
+            sc.ajouter(new comment(loggedInPatient.getId(), p.getId(), "aaa",newCommentText,0));
             showPostDetails(p);
 
         });

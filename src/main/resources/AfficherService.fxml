@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1129.0" styleClass="secondary-color" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.Controllers.AffichageService">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1129.0" styleClass="secondary-color" stylesheets="@styleservice.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.Controllers.AffichageService">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="982.0">
          <center>
@@ -26,11 +26,11 @@
                <children>
                   <AnchorPane layoutY="6.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="815.0">
                      <children>
-                        <VBox layoutX="311.0" prefHeight="648.0" prefWidth="739.0" styleClass="secondary-color" stylesheets="@style.css">
+                        <VBox layoutX="311.0" prefHeight="648.0" prefWidth="739.0" styleClass="secondary-color" stylesheets="@styleservice.css">
                            <children>
                               <HBox prefHeight="74.0" prefWidth="728.0">
                                  <children>
-                                    <HBox alignment="CENTER" prefHeight="57.0" prefWidth="279.0" styleClass="chosen-fruit-card" stylesheets="@style.css">
+                                    <HBox alignment="CENTER" prefHeight="57.0" prefWidth="279.0" styleClass="chosen-fruit-card" stylesheets="@styleservice.css">
                                        <children>
                                           <VBox alignment="CENTER" prefHeight="100.0" prefWidth="214.0">
                                              <children>
@@ -59,7 +59,7 @@
                                     <Pane prefHeight="58.0" prefWidth="131.0">
                                        <children>
                                           <Pane layoutX="-255.0" layoutY="37.0" prefHeight="34.0" prefWidth="666.0" />
-                                          <Button contentDisplay="GRAPHIC_ONLY" layoutX="49.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleRefreshButton" prefHeight="17.0" prefWidth="11.0" styleClass="chosen-fruit-card" stylesheets="@dashboardDesign.css" text="ref">
+                                          <Button contentDisplay="GRAPHIC_ONLY" layoutX="49.0" layoutY="3.0" mnemonicParsing="false" onAction="#handleRefreshButton" prefHeight="17.0" prefWidth="11.0" styleClass="chosen-fruit-card" stylesheets="@dashboardDesignservice.css" text="ref">
                                              <graphic>
                                                 <ImageView fitHeight="20.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -68,7 +68,7 @@
                                                 </ImageView>
                                              </graphic></Button>
                                        </children></Pane>
-                                    <HBox alignment="CENTER" prefHeight="49.0" prefWidth="282.0" stylesheets="@style.css">
+                                    <HBox alignment="CENTER" prefHeight="49.0" prefWidth="282.0" stylesheets="@styleservice.css">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -78,7 +78,7 @@
                                                 <Image url="@values/output-onlinegiftools(9).gif" />
                                              </image>
                                           </ImageView>
-                                          <TextField fx:id="shearch_service" alignment="CENTER" onKeyReleased="#searchServices" prefHeight="40.0" prefWidth="219.0" promptText="TYPE HERE TO SEARCH" styleClass="transparent" stylesheets="@style.css">
+                                          <TextField fx:id="shearch_service" alignment="CENTER" onKeyReleased="#searchServices" prefHeight="40.0" prefWidth="219.0" promptText="TYPE HERE TO SEARCH" styleClass="transparent" stylesheets="@styleservice.css">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -104,8 +104,8 @@
                                           <Insets bottom="20.0" left="40.0" right="20.0" top="20.0" />
                                        </padding>
                                        <stylesheets>
-                                          <URL value="@style.css" />
-                                          <URL value="@dashboardDesign.css" />
+                                          <URL value="@styleservice.css" />
+                                          <URL value="@dashboardDesignservice.css" />
                                        </stylesheets>
                                        <styleClass>
                                           <String fx:value="secondary-color" />
@@ -122,8 +122,8 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <stylesheets>
-                                    <URL value="@style.css" />
-                                    <URL value="@dashboardDesign.css" />
+                                    <URL value="@styleservice.css" />
+                                    <URL value="@dashboardDesignservice.css" />
                                  </stylesheets>
                               </ScrollPane>
                   
@@ -132,7 +132,7 @@
                               <Insets left="15.0" top="50.0" />
                            </padding>
                         </VBox>
-                        <VBox fx:id="chosenserviceCard" alignment="CENTER" layoutY="114.0" prefHeight="562.0" prefWidth="304.0" stylesheets="@style.css">
+                        <VBox fx:id="chosenserviceCard" alignment="CENTER" layoutY="114.0" prefHeight="562.0" prefWidth="304.0" stylesheets="@styleservice.css">
                            <children>
                               <HBox prefHeight="60.0" prefWidth="335.0">
                                  <children>
@@ -174,7 +174,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
                                  <children>
-                                    <TextArea fx:id="service_description" disable="true" prefHeight="79.0" prefWidth="310.0" styleClass="transparent" stylesheets="style.css" />
+                                    <TextArea fx:id="service_description" disable="true" prefHeight="79.0" prefWidth="310.0" styleClass="transparent" stylesheets="styleservice.css" />
                                  </children>
                               </HBox>
                               <Button fx:id="addreserv_btn" mnemonicParsing="false" onAction="#handleReservationButton" prefHeight="50.0" prefWidth="270.0" text="reservation" textFill="#828282">
@@ -185,8 +185,8 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                                  <stylesheets>
-                                    <URL value="@style.css" />
-                                    <URL value="@dashboardDesign.css" />
+                                    <URL value="@styleservice.css" />
+                                    <URL value="@dashboardDesignservice.css" />
                                  </stylesheets>
                                  <styleClass>
                                     <String fx:value="chosen-fruit-card" />
@@ -199,7 +199,7 @@
                               <String fx:value="shadow" />
                            </styleClass>
                         </VBox>
-                        <Label fx:id="pageNumberLabel" alignment="CENTER" layoutX="678.0" layoutY="658.0" prefHeight="21.0" prefWidth="32.0" stylesheets="@dashboardDesign.css" text="1" textFill="#080000">
+                        <Label fx:id="pageNumberLabel" alignment="CENTER" layoutX="678.0" layoutY="658.0" prefHeight="21.0" prefWidth="32.0" stylesheets="@dashboardDesignservice.css" text="1" textFill="#080000">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -209,9 +209,9 @@
                               <String fx:value="shadow" />
                            </styleClass>
                         </Label>
-                        <Button fx:id="prevPageButton" layoutX="640.0" layoutY="655.0" mnemonicParsing="false" styleClass="free-delivery-card" stylesheets="@dashboardDesign.css" text="&lt;" textFill="#9c3434" />
-                        <Button fx:id="nextPageButton" layoutX="723.0" layoutY="655.0" mnemonicParsing="false" styleClass="free-delivery-card" stylesheets="@dashboardDesign.css" text="&gt;" />
-                        <HBox alignment="CENTER" layoutX="2.0" layoutY="49.0" prefHeight="33.0" prefWidth="300.0" styleClass="chosen-fruit-card" stylesheets="@style.css">
+                        <Button fx:id="prevPageButton" layoutX="640.0" layoutY="655.0" mnemonicParsing="false" styleClass="free-delivery-card" stylesheets="@dashboardDesignservice.css" text="&lt;" textFill="#9c3434" />
+                        <Button fx:id="nextPageButton" layoutX="723.0" layoutY="655.0" mnemonicParsing="false" styleClass="free-delivery-card" stylesheets="@dashboardDesignservice.css" text="&gt;" />
+                        <HBox alignment="CENTER" layoutX="2.0" layoutY="49.0" prefHeight="33.0" prefWidth="300.0" styleClass="chosen-fruit-card" stylesheets="@styleservice.css">
                            <children>
                               <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
                                  <children>
@@ -240,9 +240,9 @@
             </AnchorPane>
          </center>
          <left>
-            <VBox prefHeight="698.0" prefWidth="79.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="698.0" prefWidth="79.0" stylesheets="@styleservice.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -254,7 +254,7 @@
                         <Insets bottom="80.0" />
                      </VBox.margin>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -263,7 +263,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -272,7 +272,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -281,7 +281,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -290,16 +290,25 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@values/icons8-bookmark.gif" />
+                              <Image url="@values/output-onlinegiftools10.gif" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleNewServiceButtonAction" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@values/output-onlinegiftoolsimc.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -311,7 +320,7 @@
                         <Insets top="150.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="logoutButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/style.css" text="Button">
+                  <Button fx:id="logoutButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="55.0" prefWidth="89.0" style="-fx-background-color: transparent;" stylesheets="@/styleservice.css" text="Button">
                      <graphic>
                         <ImageView fitHeight="43.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>

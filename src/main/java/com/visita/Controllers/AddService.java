@@ -607,25 +607,7 @@ public class AddService {
             }
         }
     }
-    /* @FXML
-      private void handleNewServiceButtonAction(ActionEvent event) {
-          try {
-              // Charger le fichier FXML de la page AddService
-              FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddService.fxml"));
-              Parent root = loader.load();
 
-              // Créer une nouvelle scène
-              Scene scene = new Scene(root);
-
-              // Créer une nouvelle fenêtre pour afficher la scène
-              Stage stage = new Stage();
-              stage.setScene(scene);
-              stage.show();
-          } catch (IOException e) {
-              // Gérer les exceptions liées au chargement du fichier FXML
-              e.printStackTrace();
-          }
-      }*/
     @FXML
     private void handleNewServiceButtonAction(ActionEvent event) {
         try {
@@ -712,8 +694,3 @@ public class AddService {
     }
 
 }
-
-
-
-
-

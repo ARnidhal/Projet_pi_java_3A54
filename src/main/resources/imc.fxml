@@ -32,23 +32,23 @@
       </ImageView>
 
         <!-- Weight label and text field -->
-        <Label layoutX="154.0" layoutY="145.0" prefHeight="40.0" prefWidth="104.0" styleClass="doctor-card" stylesheets="@style.css" text="Poids (kg):" />
-        <TextField fx:id="weightTextField" layoutX="304.0" layoutY="150.0" prefWidth="150.0" promptText="Entrez votre poids" stylesheets="@style.css">
+        <Label layoutX="154.0" layoutY="145.0" prefHeight="40.0" prefWidth="104.0" styleClass="doctor-card" stylesheets="@styleservice.css" text="Poids (kg):" />
+        <TextField fx:id="weightTextField" layoutX="304.0" layoutY="150.0" prefWidth="150.0" promptText="Entrez votre poids" stylesheets="@styleservice.css">
          <styleClass>
             <String fx:value="shadow" />
             <String fx:value="secondary-color" />
          </styleClass></TextField>
 
         <!-- Height label and text field -->
-        <Label layoutX="153.0" layoutY="209.0" prefHeight="48.0" prefWidth="104.0" styleClass="doctor-card" stylesheets="@style.css" text="Taille (m):" />
-        <TextField fx:id="heightTextField" layoutX="306.0" layoutY="213.0" prefWidth="150.0" promptText="Entrez votre taille" stylesheets="@style.css">
+        <Label layoutX="153.0" layoutY="209.0" prefHeight="48.0" prefWidth="104.0" styleClass="doctor-card" stylesheets="@styleservice.css" text="Taille (m):" />
+        <TextField fx:id="heightTextField" layoutX="306.0" layoutY="213.0" prefWidth="150.0" promptText="Entrez votre taille" stylesheets="@styleservice.css">
          <styleClass>
             <String fx:value="shadow" />
             <String fx:value="secondary-color" />
          </styleClass></TextField>
 
         <!-- Calculate button -->
-        <Button fx:id="calculateButton" layoutX="306.0" layoutY="280.0" mnemonicParsing="false" onAction="#calculateIMC" prefWidth="140.0" stylesheets="@style.css" text="Calculer">
+        <Button fx:id="calculateButton" layoutX="306.0" layoutY="280.0" mnemonicParsing="false" onAction="#calculateIMC" prefWidth="140.0" stylesheets="@styleservice.css" text="Calculer">
          <styleClass>
             <String fx:value="chosen-fruit-card" />
             <String fx:value="shadow" />
@@ -65,7 +65,7 @@
             <Image url="@values/default_image-removebg-preview.png" />
          </image>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="176.0" layoutY="7.0" prefHeight="103.0" prefWidth="318.0" stylesheets="@style.css">
+      <HBox alignment="CENTER" layoutX="176.0" layoutY="7.0" prefHeight="103.0" prefWidth="318.0" stylesheets="@styleservice.css">
          <children>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
                <children>

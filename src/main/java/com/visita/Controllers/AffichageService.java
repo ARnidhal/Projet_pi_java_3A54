@@ -285,14 +285,6 @@ public class AffichageService implements Initializable {
         selectedServiceIndex = services.indexOf(service);
     }
 
-    /*private void displayServices(List<Service> services) {
-        // Display the filtered Services
-        for (Service service : services) {
-            VBox serviceCard = createServiceCard(service);
-            ServiceListVBox.getChildren().add(serviceCard);
-        }
-        selectedServiceIndex = services.indexOf(service);
-    }*/
 
 
     private void showAlert(String title, String message) {
@@ -382,7 +374,25 @@ public class AffichageService implements Initializable {
     }
 
 
+  @FXML
+      private void handleNewServiceButtonAction(ActionEvent event) {
+          try {
+              // Charger le fichier FXML de la page AddService
+              FXMLLoader loader = new FXMLLoader(getClass().getResource("/imc.fxml"));
+              Parent root = loader.load();
 
+              // Créer une nouvelle scène
+              Scene scene = new Scene(root);
+
+              // Créer une nouvelle fenêtre pour afficher la scène
+              Stage stage = new Stage();
+              stage.setScene(scene);
+              stage.show();
+          } catch (IOException e) {
+              // Gérer les exceptions liées au chargement du fichier FXML
+              e.printStackTrace();
+          }
+      }
 
 
 

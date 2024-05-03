@@ -53,6 +53,7 @@ public class Category {
     public String getIcon() {
         return icon;
     }
+    // Ajoutez une méthode pour obtenir le style CSS complet de l'icône Font Awesome
 
     public void setIcon(String icon) {
         this.icon = icon;

@@ -278,6 +278,7 @@ public class AddCategory  {
         addCategory_col_NAME.setCellValueFactory(new PropertyValueFactory<>("nom"));
         addCategory_col_DESCRIPTION.setCellValueFactory(new PropertyValueFactory<>("description"));
         addCategory_col_ICON.setCellValueFactory(new PropertyValueFactory<>("icon"));
+        //addCategory_col_ICON.setCellFactory(col -> new IconCell());
 
 // Gestionnaire d'événements pour la sélection d'une catégorie dans la TableView
         TableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

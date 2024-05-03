@@ -376,71 +376,7 @@ public class Backresevservice {
     }
 
 
-   /* private void sendReservationNotificationconf(String serviceName, String userEmail, boolean isSuccessful) {
-        // Composing the subject line for the email
-        String subject = isSuccessful ? "New Reservation: " + serviceName : "Reservation Rejection: " + serviceName;
 
-        // Constructing the body of the email
-        String processingMessage = " \n\n *****currently being diligently processed by our team ***** \n\n";
-        String confirmationMessage = " \n\n ***** has been successfully confirmed ***** \n\n";
-        String rejectionMessage = " \n\n *****has been rejected ***** \n\n";
-
-        String statusMessage = isSuccessful ? processingMessage : rejectionMessage;
-        if (isSuccessful) {
-            statusMessage = confirmationMessage;
-        }
-
-        String body = "Dear Valued Customer,\n\nWe extend our sincerest gratitude for choosing our services. It is with great pleasure that we inform you of a recent reservation made for the service: "
-                + serviceName + ".\n\nRest assured, your reservation " + confirmationMessage + ". We endeavor to provide you with a seamless experience and will notify you promptly once your reservation has been confirmed.\n\n"
-                + "Should you require any assistance or have any inquiries regarding your reservation, please do not hesitate to reach out to us. Your satisfaction is our utmost priority.\n\n"
-                + "Thank you for entrusting us with your reservation. We appreciate your patience and understanding.\n\nWarm Regards,\n[VISITA]";
-
-        try {
-            // Sending the email
-            EmailSender.sendEmail(userEmail, subject, body);
-
-            // Notifying the user and providing feedback
-            System.out.println("Email sent successfully!");
-            verf.setText(isSuccessful ? "The reservation has been confirmed. An email notification has been sent to " + userEmail + "." : "Your reservation has been rejected. An email notification has been sent to " + userEmail + ".");
-        } catch (MessagingException e) {
-            // Handling the case where email sending fails
-            System.err.println("Failed to send email: " + e.getMessage());
-            verf.setText("Failed to send notification email. Please contact customer support for assistance.");
-        }
-    }
-
-    private void sendReservationNotificationrej(String serviceName, String userEmail, boolean isSuccessful) {
-        // Composing the subject line for the email
-        String subject = isSuccessful ? "New Reservation: " + serviceName : "Reservation Rejection: " + serviceName;
-
-        // Constructing the body of the email
-        String processingMessage = " \n\n *****currently being diligently processed by our team ***** \n\n";
-        String confirmationMessage = " \n\n ***** has been successfully confirmed ***** \n\n";
-        String rejectionMessage = " \n\n *****has been rejected ***** \n\n";
-
-        String statusMessage = isSuccessful ? processingMessage : rejectionMessage;
-        if (isSuccessful) {
-            statusMessage = confirmationMessage;
-        }
-
-        String body = "Dear Valued Customer,\n\nWe extend our sincerest gratitude for choosing our services. It is with great pleasure that we inform you of a recent reservation made for the service: "
-                + serviceName + ".\n\nRest assured, your reservation " +  rejectionMessage + ". We endeavor to provide you with a seamless experience and will notify you promptly once your reservation has been confirmed.\n\n"
-                + "Should you require any assistance or have any inquiries regarding your reservation, please do not hesitate to reach out to us. Your satisfaction is our utmost priority.\n\n"
-                + "Thank you for entrusting us with your reservation. We appreciate your patience and understanding.\n\nWarm Regards,\n[VISITA]";
-
-        try {
-            // Sending the email
-            EmailSender.sendEmail(userEmail, subject, body);
-
-            // Notifying the user and providing feedback
-            System.out.println("Email sent successfully!");
-            verf.setText(isSuccessful ? "The reservation has been REJECTED . An email notification has been sent to " + userEmail + "." : "THE reservation has been rejected. An email notification has been sent to " + userEmail + ".");
-        } catch (MessagingException e) {
-            // Handling the case where email sending fails
-            System.err.println("Failed to send email: " + e.getMessage());
-            verf.setText("Failed to send notification email. Please contact customer support for assistance.");
-        }
-    }*/
 
     private boolean sendReservationNotificationrej(String serviceName, String userEmail) {
         // SMTP server properties
@@ -662,25 +598,7 @@ public class Backresevservice {
         }
     }
 
-    /* @FXML
-      private void handleNewServiceButtonAction(ActionEvent event) {
-          try {
-              // Charger le fichier FXML de la page AddService
-              FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddService.fxml"));
-              Parent root = loader.load();
 
-              // Créer une nouvelle scène
-              Scene scene = new Scene(root);
-
-              // Créer une nouvelle fenêtre pour afficher la scène
-              Stage stage = new Stage();
-              stage.setScene(scene);
-              stage.show();
-          } catch (IOException e) {
-              // Gérer les exceptions liées au chargement du fichier FXML
-              e.printStackTrace();
-          }
-      }*/
     @FXML
     private void handleNewServiceButtonAction(ActionEvent event) {
         try {

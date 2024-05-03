@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.File;
 import javafx.scene.image.Image;
@@ -18,7 +19,8 @@ public class MainFx  extends Application {
 //backresevservice
 
 
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/imc" +
+
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/AddCategory" +
                 ".fxml"));
         Parent root=loader.load();
         Scene scene=new Scene(root);
@@ -26,6 +28,8 @@ public class MainFx  extends Application {
         primaryStage.setTitle("Ajouter Service");
         primaryStage.show();
         //primaryStage.setMaximized(true);
+
+
     }
 
 

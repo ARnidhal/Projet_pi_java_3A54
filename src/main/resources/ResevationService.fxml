@@ -17,13 +17,13 @@
    <children>
       <BorderPane prefHeight="508.0" prefWidth="689.0">
          <right>
-            <VBox prefHeight="508.0" prefWidth="326.0" styleClass="vbox_background_right" stylesheets="style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="508.0" prefWidth="326.0" styleClass="vbox_background_right" stylesheets="styleservice.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="318.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="105.0" prefWidth="318.0" stylesheets="@style.css">
+                              <HBox alignment="CENTER" prefHeight="105.0" prefWidth="318.0" stylesheets="@styleservice.css">
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
                                        <children>
@@ -58,7 +58,7 @@
                      <children>
                         <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="310.0">
                            <children>
-                              <TextField fx:id="SERVICE_ID_res1" alignment="CENTER" prefHeight="40.0" prefWidth="272.0" promptText="id" stylesheets="@style.css" visible="false">
+                              <TextField fx:id="SERVICE_ID_res1" alignment="CENTER" prefHeight="40.0" prefWidth="272.0" promptText="id" stylesheets="@styleservice.css" visible="false">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -73,7 +73,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="73.0" prefWidth="326.0">
                      <children>
-                        <TextField fx:id="user_NAME_res" alignment="CENTER" prefHeight="40.0" prefWidth="272.0" promptText="  YOUR NAME ...." stylesheets="@style.css">
+                        <TextField fx:id="user_NAME_res" alignment="CENTER" prefHeight="40.0" prefWidth="272.0" promptText="  YOUR NAME ...." stylesheets="@styleservice.css">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -89,7 +89,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="73.0" prefWidth="326.0">
                            <children>
-                              <TextField fx:id="User_Email_resv" alignment="CENTER" prefHeight="40.0" prefWidth="270.0" promptText="\@EMAIL" stylesheets="@style.css">
+                              <TextField fx:id="User_Email_resv" alignment="CENTER" prefHeight="40.0" prefWidth="270.0" promptText="\@EMAIL" stylesheets="@styleservice.css">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -107,7 +107,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="38.0" prefWidth="326.0">
                            <children>
-                              <Button fx:id="Reserver" mnemonicParsing="false" onAction="#handleReservation" prefHeight="30.0" prefWidth="196.0" stylesheets="@style.css" text="RESERVER" textFill="WHITE">
+                              <Button fx:id="Reserver" mnemonicParsing="false" onAction="#handleReservation" prefHeight="30.0" prefWidth="196.0" stylesheets="@styleservice.css" text="RESERVER" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -121,7 +121,7 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="736.0" textFill="#bf1b1b">
+                  <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="736.0" textFill="#47f489">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -130,7 +130,7 @@
             </VBox>
          </right>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox_background_center" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox_background_center" stylesheets="@styleservice.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -161,7 +161,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="121.0" prefWidth="363.0">
                            <children>
-                              <TextField fx:id="Service_Name" alignment="CENTER" editable="false" prefHeight="62.0" prefWidth="310.0" promptText="SERVICE NAME" stylesheets="@style.css">
+                              <TextField fx:id="Service_Name" alignment="CENTER" editable="false" prefHeight="62.0" prefWidth="310.0" promptText="SERVICE NAME" stylesheets="@styleservice.css">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

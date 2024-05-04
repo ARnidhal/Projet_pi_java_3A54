@@ -6,14 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.sql.Connection;
@@ -40,27 +35,61 @@ public class ShowResponseController {
 
     @FXML
     private TableColumn<Response, String> responseDateColumn;
+
+    @FXML
+    private TextField searchField;
+
     @FXML
     private Button refreshButton;
 
 
 
+
     @FXML
     private void initialize() {
-        // Initialize columns
+        // Configuration de la colonne ID
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+
+        // Configuration de la colonne Reclamation ID
         reclamationIdColumn.setCellValueFactory(cellData -> cellData.getValue().reclamationIdProperty().asObject());
+
+        // Configuration de la colonne Author
         authorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
+
+        // Configuration de la colonne Response Content
         responseContentColumn.setCellValueFactory(cellData -> cellData.getValue().responseContentProperty());
+
+        // Configuration de la colonne Response Date
         responseDateColumn.setCellValueFactory(cellData -> cellData.getValue().responseDateProperty().asString());
 
-
-        // Setup action column
+        // Configuration de la colonne Action
         setupActionColumn();
 
-        // Load responses
+        // Ajout d'un écouteur sur le champ de recherche pour filtrer les réponses
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterResponses(newValue);
+        });
+
+        // Chargement des réponses dans le TableView
         loadResponses();
+
+        // Configuration de l'action de rafraîchissement du bouton Refresh
         refreshButton.setOnAction(event -> handleRefresh());
+    }
+
+    private void filterResponses(String searchText) {
+        ObservableList<Response> filteredList = FXCollections.observableArrayList();
+        for (Response response : responseTableView.getItems()) {
+            if (responseContainsText(response, searchText)) {
+                filteredList.add(response);
+            }
+        }
+        responseTableView.setItems(filteredList);
+    }
+    private boolean responseContainsText(Response response, String searchText) {
+        String author = response.getAuthor().toLowerCase();
+        String content = response.getResponseContent().toLowerCase();
+        return author.contains(searchText.toLowerCase()) || content.contains(searchText.toLowerCase());
     }
 
     private void setupActionColumn() {
@@ -135,6 +164,7 @@ public class ShowResponseController {
         }
         responseTableView.setItems(responseList);
     }
+
 
     @FXML
     private void handleUpdateResponse() {

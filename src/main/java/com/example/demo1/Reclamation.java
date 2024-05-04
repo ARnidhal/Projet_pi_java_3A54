@@ -1,7 +1,6 @@
 package com.example.demo1;
 
 import javafx.beans.property.*;
-
 import java.time.LocalDateTime;
 
 public class Reclamation {
@@ -12,8 +11,7 @@ public class Reclamation {
     private final StringProperty sujet;
     private final StringProperty description;
     private final ObjectProperty<LocalDateTime> subdate;
-
-
+    private final StringProperty email; // Nouvelle propriété pour l'e-mail
 
     public Reclamation() {
         this.id = new SimpleIntegerProperty();
@@ -22,9 +20,10 @@ public class Reclamation {
         this.sujet = new SimpleStringProperty();
         this.description = new SimpleStringProperty();
         this.subdate = new SimpleObjectProperty<>();
+        this.email = new SimpleStringProperty(); // Initialiser la propriété email
     }
 
-    // Getters and setters for id
+    // Getters and setters for id, nom, categorie, sujet, description, subdate
     public int getId() {
         return id.get();
     }
@@ -37,7 +36,6 @@ public class Reclamation {
         return id;
     }
 
-    // Getters and setters for nom
     public String getNom() {
         return nom.get();
     }
@@ -50,7 +48,6 @@ public class Reclamation {
         return nom;
     }
 
-    // Getters and setters for categorie
     public String getCategorie() {
         return categorie.get();
     }
@@ -63,7 +60,6 @@ public class Reclamation {
         return categorie;
     }
 
-    // Getters and setters for sujet
     public String getSujet() {
         return sujet.get();
     }
@@ -76,7 +72,6 @@ public class Reclamation {
         return sujet;
     }
 
-    // Getters and setters for description
     public String getDescription() {
         return description.get();
     }
@@ -89,7 +84,6 @@ public class Reclamation {
         return description;
     }
 
-    // Getters and setters for subdate
     public LocalDateTime getSubdate() {
         return subdate.get();
     }
@@ -100,5 +94,18 @@ public class Reclamation {
 
     public ObjectProperty<LocalDateTime> subdateProperty() {
         return subdate;
+    }
+
+    // Getters and setters for email
+    public String getEmail() {
+        return email.get();
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
+    public StringProperty emailProperty() {
+        return email;
     }
 }

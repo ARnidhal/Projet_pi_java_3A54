@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ReclamationDAO {
 
     public static boolean saveReclamationToDatabase(Reclamation reclamation) {
-        String sql = "INSERT INTO reclamation (nom, categorie, sujet, description, subdate) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reclamation (nom, categorie, sujet, description, subdate, email) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, reclamation.getNom());
@@ -16,6 +16,7 @@ public class ReclamationDAO {
             statement.setString(3, reclamation.getSujet());
             statement.setString(4, reclamation.getDescription());
             statement.setObject(5, reclamation.getSubdate());
+            statement.setString(6, reclamation.getEmail()); // Ajout de l'e-mail
 
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
@@ -25,3 +26,4 @@ public class ReclamationDAO {
         }
     }
 }
+

@@ -1,25 +1,30 @@
 package com.example.demo1;
+import java.awt.Desktop;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.Collections;
+import java.util.Comparator;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 public class ShowReclamationController {
 
     @FXML
@@ -38,18 +43,36 @@ public class ShowReclamationController {
     private TableColumn<Reclamation, String> sujetColumn;
 
     @FXML
+    private TextField searchField;
+
+
+    @FXML
     private TableColumn<Reclamation, String> descriptionColumn;
 
     @FXML
     private TableColumn<Reclamation, String> subdateColumn;
+
     @FXML
     private Button backButton;
+
+    @FXML
+    private Button generatePdfButton; // Ajout du bouton pour générer le PDF
+    private ObservableList<Reclamation> sortedReclamations = FXCollections.observableArrayList();
+    // Déclaration de la liste de réclamations triée
+
+    private String nomPrenom; // variable pour stocker les données saisies par l'utilisateur
+
+    // Méthode pour définir les données saisies par l'utilisateur
+    // Méthode pour définir les données saisies par l'utilisateur
+    public void setNomPrenom(String nomPrenom) {
+        this.nomPrenom = nomPrenom;
+        loadReclamations(); // Charger les réclamations filtrées
+    }
 
 
     @FXML
     public void initialize() {
         // Initialize columns
-        idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         nomColumn.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
         categorieColumn.setCellValueFactory(cellData -> cellData.getValue().categorieProperty());
         sujetColumn.setCellValueFactory(cellData -> cellData.getValue().sujetProperty());
@@ -59,8 +82,24 @@ public class ShowReclamationController {
         setupUpdateButtonColumn();
         setupDeleteButtonColumn();
         setupViewResponsesButtonColumn();
+        setupGeneratePDFButtonColumn();
         // Load reclamations
         loadReclamations();
+        // Tri des réclamations
+        sortedReclamations = FXCollections.observableArrayList(reclamationTableView.getItems());
+        Collections.sort(sortedReclamations, Comparator.comparing(Reclamation::getNom)); // Remplacez getNom par le getter approprié pour le champ utilisé pour la recherche
+
+        // Écouteur pour le champ de recherche
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.isEmpty()) {
+                // Si le champ de recherche n'est pas vide, effectuer la recherche
+                searchReclamationBySubject(newValue);
+            } else {
+                // Si le champ de recherche est vide, recharger toutes les réclamations
+                loadReclamations();
+            }
+        });
+        sortedReclamations.addAll(reclamationTableView.getItems());
     }
 
     @FXML
@@ -129,26 +168,30 @@ public class ShowReclamationController {
 
     public void loadReclamations() {
         ObservableList<Reclamation> reclamationList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM reclamation";
+        String sql = "SELECT * FROM reclamation WHERE nom = ?";
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                Reclamation reclamation = new Reclamation();
-                reclamation.setId(resultSet.getInt("id"));
-                reclamation.setNom(resultSet.getString("nom"));
-                reclamation.setCategorie(resultSet.getString("categorie"));
-                reclamation.setSujet(resultSet.getString("sujet"));
-                reclamation.setDescription(resultSet.getString("description"));
-                reclamation.setSubdate(resultSet.getTimestamp("subdate").toLocalDateTime());
-                reclamationList.add(reclamation);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, nomPrenom);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Reclamation reclamation = new Reclamation();
+                    reclamation.setId(resultSet.getInt("id"));
+                    reclamation.setNom(resultSet.getString("nom"));
+                    reclamation.setCategorie(resultSet.getString("categorie"));
+                    reclamation.setSujet(resultSet.getString("sujet"));
+                    reclamation.setDescription(resultSet.getString("description"));
+                    reclamation.setSubdate(resultSet.getTimestamp("subdate").toLocalDateTime());
+                    reclamationList.add(reclamation);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         reclamationTableView.setItems(reclamationList);
+        sortedReclamations.clear(); // Clear the sortedReclamations list
+        sortedReclamations.addAll(reclamationList); // Add all reclamations to the sortedReclamations list
     }
+
 
     private void deleteReclamation(Reclamation reclamation) {
         String sql = "DELETE FROM reclamation WHERE id=?";
@@ -173,6 +216,7 @@ public class ShowReclamationController {
             e.printStackTrace();
         }
     }
+
     private void setupViewResponsesButtonColumn() {
         TableColumn<Reclamation, Void> viewResponsesColumn = new TableColumn<>("Voir Réponses");
         viewResponsesColumn.setCellFactory(param -> new TableCell<>() {
@@ -198,6 +242,7 @@ public class ShowReclamationController {
 
         reclamationTableView.getColumns().add(viewResponsesColumn);
     }
+
     private void openViewResponsesView(Reclamation reclamation) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewResponses.fxml"));
@@ -214,6 +259,7 @@ public class ShowReclamationController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleBack() {
         try {
@@ -235,6 +281,7 @@ public class ShowReclamationController {
         }
 
     }
+
     @FXML
     private void goToMainView(ActionEvent event) {
         // Implement the logic to navigate back to the main view
@@ -251,11 +298,113 @@ public class ShowReclamationController {
         }
     }
 
+    // Méthode pour effectuer une recherche et afficher la réclamation trouvée
+    private void searchReclamationBySubject(String targetSubject) {
+        // Effacer la liste des réclamations
+        reclamationTableView.getItems().clear();
 
+        // Parcourir la liste triée des réclamations
+        for (Reclamation reclamation : sortedReclamations) {
+            // Vérifier si le sujet de la réclamation commence par le texte entré
+            if (reclamation.getSujet().toLowerCase().startsWith(targetSubject.toLowerCase())) {
+                // Ajouter la réclamation correspondante à la table
+                reclamationTableView.getItems().add(reclamation);
+            }
+        }
+    }
+    private void generatePdf() {
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("reclamations.pdf"));
+            document.open();
+            for (Reclamation reclamation : reclamationTableView.getItems()) {
+                document.add(new Paragraph("ID: " + reclamation.getId()));
+                document.add(new Paragraph("Nom: " + reclamation.getNom()));
+                document.add(new Paragraph("Catégorie: " + reclamation.getCategorie()));
+                document.add(new Paragraph("Sujet: " + reclamation.getSujet()));
+                document.add(new Paragraph("Description: " + reclamation.getDescription()));
+                document.add(new Paragraph("Date de soumission: " + reclamation.getSubdate().toString()));
+                document.add(new Paragraph("\n"));
+            }
+            document.close();
+            // Ouvrir le PDF généré avec l'application par défaut
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(new File("reclamations.pdf"));
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void setupGeneratePDFButtonColumn() {
+        TableColumn<Reclamation, Void> generatePDFColumn = new TableColumn<>("Generate PDF");
+        generatePDFColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button generatePDFButton = new Button("Generate PDF");
+
+            {
+                generatePDFButton.setOnAction(event -> {
+                    Reclamation reclamation = getTableView().getItems().get(getIndex());
+                    generatePDF(reclamation);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(generatePDFButton);
+                }
+            }
+        });
+
+        reclamationTableView.getColumns().add(generatePDFColumn);
+    }
+
+    private void generatePDF(Reclamation reclamation) {
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("reclamation_" + reclamation.getId() + ".pdf"));
+            document.open();
+
+            // Titre principal
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24, BaseColor.BLUE);
+            Paragraph title = new Paragraph("Réclamation #" + reclamation.getId(), titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
+            // Séparateur
+            LineSeparator separator = new LineSeparator();
+            separator.setLineColor(BaseColor.LIGHT_GRAY);
+            separator.setLineWidth(2);
+            document.add(new Chunk(separator));
+
+            // Informations de la réclamation
+            Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+            addEmptyLine(document, 1);
+            document.add(new Paragraph("Nom: " + reclamation.getNom(), normalFont));
+            document.add(new Paragraph("Catégorie: " + reclamation.getCategorie(), normalFont));
+            document.add(new Paragraph("Sujet: " + reclamation.getSujet(), normalFont));
+            document.add(new Paragraph("Description: " + reclamation.getDescription(), normalFont));
+            document.add(new Paragraph("Date de soumission: " + reclamation.getSubdate().toString(), normalFont));
+
+            document.close();
+            // Ouvrir le PDF généré avec l'application par défaut
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(new File("reclamation_" + reclamation.getId() + ".pdf"));
+            }
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addEmptyLine(Document document, int number) throws DocumentException {
+        for (int i = 0; i < number; i++) {
+            document.add(new Paragraph(" "));
+        }
+
+    }
 
 
 }
-
-
-
 

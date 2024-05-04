@@ -5,24 +5,20 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.demo1.UpdateResponseFormController"
-      prefWidth="400.0" prefHeight="300.0"
-      style="-fx-background-color: #f4f4f4; -fx-padding: 20; -fx-spacing: 10;">
+<VBox prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: F3CC97FF; -fx-padding: 20; -fx-spacing: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.UpdateResponseFormController">
 
         <!-- Title Label -->
-        <Label text="Update Response" style="-fx-font-size: 18pt; -fx-font-weight: bold;"/>
+        <Label prefHeight="35.0" prefWidth="202.0" style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Update Response" />
 
         <!-- Response Content Label -->
-        <Label text="Response Content:" style="-fx-font-size: 14pt;"/>
+        <Label style="-fx-font-size: 14pt;" text="Response Content:" />
 
         <!-- Response Content TextArea -->
-        <TextArea fx:id="responseContentTextArea" prefWidth="300.0" prefHeight="200.0" style="-fx-font-size: 14pt;"/>
+        <TextArea fx:id="responseContentTextArea" prefHeight="200.0" prefWidth="300.0" style="-fx-font-size: 14pt;" />
 
         <!-- Buttons -->
         <VBox alignment="CENTER" spacing="10">
-                <Button text="Save" onAction="#handleSave" style="-fx-font-size: 14pt; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
-                <Button text="Cancel" onAction="#handleCancel" style="-fx-font-size: 14pt; -fx-background-color: #FF6347; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
+                <Button onAction="#handleSave" prefHeight="43.0" prefWidth="86.0" style="-fx-font-size: 14pt; -fx-background-color: #3e005d; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;" text="Save" />
+                <Button onAction="#handleCancel" style="-fx-font-size: 14pt; -fx-background-color: #3e005d; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;" text="Cancel" />
         </VBox>
 </VBox>

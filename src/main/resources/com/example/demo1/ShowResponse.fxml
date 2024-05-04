@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.fxml.FXML?>
-<?import javafx.fxml.Initializable?>
-<?import com.example.demo1.ShowResponseController?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo1.ShowResponseController" style="-fx-background-color: #f4f4f4;">
-    <TableView fx:id="responseTableView" VBox.vgrow="ALWAYS" prefHeight="340.0" prefWidth="580.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px;">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      prefHeight="400.0" prefWidth="600.0"
+      fx:controller="com.example.demo1.ShowResponseController"
+      style="-fx-background-color: #f4f4f4;">
+    <!-- Champ de recherche -->
+    <TextField fx:id="searchField" promptText="Search..." prefWidth="580.0"
+               style="-fx-background-radius: 5px; -fx-padding: 8px;" />
+    <!-- TableView -->
+    <TableView fx:id="responseTableView" VBox.vgrow="ALWAYS" prefHeight="300.0" prefWidth="580.0"
+               style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px;">
+        <!-- Colonnes -->
         <columns>
             <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="reclamationIdColumn" prefWidth="100.0" text="Reclamation ID" />
             <TableColumn fx:id="authorColumn" prefWidth="150.0" text="Author" />
             <TableColumn fx:id="responseContentColumn" prefWidth="200.0" text="Response Content" />
             <TableColumn fx:id="responseDateColumn" prefWidth="155.0" text="Response Date" />
+            <!-- Colonne Action -->
+            <TableColumn prefWidth="100.0" text="Action">
+                <cellValueFactory>
+                    <PropertyValueFactory property="action" />
+                </cellValueFactory>
+            </TableColumn>
         </columns>
     </TableView>
-
-    <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefresh" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;"/>
+    <!-- Bouton Refresh -->
+    <Button fx:id="refreshButton" text="Refresh"
+            style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px;" />
 </VBox>

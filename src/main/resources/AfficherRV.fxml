@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="619.0" prefWidth="877.0" style="-fx-background-color: #F0EEE9;" stylesheets="@CSS/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AfficherRV">
+   <children>
+      <TableView fx:id="tableview" layoutX="9.0" layoutY="187.0" prefHeight="111.0" prefWidth="862.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="6.0">
+         <columns>
+            <TableColumn fx:id="IDRV" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="doctor" prefWidth="75.0" text="Doctor" />
+            <TableColumn fx:id="fullname" prefWidth="75.0" text="Fullname" />
+            <TableColumn fx:id="phone" prefWidth="75.0" text="Phone" />
+            <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="time" prefWidth="75.0" text="Time" />
+            <TableColumn fx:id="note" minWidth="20.0" prefWidth="139.20004272460938" text="Note" />
+            <TableColumn fx:id="etat" text="Etat" />
+            <TableColumn fx:id="email" prefWidth="96.0" text="Email" />
+            <TableColumn fx:id="report" prefWidth="89.5999755859375" text="Report" />
+         </columns>
+      </TableView>
+      <ImageView fitHeight="79.0" fitWidth="200.0" layoutX="367.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/download.jpg" />
+         </image>
+      </ImageView>
+      <ButtonBar layoutX="527.0" layoutY="333.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button fx:id="btnback" mnemonicParsing="false" onAction="#backPage" text="Back" />
+            <Button fx:id="btndelete" mnemonicParsing="false" onAction="#deleteRV" text="Delete" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

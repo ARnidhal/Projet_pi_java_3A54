@@ -53,3 +53,10 @@
 .text-area-custom {
     -fx-background-color: #F16C31;
 }
+
+.text-field1 {
+
+    -fx-background-color: #f5efe6;
+    -fx-background-radius: 100;
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}

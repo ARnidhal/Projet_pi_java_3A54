@@ -1,4 +1,4 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

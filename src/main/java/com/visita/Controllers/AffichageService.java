@@ -1,5 +1,5 @@
-package com.visita.Controllers;
-import  com.visita.Controllers.ResevationService;
+package com.visita.controllers;
+import  com.visita.controllers.ResevationService;
 import com.visita.models.Category;
 import com.visita.models.ReservationService;
 import com.visita.models.Service;

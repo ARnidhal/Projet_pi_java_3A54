@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="508.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.Controllers.ResevationService">
+<AnchorPane prefHeight="508.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.controllers.ResevationService">
    <children>
       <BorderPane prefHeight="508.0" prefWidth="689.0">
          <right>
@@ -154,7 +154,7 @@
                            <children>
                               <ImageView fx:id="ServiceIMG" fitHeight="176.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../Desktop/img/banner-Gynecology-Clinic2.jpg" />
+                                    <Image url="@values/ban.png" />
                                  </image>
                               </ImageView>
                            </children>

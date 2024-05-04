@@ -1,4 +1,4 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 
 public class ImcR2 {
 }

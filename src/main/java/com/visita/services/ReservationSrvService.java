@@ -69,7 +69,7 @@ public class ReservationSrvService implements IReservationService<ReservationSer
 
         String req = "SELECT rs.*, s.nom AS service_nom " +
                 "FROM reservationservice rs " +
-                "INNER JOIN service s ON rs.idservice_id = s.id"; // Requête SQL avec la jointure
+                "INNER JOIN service s ON rs.idserivce_id = s.id"; // Requête SQL avec la jointure
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);

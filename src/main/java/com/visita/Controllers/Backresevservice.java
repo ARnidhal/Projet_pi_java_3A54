@@ -1,4 +1,4 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -22,7 +22,7 @@ import javafx.stage.FileChooser;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import com.visita.Controllers.Chartreservation;
+import com.visita.controllers.Chartreservation;
 import com.visita.models.ReservationService;
 import com.visita.models.Service;
 import com.visita.services.Categoryservice;
@@ -441,10 +441,10 @@ public class Backresevservice {
             Parent root = loader.load();
 
             // Récupérer le contrôleur Chartreservation
-            Chartreservation chartController = loader.getController();
+            Chartreservation chartcontroller = loader.getController();
 
             // Appeler la méthode showReservationStatistics pour mettre à jour le bar chart
-            chartController.showReservationStatistics();
+            chartcontroller.showReservationStatistics();
 
             // Créer une nouvelle scène
             Scene scene = new Scene(root);

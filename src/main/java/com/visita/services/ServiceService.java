@@ -13,11 +13,11 @@ import java.util.List;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class ServiceService implements IService<Service> {
+public class ServiceService  {
 
     private Connection connection = DataSource.getInstance().getConnection();
 
-    @Override
+
     public void ajouter(Service service) {
         String req = "INSERT INTO `service`(`nom`, `description`, `date_cr`, `image`, `id_categorie_id`, `active`) VALUES (?, ?, ?, ?, ?, ?);";
 
@@ -39,7 +39,7 @@ public class ServiceService implements IService<Service> {
     }
 
 
-    @Override
+
     public void supprimer(Service service) {
         String req = "DELETE FROM `service` WHERE `service`.`id` = ?;";
         try {
@@ -52,7 +52,7 @@ public class ServiceService implements IService<Service> {
         }
     }
 
-    @Override
+
     public void modifier(Service service) {
         String req = "UPDATE `service` SET `nom` = ?, `description` = ?, `date_cr` = ?,`image` = ?, `id_categorie_id` = ?, `active` = ? WHERE `service`.`id` = ?;";
         try {
@@ -71,7 +71,7 @@ public class ServiceService implements IService<Service> {
         }
     }
 
-    @Override
+
     public List<Service> afficher() {
         List<Service> services = new ArrayList<>();
 

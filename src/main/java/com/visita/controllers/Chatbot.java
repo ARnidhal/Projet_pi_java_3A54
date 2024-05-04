@@ -1,5 +1,7 @@
 package com.visita.controllers;
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,20 +9,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import com.visita.models.Patient;
 import com.visita.models.User;
+import javafx.stage.Window;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.visita.services.PatientService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -31,6 +31,14 @@ import java.util.Scanner;
 public class Chatbot implements Initializable {
     @FXML
     private TextField questionField;
+    @FXML
+    private ScrollPane responseScrollPane;
+    @FXML
+    private Button readChatAnswer;
+    private boolean isSpeaking = false;
+
+    private Thread textToSpeechThread;
+
 
     @FXML
     private TextArea responseField;
@@ -75,84 +83,205 @@ public class Chatbot implements Initializable {
         alert.showAndWait();
     }
 
-    public boolean isHealthQuestion(String question) {
-        // Define health-related keywords
-        String[] healthKeywords = {
-                "health", "medical", "doctor", "hospital", "wellness", "fitness", "nutrition",
-                "disease", "illness", "symptoms", "treatment", "therapy", "diagnosis", "medicine",
-                "vaccine", "infection", "exercise", "diet", "mental health", "physical health",
-                "public health", "healthy lifestyle", "healthcare", "pharmacy", "immunity", "pandemic",
-                "emergency", "surgery", "prescription", "checkup", "virus", "bacteria", "contagious",
-                "recovery", "pain", "stress", "chronic", "acute", "blood pressure", "heart rate",
-                "respiratory", "immune system", "cancer", "stroke", "diabetes", "allergy", "asthma",
-                "obesity", "nutrition", "sleep", "dietary", "mental illness", "addiction", "vaccination",
-                "pandemic", "epidemic", "quarantine", "pandemic", "outbreak", "coronavirus", "COVID-19",
-                // Add more health-related keywords here
-                "hospice", "hypertension", "hormones", "anxiety", "depression", "alcoholism", "smoking",
-                "tobacco", "sugar intake", "sugar levels", "exercise routine", "workout plan", "mental wellness",
-                "physical therapy", "occupational therapy", "cardiovascular health", "blood sugar", "glucose levels",
-                "immune response", "viral infection", "bacterial infection", "cognitive health", "brain health",
-                "neurological disorders", "digestive health", "gastrointestinal issues", "hydration", "water intake",
-                "health screening", "preventive care", "medical history", "family medical history", "chronic condition",
-                "acute condition", "acute care", "chronic care", "chronic disease", "respiratory infection",
-                "respiratory illness", "heart disease", "heart condition", "lung health", "kidney health",
-                "liver health", "bone health", "osteoporosis", "arthritis", "joint pain", "muscle pain",
-                "menstrual health", "menstrual cycle", "menopause", "reproductive health", "sexual health",
-                "sexual wellness", "pregnancy", "fertility", "contraception", "birth control", "STDs", "STIs",
-                "sexually transmitted diseases", "sexually transmitted infections", "mental wellbeing",
-                "emotional health", "stress management", "mental resilience", "emotional resilience",
-                "substance abuse", "drug addiction", "drug abuse", "alcohol addiction", "alcohol abuse",
-                "nutritional supplements", "vitamins", "minerals", "nutrient intake", "dietary supplements"
-        };
-
-        // Check if any of the keywords appear in the question
-        for (String keyword : healthKeywords) {
-            if (question.toLowerCase().contains(keyword.toLowerCase())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+    private String[] healthKeywords = {
+            "health", "medical", "doctor", "hospital", "wellness", "fitness", "nutrition",
+            "disease", "illness", "symptoms", "treatment", "therapy", "diagnosis", "medicine",
+            "vaccine", "infection", "exercise", "diet", "mental health", "physical health",
+            "public health", "healthy lifestyle", "healthcare", "pharmacy", "immunity", "pandemic",
+            "emergency", "surgery", "prescription", "checkup", "virus", "bacteria", "contagious",
+            "recovery", "pain", "stress", "chronic", "acute", "blood pressure", "heart rate",
+            "respiratory", "immune system", "cancer", "stroke", "diabetes", "allergy", "asthma",
+            "obesity", "nutrition", "sleep", "dietary", "mental illness", "addiction", "vaccination",
+            "pandemic", "epidemic", "quarantine", "pandemic", "outbreak", "coronavirus", "COVID-19",
+            // Add more health-related keywords here
+            "hospice", "hypertension", "hormones", "anxiety", "depression", "alcoholism", "smoking",
+            "tobacco", "sugar intake", "sugar levels", "exercise routine", "workout plan", "mental wellness",
+            "physical therapy", "occupational therapy", "cardiovascular health", "blood sugar", "glucose levels",
+            "immune response", "viral infection", "bacterial infection", "cognitive health", "brain health",
+            "neurological disorders", "digestive health", "gastrointestinal issues", "hydration", "water intake",
+            "health screening", "preventive care", "medical history", "family medical history", "chronic condition",
+            "acute condition", "acute care", "chronic care", "chronic disease", "respiratory infection",
+            "respiratory illness", "heart disease", "heart condition", "lung health", "kidney health",
+            "liver health", "bone health", "osteoporosis", "arthritis", "joint pain", "muscle pain",
+            "menstrual health", "menstrual cycle", "menopause", "reproductive health", "sexual health",
+            "sexual wellness", "pregnancy", "fertility", "contraception", "birth control", "STDs", "STIs",
+            "sexually transmitted diseases", "sexually transmitted infections", "mental wellbeing",
+            "emotional health", "stress management", "mental resilience", "emotional resilience",
+            "substance abuse", "drug addiction", "drug abuse", "alcohol addiction", "alcohol abuse",
+            "nutritional supplements", "vitamins", "minerals", "nutrient intake", "dietary supplements"
+    };
 
 
 
     @FXML
     void submitQuestion(ActionEvent event) {
+        // Clear the response field and stop any ongoing typing animation
+        responseField.clear();
+
         // Get the question entered by the user
         String question = questionField.getText().trim();
 
         // Check if the question is related to health
         if (isHealthQuestion(question)) {
             // If it's a health-related question, proceed to get the chatbot response
-            String response = getChatbotResponse(question);
+            String response = getChatbotResponse("Answer me in Healthcare Field " + question);
 
-            // Clear the response field before typing the response
-            responseField.clear();
+            // Clear the question field
+            questionField.clear();
 
-            // Simulate typing effect by gradually updating the response field
-            Timeline timeline = new Timeline();
-            for (int i = 0; i < response.length(); i++) {
-                final int index = i;
-                KeyFrame keyFrame = new KeyFrame(Duration.millis(i * 50), event1 -> {
-                    responseField.appendText(String.valueOf(response.charAt(index)));
-                });
-                timeline.getKeyFrames().add(keyFrame);
-            }
-            timeline.play();
+            // Append the question bubble to the response field
+            appendBubble("You", question);
+
+            // Append the response bubble to the response field
+            appendBubble("Chatbot", response);
+
+            // Scroll to the bottom of the response field
+            responseField.positionCaret(responseField.getLength());
+            responseField.selectPositionCaret(responseField.getLength());
+            responseField.deselect();
+
         } else {
             // If it's not a health-related question, display an error message or handle it accordingly
-            responseField.setText("Error: Please enter a question related to health.");
+            responseField.setText("Please enter a question related to health.");
         }
     }
 
 
+    @FXML
+    void readChatAnswer(ActionEvent event) {
+        // Toggle the speaking flag
+        isSpeaking = !isSpeaking;
+
+        // Get the text from the response field
+        String response = responseField.getText();
+
+        // Check if there's text to read aloud
+        if (!response.isEmpty()) {
+            if (isSpeaking) {
+                // If speech is currently active and no thread is running, start reading aloud
+                if (textToSpeechThread == null || !textToSpeechThread.isAlive()) {
+                    readAloud(response);
+                }
+            } else {
+                // If speech is not active, stop the text-to-speech process
+                stopTextToSpeech();
+            }
+        }
+    }
+
+
+
+    private void readAloud(String text) {
+        // Load the Kevin voice directory
+        KevinVoiceDirectory kevinVoiceDirectory = new KevinVoiceDirectory();
+
+        // Get the Kevin voice from the directory
+        Voice kevinVoice = kevinVoiceDirectory.getVoices()[0]; // Assuming "kevin" is the first voice
+
+        // Allocate the voice resources
+        kevinVoice.allocate();
+
+        // Start the text-to-speech process in a background thread
+        textToSpeechThread = new Thread(() -> {
+            // Speak the text
+            kevinVoice.speak(text);
+
+            // Deallocate the voice resources
+            kevinVoice.deallocate();
+        });
+
+        // Start the background thread
+        textToSpeechThread.start();
+    }
+
+    private void stopTextToSpeech() {
+        // Check if the background thread is running
+        if (textToSpeechThread != null && textToSpeechThread.isAlive()) {
+            // Interrupt the background thread to stop the text-to-speech process
+            textToSpeechThread.interrupt();
+        }
+    }
+    private boolean isHealthQuestion(String question) {
+        // Normalize the question
+        String normalizedQuestion = question.toLowerCase();
+        // Set a threshold for the maximum allowed distance
+        int threshold = 999; // Increase the threshold
+        // Initialize Levenshtein distance calculator
+        LevenshteinDistance levenshteinDistance = LevenshteinDistance.getDefaultInstance();
+
+        // Check if any of the keywords appear in the normalized question
+        for (String keyword : healthKeywords) {
+            // Normalize the keyword
+            String normalizedKeyword = keyword.toLowerCase();
+            // Calculate the Levenshtein distance between the normalized question and keyword
+            int distance = levenshteinDistance.apply(normalizedQuestion, normalizedKeyword);
+            // If the distance is within the threshold, consider it a match
+            if (distance <= threshold) {
+                return true;
+            }
+            // Print debug information
+            System.out.println("Normalized Question: " + normalizedQuestion);
+            System.out.println("Keyword: " + normalizedKeyword);
+            System.out.println("Distance: " + distance);
+
+        }
+        return false;
+    }
+
+
+    private int min(int a, int b, int c) {
+        return Math.min(a, Math.min(b, c));
+    }
+
+    private void appendBubble(String sender, String message) {
+        // Append the bubble with appropriate style class
+        if (sender.equals("You")) {
+            responseField.appendText(sender + ":\n" + message + "\n");
+            responseField.getStyleClass().add("text-area-user");
+        } else {
+            responseField.appendText(sender + ":\n" + message + "\n");
+            responseField.getStyleClass().add("text-area-chatbot");
+        }
+
+        // Append newline for separation
+        responseField.appendText("\n");
+    }
+
+
+    private void animateTyping(String response) {
+        Timeline timeline = new Timeline();
+        for (int i = 0; i < response.length(); i++) {
+            final int index = i;
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(i * 50), event -> {
+                responseField.appendText(String.valueOf(response.charAt(index)));
+
+                // Check if it's the last character of the response
+                if (index == response.length() - 1) {
+                    // After the response is fully displayed, adjust the height of the ScrollPane
+                    double textHeight = responseField.getHeight();
+                    responseScrollPane.setPrefViewportHeight(textHeight + 10); // Add some padding
+                }
+            });
+            timeline.getKeyFrames().add(keyFrame);
+        }
+        timeline.play();
+    }
+
+
+
+
+
+
+
+
+
     private String getChatbotResponse(String question) {
-        String apiKey = "sk-proj-UioNvhzJXDCgvrJXuJhoT3BlbkFJzwPbrxcr6dHo83DCm988"; // Replace with your OpenAI API key
+
+        String apiKey = "sk-proj-Nlk26UWdxAWhQWXcgfO3T3BlbkFJnFTDWn1iqIMSTmHMxi4r"; // Replace with your OpenAI API key
         String apiUrl = "https://api.openai.com/v1/completions";
         try {
             // Prepare the request body
-            String requestBody = "{\"prompt\": \"" + question + "\", \"max_tokens\": 150, \"model\": \"gpt-3.5-turbo-instruct\"}";
+            String requestBody = "{\"prompt\": \"" + question + "\", \"max_tokens\": 250, \"model\": \"gpt-3.5-turbo-instruct\"}";
 
             // Create HttpURLConnection
             URL url = new URL(apiUrl);
@@ -197,6 +326,7 @@ public class Chatbot implements Initializable {
             return "Error: Failed to communicate with the chatbot API";
         }
     }
+
 
     private String extractResponse(String responseBody) {
         try {
@@ -273,4 +403,37 @@ public class Chatbot implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    void RedirectToDoctorProfile(ActionEvent event) throws IOException {
+        if (loggedInPatient != null) {
+
+            RedirectToTableViewAdminUser(event, loggedInPatient);
+        } else {
+            showAlert("Error", "Logged in admin is null.");
+        }
+    }
+
+
+    private void RedirectToTableViewAdminUser(ActionEvent event, User user) throws IOException {
+        if (user instanceof Patient) {
+            Window window = ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ShowDoctor.fxml"));
+            Parent root = loader.load();
+
+            ShowDoctor adminTableViewController = loader.getController();
+            adminTableViewController.setLoggedInPatient((Patient) user);
+
+            Stage stage = (Stage) window;
+
+            // Set the new scene
+            stage.setScene(new Scene(root));
+        } else {
+            showAlert("Error", "Logged in user is not a patient.");
+        }
+    }
+
+
+
 }

@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import com.visita.models.Patient;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.visita.services.PatientService;
 
@@ -32,9 +33,6 @@ public class Signup {
 
     @FXML
     private TextField fullname;
-
-    public Signup() {
-    }
 
     @FXML
     private Label SignupMessageLabel;
@@ -54,7 +52,7 @@ public class Signup {
     @FXML
     private Label confirmPasswordLabel;
 
-
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private PatientService patientService = new PatientService();
 
 
@@ -85,11 +83,11 @@ public class Signup {
                     if (Patient.isValidPhoneNumber(enteredPhone)) {
                         if (Patient.isValidPassword(enteredPassword)) {
                             if (Patient.isValidFullname(enteredFullname)) {
-                                String encryptedPassword = encryptPassword(enteredPassword);
+                                String encodedPassword = passwordEncoder.encode(enteredPassword);
 
                                 // Try to encode the password, and handle exceptions
-                                if (encryptedPassword != null && !encryptedPassword.isEmpty()) {
-                                    patientService.ajouter(new Patient(enteredUsername, enteredEmail, enteredPhone, encryptedPassword, "1", imagePath, new String[]{"user"}, enteredFullname));
+                                if (encodedPassword != null && !encodedPassword.isEmpty()) {
+                                    patientService.ajouter(new Patient(enteredUsername, enteredEmail, enteredPhone, encodedPassword, "1", imagePath, new String[]{"user"}, enteredFullname));
                                     SignupMessageLabel.setText("User has been added successfully!");
 
                                     // Clear the text fields
@@ -109,7 +107,7 @@ public class Signup {
                             SignupMessageLabel.setText("Please enter a valid password (minimum length 6)!");
                         }
                     } else {
-                        SignupMessageLabel.setText("Please enter a valid phone number (length 8)!");
+                        SignupMessageLabel.setText("Please enter a valid phone number (length 😎!");
                     }
                 } else {
                     SignupMessageLabel.setText("Please enter a valid email address!");

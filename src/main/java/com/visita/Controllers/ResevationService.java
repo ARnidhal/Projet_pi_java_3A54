@@ -1,4 +1,4 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 import com.visita.models.ReservationService;
 import com.visita.services.ReservationSrvService;
 import javax.mail.*;

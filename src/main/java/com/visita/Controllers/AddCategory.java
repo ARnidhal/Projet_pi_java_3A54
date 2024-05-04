@@ -1,4 +1,4 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 import com.visita.models.Category;
 import com.visita.services.ServiceService;
 import javafx.animation.FadeTransition;

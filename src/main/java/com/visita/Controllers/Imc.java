@@ -1,4 +1,4 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

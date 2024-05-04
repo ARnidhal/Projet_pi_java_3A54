@@ -14,6 +14,7 @@ module Test{
     requires java.mail;
     requires com.google.api.client;
     requires org.apache.commons.text;
+    requires stripe.java;
     opens com.visita.controllers;
     opens com.visita.models;
     opens com.visita.services;

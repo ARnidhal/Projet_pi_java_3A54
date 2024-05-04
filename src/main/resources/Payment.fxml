@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="709.0" prefWidth="1255.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.processPayment">
+<AnchorPane prefHeight="738.0" prefWidth="1272.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.processPayment">
    <children>
-      <HBox layoutX="-1.0" prefHeight="44.0" prefWidth="1263.0" style="-fx-background-color: #77B5FE;">
+      <HBox layoutX="-1.0" prefHeight="44.0" prefWidth="1350.0" style="-fx-background-color: #77B5FE;">
          <children>
             <Label prefHeight="18.0" prefWidth="184.0" text=". . ." textFill="WHITE">
                <HBox.margin>
@@ -43,14 +43,14 @@
             </Button>
          </children>
       </HBox>
-      <TextField fx:id="idcard" layoutX="828.0" layoutY="377.0" prefHeight="26.0" prefWidth="227.0" promptText="CARD" />
-      <TextField fx:id="bankid" layoutX="828.0" layoutY="241.0" prefHeight="26.0" prefWidth="227.0" promptText="Bank account" />
-      <TextField fx:id="securityid" layoutX="828.0" layoutY="317.0" prefHeight="26.0" prefWidth="227.0" promptText="Security Code" />
-      <TextField fx:id="postalid" layoutX="828.0" layoutY="439.0" prefHeight="26.0" prefWidth="227.0" promptText="Postal code" />
-      <DatePicker layoutX="828.0" layoutY="500.0" prefHeight="26.0" prefWidth="227.0" promptText="Expiration date" />
-      <TextField layoutX="830.0" layoutY="562.0" prefHeight="26.0" prefWidth="227.0" promptText="Country" />
+      <TextField fx:id="idcard" layoutX="828.0" layoutY="377.0" prefHeight="26.0" prefWidth="227.0" promptText="CARD" styleClass="text-field1" stylesheets="@CSS/stylefront.css" />
+      <TextField fx:id="bankid" layoutX="828.0" layoutY="241.0" prefHeight="26.0" prefWidth="227.0" promptText="Bank account" styleClass="text-field1" stylesheets="@CSS/stylefront.css" />
+      <TextField fx:id="securityid" layoutX="828.0" layoutY="317.0" prefHeight="26.0" prefWidth="227.0" promptText="Security Code" styleClass="text-field1" stylesheets="@CSS/stylefront.css" />
+      <TextField fx:id="postalid" layoutX="828.0" layoutY="439.0" prefHeight="26.0" prefWidth="227.0" promptText="Postal code" styleClass="text-field1" stylesheets="@CSS/stylefront.css" />
+      <DatePicker layoutX="828.0" layoutY="500.0" prefHeight="26.0" prefWidth="227.0" promptText="Expiration date" styleClass="text-field1" stylesheets="@CSS/stylefront.css" />
+      <TextField layoutX="830.0" layoutY="562.0" prefHeight="26.0" prefWidth="227.0" promptText="Country" styleClass="text-field1" stylesheets="@CSS/stylefront.css" />
       <ButtonBar layoutX="213.0" layoutY="412.0" prefHeight="40.0" prefWidth="200.0" />
-      <VBox layoutX="-1.0" layoutY="44.0" prefHeight="666.0" prefWidth="632.0" style="-fx-background-color: #F0F0F2;">
+      <VBox layoutX="-1.0" layoutY="44.0" prefHeight="693.0" prefWidth="632.0" style="-fx-background-color: #F0F0F2;">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>

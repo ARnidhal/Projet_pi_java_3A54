@@ -118,7 +118,7 @@ public class CrudRapport
 
 
             }
-            else {
+          /*  else {
                 // Réinitialiser les champs texte si aucune ligne n'est sélectionnée
                 //medecinid.clear();
                 noteid.clear();
@@ -127,6 +127,8 @@ public class CrudRapport
               // rendezvousid.clear();
 
             }
+
+           */
         }
         );
         refreshChoiceBox();

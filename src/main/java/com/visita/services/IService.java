@@ -14,5 +14,4 @@ public interface IService<T> {
     public void switchToUser(T t);
     public void switchToAdmin(T t);
     public List<T> afficher() throws SQLException;
-
 }

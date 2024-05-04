@@ -1,4 +1,4 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -13,58 +13,28 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.io.File;
-import javafx.stage.FileChooser;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import com.visita.Controllers.Chartreservation;
 import com.visita.models.ReservationService;
-import com.visita.models.Service;
-import com.visita.services.Categoryservice;
 import com.visita.services.ReservationSrvService;
-import com.visita.models.Category;
-import com.visita.services.ServiceService;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.Group;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.sql.Date;
 import java.util.*;
 import java.util.List;
 
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Tooltip;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.paint.Color;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Window;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;

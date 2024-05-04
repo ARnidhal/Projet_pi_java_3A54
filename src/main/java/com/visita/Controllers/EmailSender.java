@@ -1,8 +1,5 @@
-package com.visita.Controllers;
-import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+package com.visita.controllers;
+
 public class EmailSender {
     public static final String SMTP_HOST = "smtp.gmail.com"; // Gmail SMTP server host
     public static final int SMTP_PORT = 587; // Gmail SMTP server port

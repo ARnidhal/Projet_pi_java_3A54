@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1129.0" styleClass="secondary-color" stylesheets="@styleservice.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.Controllers.AffichageService">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="1129.0" styleClass="secondary-color" stylesheets="@styleservice.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.controllers.AffichageService">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="982.0">
          <center>
@@ -63,7 +63,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="20.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@values/recent%20maches.png" />
+                                                      <Image url="@values/recent maches.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic></Button>

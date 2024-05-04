@@ -1,27 +1,20 @@
-package com.visita.Controllers;
+package com.visita.controllers;
 import com.visita.models.ReservationService;
 import com.visita.services.ReservationSrvService;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import com.visita.models.Category;
 import com.visita.models.Service;
-import com.visita.services.Categoryservice;
 import com.visita.services.ServiceService;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
+
 import java.util.Properties;
-import java.io.IOException;
-import java.util.List;
 
 
 public class ResevationService {

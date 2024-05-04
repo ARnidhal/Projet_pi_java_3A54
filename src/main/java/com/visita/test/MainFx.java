@@ -20,14 +20,14 @@ public class MainFx  extends Application {
 
 
 
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/AddCategory" +
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/AddService" +
                 ".fxml"));
         Parent root=loader.load();
         Scene scene=new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Ajouter Service");
         primaryStage.show();
-        //primaryStage.setMaximized(true);
+
 
 
     }

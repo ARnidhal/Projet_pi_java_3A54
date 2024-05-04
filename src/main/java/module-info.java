@@ -8,7 +8,7 @@ module Test{
     requires org.apache.poi.ooxml;
     requires java.mail;
     requires com.google.api.client;
-    opens com.visita.Controllers;
+    opens com.visita.controllers;
     opens com.visita.models;
     opens com.visita.services;
     opens com.visita.test;

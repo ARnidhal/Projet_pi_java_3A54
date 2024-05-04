@@ -1,9 +1,5 @@
-package com.visita.Controllers;
-import  com.visita.Controllers.ResevationService;
-import com.visita.models.Category;
-import com.visita.models.ReservationService;
+package com.visita.controllers;
 import com.visita.models.Service;
-import com.visita.services.Categoryservice;
 import com.visita.services.ServiceService;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
@@ -20,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.effect.DropShadow;
-import javafx.animation.FadeTransition;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 

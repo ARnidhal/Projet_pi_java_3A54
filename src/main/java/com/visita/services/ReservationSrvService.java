@@ -19,7 +19,7 @@ public class ReservationSrvService implements IReservationService<ReservationSer
 
     @Override
     public void ajouter(ReservationService resvationsr) {
-        String req = "INSERT INTO `reservationservice`( `idservice_id`, `nom`, `email`) VALUES (?, ?, ?);";
+        String req = "INSERT INTO `reservationservice`( `idserivce_id`, `nom`, `email`) VALUES (?, ?, ?);";
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
@@ -49,7 +49,7 @@ public class ReservationSrvService implements IReservationService<ReservationSer
 
     @Override
     public void modifier(ReservationService resvationsr) {
-        String req = "UPDATE `reservationservice` SET `nom` = ?, `idservice_id` = ?, `email` = ? WHERE `resvationsr`.`id` = ?;";
+        String req = "UPDATE `reservationservice` SET `nom` = ?, `idserivce_id` = ?, `email` = ? WHERE `resvationsr`.`id` = ?;";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(1, resvationsr.getIdservice_id());
@@ -69,14 +69,14 @@ public class ReservationSrvService implements IReservationService<ReservationSer
 
         String req = "SELECT rs.*, s.nom AS service_nom " +
                 "FROM reservationservice rs " +
-                "INNER JOIN service s ON rs.idservice_id = s.id"; // Requête SQL avec la jointure
+                "INNER JOIN service s ON rs.idserivce_id = s.id"; // Requête SQL avec la jointure
 
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                int idservice_id = rs.getInt("idservice_id");
+                int idservice_id = rs.getInt("idserivce_id");
                 String service_nom = rs.getString("service_nom");
 
                 String nom = rs.getString("nom");

@@ -22,16 +22,7 @@
                   <AnchorPane prefHeight="46.0" prefWidth="1099.0" styleClass="top-form" stylesheets="@CSS/dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label layoutX="61.0" layoutY="6.0" text="VISITA DASHBOARD" />
-                        <Button layoutX="1039.0" layoutY="9.0" mnemonicParsing="false" onAction="#close" prefHeight="14.0" prefWidth="50.0" styleClass="close" stylesheets="@CSS/dashboardDesign.css" text="X">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="977.0" layoutY="9.0" mnemonicParsing="false" onAction="#minimize" prefHeight="14.0" prefWidth="50.0" styleClass="minimize" stylesheets="@CSS/dashboardDesign.css" text="-">
-                           <font>
-                              <Font name="System Bold Italic" size="12.0" />
-                           </font>
-                        </Button>
+                        <Button fx:id="rappelid" layoutX="1039.0" layoutY="10.0" mnemonicParsing="false" onAction="#rappelrv" text="Rappel" />
                      </children>
                   </AnchorPane>
                </children>

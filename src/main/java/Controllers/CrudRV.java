@@ -33,12 +33,15 @@ import java.util.Optional;
 //import java.sql.Date;
 
 
+
 ////////////////////sms
 
 import javafx.scene.control.Button;
 
 
 public class CrudRV {
+    @FXML
+    private Button rappelid;
     @FXML
     private AnchorPane addRV_form;
 
@@ -556,12 +559,25 @@ public class CrudRV {
             // Appelez la méthode pour mettre à jour l'état dans la base de données
             ps.modifierETAT(objetSelectionne);
             // Appelez la méthode du contrôleur Twilio pour envoyer le SMS de validation
-            Controllers.TwilioSMS.main(null); // Appelez la méthode main du contrôleur Twilio
+            Controllers.TwilioSMS.envoyerSMS("+21629304408","Rendezvous confirmé !"); // Appelez la méthode main du contrôleur Twilio
         }
 
 
 
     }
+
+///////////////////////////rappel//////////////
+@FXML
+void rappelrv(ActionEvent event)
+{
+
+    // Récupérer les rendez-vous à venir depuis la base de données
+    List<Rendezvous> rendezVousAVenir =  ps.afficher();
+    // Appeler la méthode pour envoyer les notifications de rappel par SMS
+    ps.envoyerNotificationsSMS(rendezVousAVenir);
+
+}
+
 
 
 }

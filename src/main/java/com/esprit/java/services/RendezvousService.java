@@ -7,6 +7,8 @@ import com.esprit.java.utils.DataSource;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -255,6 +257,31 @@ public class RendezvousService implements IRendezvous <Rendezvous>
     System.out.println(e.getMessage());
 }
 
+    }
+
+
+    // Méthode pour envoyer des notifications de rappel par SMS
+    public void envoyerNotificationsSMS(List<Rendezvous> rendezVousAVenir) {
+        // Parcourir les rendez-vous à venir pour envoyer les notifications
+        for (Rendezvous rendezVous : rendezVousAVenir) {
+            if (doitEnvoyerNotificationRappel(rendezVous)) {
+                // Construire le message de notification
+                String message = "Rappel de rendez-vous: " + rendezVous.getFullname();
+                // Envoyer le SMS
+                String tel ="+21629304408";
+                Controllers.TwilioSMS.envoyerSMS(tel,message);
+            }
+        }
+    }
+
+    // Méthode pour vérifier si un rendez-vous doit recevoir une notification de rappel
+    private boolean doitEnvoyerNotificationRappel(Rendezvous rendezVous) {
+        // Logique pour déterminer si une notification doit être envoyée
+        // Par exemple, si la date du rendez-vous est dans les 24 prochaines heures
+        long tempsActuel = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        long differenceTemps = rendezVous.getDate().getTime() / 1000 - tempsActuel;
+        // Si le rendez-vous est dans les 24 prochaines heures
+        return (differenceTemps > 0 && differenceTemps <= 24 * 60 * 60);
     }
 
 }

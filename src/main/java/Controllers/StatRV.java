@@ -1,8 +1,5 @@
 package Controllers;
-import com.esprit.java.utils.DataSource;
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.RotateTransition;
+import com.visita.utils.DataSource;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,12 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import javafx.animation.RotateTransition;
 
 
 import java.util.HashMap;
@@ -24,10 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-
 
 
 public class StatRV

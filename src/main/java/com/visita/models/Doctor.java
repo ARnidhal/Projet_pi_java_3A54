@@ -1,7 +1,4 @@
-package com.esprit.java.models;
-
-import java.util.Arrays;
-import java.util.List;
+package com.visita.models;
 
 public class Doctor extends User
 {

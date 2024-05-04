@@ -1,16 +1,13 @@
-package com.esprit.java.services;
+package com.visita.services;
 
-import com.esprit.java.models.Rapport;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.utils.DataSource;
+import com.visita.models.Rapport;
+import com.visita.models.Rendezvous;
+import com.visita.utils.DataSource;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

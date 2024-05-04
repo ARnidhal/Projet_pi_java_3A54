@@ -1,11 +1,10 @@
 package Controllers;
 
-import com.esprit.java.models.Medecin;
-import com.esprit.java.models.Doctor;
-import com.esprit.java.models.Rapport;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.services.RapportService;
-import com.esprit.java.services.RendezvousService;
+import com.visita.models.Doctor;
+import com.visita.models.Rapport;
+import com.visita.models.Rendezvous;
+import com.visita.services.RapportService;
+import com.visita.services.RendezvousService;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import javafx.collections.FXCollections;
@@ -16,16 +15,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 //changerapresimport org.w3c.dom.Document;
-import org.w3c.dom.Text;
 
 import java.io.*;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -33,28 +29,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
-import java.time.LocalDate;
-
-
 
 
 import javafx.fxml.FXML;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.stage.FileChooser;
 
-import java.io.File;
 import java.io.FileOutputStream;
 
 /////////////////////////////////////////pdf
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-
-import java.io.FileNotFoundException;
 
 ////////////////////sms
 

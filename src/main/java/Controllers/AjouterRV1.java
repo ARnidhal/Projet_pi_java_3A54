@@ -1,29 +1,22 @@
 package Controllers;
 
-import com.esprit.java.models.Rapport;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.services.RendezvousService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.visita.models.Rendezvous;
+import com.visita.services.RendezvousService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AjouterRV1 implements Initializable {

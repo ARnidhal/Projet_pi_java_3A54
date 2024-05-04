@@ -1,9 +1,8 @@
-package com.esprit.java.services;
+package com.visita.services;
 
-import com.esprit.java.models.Doctor;
-import com.esprit.java.models.Medecin;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.utils.DataSource;
+import com.visita.models.Doctor;
+import com.visita.models.Rendezvous;
+import com.visita.utils.DataSource;
 import javafx.scene.control.Alert;
 
 import java.sql.*;

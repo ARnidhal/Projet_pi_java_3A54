@@ -1,19 +1,8 @@
-package com.esprit.java.tests;
+package com.visita.tests;
 
-import java.sql.Time;
-import java.util.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import Controllers.processPayment;
-import com.esprit.java.models.Rapport;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.services.RapportService;
-import com.esprit.java.services.RendezvousService;
-import com.esprit.java.utils.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.visita.services.RapportService;
 
 public class main
 {

@@ -1,13 +1,8 @@
 package Controllers;
 
-import com.esprit.java.models.Rapport;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.services.RendezvousService;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.visita.models.Rapport;
+import com.visita.models.Rendezvous;
+import com.visita.services.RendezvousService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;

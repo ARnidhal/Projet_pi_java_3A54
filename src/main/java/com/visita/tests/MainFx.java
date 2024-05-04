@@ -1,4 +1,4 @@
-package com.esprit.java.tests;
+package com.visita.tests;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

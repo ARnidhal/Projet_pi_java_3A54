@@ -1,9 +1,9 @@
 package Controllers;
 
-import com.esprit.java.models.Rapport;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.services.RapportService;
-import com.esprit.java.services.RendezvousService;
+import com.visita.models.Rapport;
+import com.visita.models.Rendezvous;
+import com.visita.services.RapportService;
+import com.visita.services.RendezvousService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

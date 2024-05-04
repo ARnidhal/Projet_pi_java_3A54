@@ -1,4 +1,4 @@
-package com.esprit.java.models;
+package com.visita.models;
 import java.sql.Time;
 import java.util.Date;
 

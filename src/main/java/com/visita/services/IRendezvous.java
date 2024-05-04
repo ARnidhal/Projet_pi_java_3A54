@@ -1,4 +1,4 @@
-package com.esprit.java.services;
+package com.visita.services;
 import java.util.List;
 public interface IRendezvous <T>
 {

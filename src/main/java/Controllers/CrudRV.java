@@ -1,11 +1,10 @@
 package Controllers;
 
-import com.esprit.java.models.Medecin;
-import com.esprit.java.models.Doctor;
+import com.visita.models.Doctor;
 
-import com.esprit.java.models.Rapport;
-import com.esprit.java.models.Rendezvous;
-import com.esprit.java.services.RendezvousService;
+import com.visita.models.Rapport;
+import com.visita.models.Rendezvous;
+import com.visita.services.RendezvousService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,11 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;

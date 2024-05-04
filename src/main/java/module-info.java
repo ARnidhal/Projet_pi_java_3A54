@@ -10,7 +10,7 @@ module Test{
     //requires layout;
     //requires twilio;
     opens Controllers;
-    opens com.esprit.java.models;
-    opens com.esprit.java.services;
-    opens com.esprit.java.tests;
+    opens com.visita.models;
+    opens com.visita.services;
+    opens com.visita.tests;
 }

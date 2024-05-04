@@ -1,6 +1,5 @@
-package com.esprit.java.models;
+package com.visita.models;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 

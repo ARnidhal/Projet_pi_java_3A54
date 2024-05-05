@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.controllers.ShowReclamationController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <BorderPane prefHeight="600.0" prefWidth="1106.0">
+               <center>
+                  <VBox alignment="CENTER" style="-fx-padding: 20px;" styleClass="secondary-color">
+                      <!-- Search Field -->
+                      <StackPane style="-fx-padding: 10px;">
+                          <TextField fx:id="searchField" promptText="Entrez le nom de la réclamation à rechercher" style="-fx-padding: 10px; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-background-radius: 50;">
+                              <effect>
+                                  <DropShadow color="#cccccc" offsetX="3" offsetY="3" radius="5" />
+                              </effect>
+                          </TextField>
+                      </StackPane>
+
+                      <!-- Table View -->
+                      <TableView fx:id="reclamationTableView" style="-fx-border-width: 1px; -fx-padding: 10px;" VBox.vgrow="ALWAYS">
+                          <columns>
+
+                              <!-- Name Column -->
+                              <TableColumn fx:id="nomColumn" prefWidth="150" style="-fx-font-size: 14px;" text="Nom" />
+                              <!-- Category Column -->
+                              <TableColumn fx:id="categorieColumn" prefWidth="100" style="-fx-font-size: 14px;" text="Catégorie" />
+                              <!-- Subject Column -->
+                              <TableColumn fx:id="sujetColumn" prefWidth="150" style="-fx-font-size: 14px;" text="Sujet" />
+                              <!-- Description Column -->
+                              <TableColumn fx:id="descriptionColumn" prefWidth="300" style="-fx-font-size: 14px;" text="Description" />
+                              <!-- Submission Date Column -->
+                              <TableColumn fx:id="subdateColumn" prefWidth="100" style="-fx-alignment: CENTER; -fx-font-size: 14px;" text="Date" />
+                          </columns>
+                      </TableView>
+
+                      <!-- Controls -->
+                      <HBox alignment="CENTER" spacing="10" style="-fx-padding: 20px;">
+
+                          <!-- Refresh Button -->
+                          <Button onAction="#handleRefresh" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px; -fx-cursor: hand;" text="Refresh" />
+
+                          <!-- Button to Guide Back to Main View -->
+                          <Button onAction="#goToMainView" style="-fx-font-size: 14px; -fx-background-color: #FF5722; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 8px 16px; -fx-cursor: hand;" text="Main View" />
+                      </HBox>
+                     <stylesheets>
+                        <URL value="@dashboardDesignservice.css" />
+                        <URL value="@styleservice.css" />
+                     </stylesheets>
+                  </VBox>
+               </center>
+               <top>
+                  <AnchorPane prefHeight="45.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="46.0" prefWidth="1099.0" styleClass="nav-form" stylesheets="@dashboardDesignservice.css">
+                           <children>
+                              <Label layoutX="61.0" layoutY="6.0" text="VISITA DASHBOARD" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </top>
+               <left>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane fx:id="main_form" prefHeight="552.0" prefWidth="203.0" stylesheets="@dashboardDesignservice.css">
+                           <children>
+                              <Label layoutX="70.0" layoutY="109.0" text="WELCOME" textFill="WHITE" />
+                              <Line endX="88.0" layoutX="100.0" layoutY="146.0" startX="-89.5999984741211" stroke="WHITE" />
+                              <Button layoutX="1.0" layoutY="173.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesignservice.css" text="                 HOME" />
+                              <Button fx:id="category_btn_nv" layoutX="5.0" layoutY="218.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesignservice.css" text="           CATEGORY" />
+                              <ImageView fx:id="userImageView" fitHeight="100" fitWidth="100" layoutX="50.0">
+                                 <image>
+                                    <Image url="@values/default.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="serviceresv_btn_nv" layoutX="9.0" layoutY="320.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesignservice.css" text="      SERVICES RSER">
+                                 <font>
+                                    <Font size="6.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="service_btn_nv" layoutX="2.0" layoutY="269.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesignservice.css" text="             SERVICE" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="nav-form" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </left>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

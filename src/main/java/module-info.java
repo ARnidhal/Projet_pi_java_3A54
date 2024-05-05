@@ -1,4 +1,4 @@
-module com.example.demo1 {
+module test {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
@@ -8,6 +8,11 @@ module com.example.demo1 {
     requires java.desktop;
 
 
-    opens com.example.demo1 to javafx.fxml;
-    exports com.example.demo1;
+
+
+    opens com.visita.controllers;
+    opens com.visita.utils ;
+    opens com.visita.test ;
+    opens com.visita.models ;
+    opens com.visita.services ;
 }

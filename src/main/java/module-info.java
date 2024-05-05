@@ -1,22 +1,17 @@
-module Test{
+module com.example.visitajava {
     requires javafx.controls;
     requires javafx.fxml;
-    requires  javafx.graphics;
     requires java.sql;
-
-    requires org.json;
     requires itextpdf;
-    requires twilio;
-    requires spring.security.core;
-    requires freetts;
-    requires org.apache.poi.poi;
-    requires org.apache.poi.ooxml;
-    requires org.apache.commons.text;
-    requires com.google.api.client;
     requires java.mail;
-    opens com.visita.controllers;
-    opens com.visita.models;
-    opens com.visita.services;
-    opens com.visita.test;
-    requires stripe.java;
+
+    opens com.example.visitajava.Entity;
+
+    opens com.example.visitajava.controllers;
+
+    opens com.example.visitajava to javafx.fxml;
+    //exports com.example.visitajava;
+    exports com.example.visitajava.Test;
+    exports com.example.visitajava.controllers;
+    opens com.example.visitajava.Test to javafx.fxml;
 }

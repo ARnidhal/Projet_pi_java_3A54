@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
@@ -7,27 +8,28 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- ViewResponses.fxml -->
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.visita.controllers.ViewResponsesController"
-      spacing="15"
-      alignment="CENTER"
-      style="-fx-background-color: #f3cc97; -fx-padding: 20;">
+
+<VBox alignment="CENTER" spacing="15" style="-fx-background-color: #f3cc97; -fx-padding: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.visita.controllers.ViewResponsesController">
 
     <!-- Reclamation ID Label -->
-    <Label fx:id="reclamationIdLabel" text="Reclamation ID:" style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-text-fill: #333;"/>
+    <Label fx:id="reclamationIdLabel" style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-text-fill: #333;" text="Reclamation :" />
 
     <!-- Responses TextArea -->
-    <TextArea fx:id="responsesTextArea" prefWidth="350.0" prefHeight="150.0" editable="false" style="-fx-font-size: 14pt; -fx-padding: 10px; -fx-margin: 10px; -fx-background-color: #fafafa; -fx-text-fill: #333;"/>
+    <TextArea fx:id="responsesTextArea" editable="false" prefHeight="150.0" prefWidth="350.0" style="-fx-font-size: 14pt; -fx-padding: 10px; -fx-margin: 10px; -fx-background-color: #fafafa; -fx-text-fill: #333;" styleClass="button">
+      <stylesheets>
+         <URL value="@styleservice.css" />
+         <URL value="@dashboardDesignservice.css" />
+         <URL value="@styleimc.css" />
+      </stylesheets></TextArea>
 
     <!-- Rating Component -->
-    <Label text="Rate this response:" style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-text-fill: #333;"/>
-    <Slider fx:id="ratingSlider" min="0" max="5" showTickMarks="true" showTickLabels="true" minorTickCount="0" blockIncrement="1" style="-fx-font-size: 14pt; -fx-padding: 5px; -fx-margin: 5px; -fx-background-color: #fafafa;"/>
+    <Label style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-text-fill: #333;" text="Rate this response:" />
+    <Slider fx:id="ratingSlider" blockIncrement="1" max="5" min="0" minorTickCount="0" showTickLabels="true" showTickMarks="true" style="-fx-font-size: 14pt; -fx-padding: 5px; -fx-margin: 5px; -fx-background-color: #fafafa;" styleClass="button" stylesheets="@styleimc.css" />
 
     <!-- Average Rating Label -->
-    <Label fx:id="averageRatingLabel" text="Average Rating: " style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-text-fill: #333;"/>
+    <Label fx:id="averageRatingLabel" style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-text-fill: #333;" text="Average Rating: " />
 
     <!-- Send Rating Button -->
-    <Button fx:id="sendRatingButton" text="Send Rating" onAction="#sendRating" style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-background-color: #3d8cb0; -fx-text-fill: #fff;"/>
+    <Button fx:id="sendRatingButton" onAction="#sendRating" style="-fx-font-size: 16pt; -fx-padding: 5px; -fx-margin: 5px; -fx-background-color: #3d8cb0; -fx-text-fill: #fff;" text="Send Rating" />
 
 </VBox>

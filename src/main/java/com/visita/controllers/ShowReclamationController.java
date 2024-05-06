@@ -374,6 +374,9 @@ public class ShowReclamationController {
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
 
+            // Espacement
+            document.add(Chunk.NEWLINE);
+
             // Séparateur
             LineSeparator separator = new LineSeparator();
             separator.setLineColor(BaseColor.LIGHT_GRAY);
@@ -383,13 +386,22 @@ public class ShowReclamationController {
             // Informations de la réclamation
             Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
             addEmptyLine(document, 1);
-            document.add(new Paragraph("Nom: " + reclamation.getNom(), normalFont));
-            document.add(new Paragraph("Catégorie: " + reclamation.getCategorie(), normalFont));
-            document.add(new Paragraph("Sujet: " + reclamation.getSujet(), normalFont));
-            document.add(new Paragraph("Description: " + reclamation.getDescription(), normalFont));
-            document.add(new Paragraph("Date de soumission: " + reclamation.getSubdate().toString(), normalFont));
+
+            // Ajout des informations avec une couleur différente pour les titres
+            Font titleInfoFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY);
+            document.add(new Paragraph("Nom:", titleInfoFont));
+            document.add(new Paragraph(reclamation.getNom(), normalFont));
+            document.add(new Paragraph("Catégorie:", titleInfoFont));
+            document.add(new Paragraph(reclamation.getCategorie(), normalFont));
+            document.add(new Paragraph("Sujet:", titleInfoFont));
+            document.add(new Paragraph(reclamation.getSujet(), normalFont));
+            document.add(new Paragraph("Description:", titleInfoFont));
+            document.add(new Paragraph(reclamation.getDescription(), normalFont));
+            document.add(new Paragraph("Date de soumission:", titleInfoFont));
+            document.add(new Paragraph(reclamation.getSubdate().toString(), normalFont));
 
             document.close();
+
             // Ouvrir le PDF généré avec l'application par défaut
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(new File("reclamation_" + reclamation.getId() + ".pdf"));
@@ -398,6 +410,7 @@ public class ShowReclamationController {
             e.printStackTrace();
         }
     }
+
 
     private void addEmptyLine(Document document, int number) throws DocumentException {
         for (int i = 0; i < number; i++) {

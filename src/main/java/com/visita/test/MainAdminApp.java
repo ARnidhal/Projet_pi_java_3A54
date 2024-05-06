@@ -13,7 +13,7 @@ public class MainAdminApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ShowResponse.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AdminReclamation.fxml"));
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Main Admin");
             primaryStage.show();

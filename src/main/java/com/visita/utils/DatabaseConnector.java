@@ -11,7 +11,7 @@ public class DatabaseConnector {
     public static Connection getConnection() {
         String databaseUser = "root"; // Replace with your database username
         String databasePassword = ""; // Replace with your database password
-        String url = "jdbc:mysql://localhost:3306/reclamation_project"; // Connection URL for your database
+        String url = "jdbc:mysql://localhost:3306/sympi4"; // Connection URL for your database
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
